@@ -1,0 +1,36 @@
+.province-map-container {
+  margin: 0 auto;
+}
+
+.province-map {
+  width: 100%;
+  max-width: 720px;
+}
+
+.province {
+  fill: lightgray; 
+  stroke: white; 
+  stroke-linejoin: bevel;
+}
+
+.province:hover {
+  fill: darkgray; 
+}
+
+.province.active {
+  fill: green; 
+}
+
+.province.active:hover {
+  fill: lime; 
+}
+
+.hover-remove-icon {
+  float: right;
+}
+
+.push-to-bottom {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}

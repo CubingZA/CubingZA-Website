@@ -1,0 +1,9 @@
+.contact-did-you-mean {
+  color: $state-danger-text;
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: none;
+    color: $state-danger-text;
+  }
+}

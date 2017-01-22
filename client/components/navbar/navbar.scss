@@ -1,0 +1,24 @@
+.navbar-brand {
+  font-family: monospace;
+}
+
+.inverse-dropdown {
+  background-color: $navbar-inverse-bg;
+  border-color: $navbar-inverse-border;
+  li a {
+    color: $navbar-inverse-link-color;
+    &:hover{
+      color: $navbar-inverse-link-hover-color;
+      background-color: $navbar-inverse-link-hover-bg;      
+    }    
+  }
+  .divider {
+    background-color: #000;
+  }  
+  .active a {
+    background-color: $navbar-inverse-link-active-bg;
+    &:hover {
+      background-color: $navbar-inverse-link-active-bg;  
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<div class="container">
+  <h1>Manage Competitions</h1>
+  <ul class="list-group comp-list">
+    <li class="list-group-item" ng-repeat="comp in eventsCtrl.competitions">
+	    <div class="comp-info">
+	        <strong>{{event.name}}</strong><br>
+	        <span class="text-muted">{{user.email}}</span>
+	    </div>
+        <a ng-click="eventsCtrl.delete(event.name, event)" class="trash"><span class="fa fa-trash fa-2x"></span></a>
+    </li>
+    
+    <competition-list></competition-list>
+  </ul>
+</div>

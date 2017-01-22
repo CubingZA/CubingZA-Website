@@ -1,0 +1,41 @@
+<table class="table table-striped table-hover table-condensed record-table">
+  <theader>
+    <tr>
+      <th class="table-single" colspan="2"><h3>Single</h3></th>
+      <th class="table-middle"></th>
+      <th class="table-average" colspan="2"><h3>Average</h3></th>
+    </tr>
+  </theader>
+  <tbody>
+    
+    <tr ng-repeat="record in recordsCtrl.records">
+      <td class="table-single">
+        <a href="https://www.worldcubeassociation.org/results/p.php?i={{record.singleId}}" target="_blank">{{record.singleName}}</a>
+      </td>
+      <td class="table-single">
+        <a href="https://www.worldcubeassociation.org/results/events.php?eventId={{record.eventId}}&regionId=South%2BAfrica&years=&show=100%2BPersons&single=Single" target="_blank">
+          {{record.singleResult}}
+        </a>
+      </td>
+      
+      <td class="table-middle">
+        
+        <a href="https://www.worldcubeassociation.org/results/regions.php?regionId=South%2BAfrica&eventId={{record.eventId}}&years=&mixHist=Mixed+History" target="_blank">
+          <span class="cubing-icon event-{{record.eventId}}"></span>  {{record.eventName}}
+        </a>
+        
+      </td>
+      
+      <td class="table-average">
+        <a href="https://www.worldcubeassociation.org/results/events.php?eventId={{record.eventId}}&regionId=South%2BAfrica&years=&show=100%2BPersons&average=Average" target="_blank">
+          {{record.averageResult}}
+        </a>
+      </td>
+      <td class="table-average">
+        <a href="https://www.worldcubeassociation.org/results/p.php?i={{record.averageId}}" target="_blank">{{record.averageName}}</a>
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+ 
