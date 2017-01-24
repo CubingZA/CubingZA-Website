@@ -25,8 +25,9 @@ var UserSchema = new Schema({
   },
   notificationSettings: {
     type: Schema.Types.Mixed,
-    default: {GT:true,MP:false,LM:false,NW:false,FS:false,KZ:false,EC:false,WC:true,NC:false}
+    default: {GT:false,MP:false,LM:false,NW:false,FS:false,KZ:false,EC:false,WC:false,NC:false}
   },
+  eventLog: [String],
   provider: String,
   salt: String
 });

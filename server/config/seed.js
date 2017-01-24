@@ -30,13 +30,13 @@ User.find({}).remove()
     User.create({
       provider: 'local',
       name: 'Test User',
-      email: 'test@example.com',
+      email: 'test@m.cubingza.org',
       password: 'test'
     }, {
       provider: 'local',
       role: 'admin',
       name: 'Admin',
-      email: 'admin@example.com',
+      email: 'admin@m.cubingza.org',
       password: 'admin'
     })
     .then(() => {

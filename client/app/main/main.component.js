@@ -7,8 +7,9 @@ export class MainController {
   newThing = '';
 
   /*@ngInject*/
-  constructor($http, $scope, socket, Auth) {
+  constructor($http, $scope, socket, Auth, $resource) {
     this.$http = $http;
+    this.$resource = $resource;
     this.socket = socket;
 
     $scope.$on('$destroy', function() {

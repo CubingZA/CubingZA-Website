@@ -11,7 +11,10 @@ var EventSchema = new mongoose.Schema({
   city: String,
   province: String,
   registrationName: String,
-  
+  notificationsSent: {
+    type: Boolean,
+    default: false
+  }
 });
 
 export default mongoose.model('Event', EventSchema);

@@ -33,6 +33,7 @@ import ContactComponent from './contact/contact.component';
 import NotificationsComponent from './notifications/notifications.component';
 import PrivacyComponent from './privacy/privacy.component';
 import EventsComponent from './events/events.component';
+import compileTemplate from './compileTemplate/compileTemplate.directive';
 
 import NotificationService from './notificationsService/notificationsService.service';
 
@@ -46,7 +47,7 @@ import './app.scss';
 
 angular.module('cubingzaApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter,
   uiBootstrap, _Auth, account, admin, navbar, footer, main, constants, socket, util, Modal,
-  cubeimage, AboutComponent, ContactComponent, competitionList, recordList, 
+  cubeimage, AboutComponent, ContactComponent, competitionList, recordList, compileTemplate,
   NotificationsComponent, provincesMap, PrivacyComponent, EventsComponent, LogoComponent
 ])
   .config(routeConfig)

@@ -7,7 +7,7 @@ export default class AdminController {
     this.users = User.query();
 
     this.delete = Modal.confirm.delete(user => {
-      console.log('delete');
+      console.log('Delete');
       user.$remove();
       this.users.splice(this.users.indexOf(user), 1);
     });

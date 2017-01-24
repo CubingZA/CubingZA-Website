@@ -12,6 +12,8 @@
 
 import jsonpatch from 'fast-json-patch';
 import Event from './event.model';
+import sendNotificationEmails from '../../components/notificationEmailer/notificationEmailer';
+
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -123,4 +125,19 @@ export function destroy(req, res) {
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));
+}
+
+// Send notifications for an event
+export function sendNotifications(req, res) {  
+  return Event.findById(req.params.id).exec()
+    .then(handleEntityNotFound(res))
+    .then(comp => {
+      sendNotificationEmails(comp);
+      return {message: 'success'};
+    
+    
+    })
+   .then(respondWithResult(res))
+   .catch((something) => console.log(something))
+   .catch(handleError(res));
 }
