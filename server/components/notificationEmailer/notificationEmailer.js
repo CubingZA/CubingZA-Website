@@ -50,15 +50,19 @@ export default function sendNotificationEmails(comp) {
             from: 'CubingZA Notifications <compnotifications@m.cubingza.org>',
             to: `@${user.name} <${user.email}>`,
             subject: `New Cubing Competion Announcement: ${comp.name}`,
-            text: `Hello @${user.name}\n\nThe ${comp.name} cubing competition has been announced. Visit http://cubingza.org for more details, or https://www.worldcubeassociation.org/competitions/${comp.registrationName}/register\n\nRegards,\nCubingZA Team`
+            text: `Hello ${user.name}\n\nThe ${comp.name} cubing competition has been announced. Visit http://cubingza.org for more details, or https://www.worldcubeassociation.org/competitions/${comp.registrationName}/register to register.\n\nRegards,\nCubingZA Team`
           };
 
           mailgun.messages().send(message, (err, body) => {
             if (err) {
-              User.update(user, {$push: {eventLog: 'Error sending message'}});
+              console.log('error');
+              let datestamp = new Date().toISOString();
+              User.update({_id: user._id}, {$push: {eventLog: `${datestamp}Error sending message: ${message.to}, ${message.subject}`}});
             }
             else {
-              User.update(user, {$push: {eventLog: 'Message successfully sent'}});
+              console.log('success');
+              let datestamp = new Date().toISOString();
+              User.update({_id: user._id}, {$push: {eventLog: `${datestamp}Message successfully sent: ${message.to}, ${message.subject}`}});
             }
           });
           
