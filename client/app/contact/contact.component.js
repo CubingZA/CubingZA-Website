@@ -57,7 +57,8 @@ export class ContactComponent {
           }
 
           let response = this.emailSender.send(message)
-          .$promise.then((response) => {
+          .$promise
+          .then(response => {
             if (response.success) {
               this.addAlert('success', '<strong>Success - </strong> Message sent succesfully')
               this.resetFormValues();
@@ -67,6 +68,9 @@ export class ContactComponent {
             else {
               this.addAlert('danger', '<strong>Error - </strong> Message sending failed. Please try again later')
             }
+          })
+          .catch(() => {
+              this.addAlert('danger', '<strong>Error - </strong> Message sending failed. Please try again later')
           });
         }
         else if (validationResult.did_you_mean) {          
