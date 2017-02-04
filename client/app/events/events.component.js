@@ -13,8 +13,8 @@ export class EventsComponent {
     this.CompAPI = $resource('/api/events/:id', {}, {create: {method: 'POST'}, update: {method: 'PUT'}});
     this.NotificationsAPI = $resource('/api/events/:id/notify', {}, {send: {method: 'POST'}});
     
-    this.today = new Date(2016, 6, 1);
-//    this.today = new Date();
+//    this.today = new Date(2016, 6, 1);
+    this.today = new Date();
     
     this.deleteModal = Modal.confirm.delete(comp => {      
       this.CompAPI.remove({id: comp._id});

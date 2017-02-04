@@ -74,8 +74,8 @@ export function index(req, res) {
 
 // Gets a list of upcoming Events
 export function upcoming(req, res) {
-//  let today = new Date();
-  let today = new Date(2016, 6, 1);
+  let today = new Date();
+//  let today = new Date(2016, 6, 1);
   return Event.find({endDate: {$gte: today}}).exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
