@@ -13,7 +13,7 @@ var UserSchema = new Schema({
   },
   role: {
     type: String,
-    default: 'user'
+    default: 'unverified'
   },
   password: {
     type: String,
@@ -23,6 +23,7 @@ var UserSchema = new Schema({
     type: Boolean,
     default: false
   },
+  verificationToken: String,
   notificationSettings: {
     type: Schema.Types.Mixed,
     default: {GT:false,MP:false,LM:false,NW:false,FS:false,KZ:false,EC:false,WC:false,NC:false}
