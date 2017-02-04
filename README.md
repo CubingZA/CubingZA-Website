@@ -1,6 +1,8 @@
 # CubingZA
 
-This is a website for Cubing South Africa. The project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 4.1.1.
+This is the source code for the Cubing South Africa Website which runs at https://cubingza.org
+
+The project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 4.1.1.
 
 ## Getting Started
 
