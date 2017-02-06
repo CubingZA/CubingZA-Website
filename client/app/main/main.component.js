@@ -13,10 +13,6 @@ export class MainController {
     this.$resource = $resource;
     this.socket = socket;
 
-    $scope.$on('$destroy', function() {
-      socket.unsyncUpdates('thing');
-    });
-
     this.isLoggedIn = Auth.isLoggedInSync;
   }
 }

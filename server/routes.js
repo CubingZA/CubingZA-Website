@@ -12,7 +12,6 @@ export default function(app) {
   app.use('/api/contact', require('./api/contact'));
   app.use('/api/records', require('./api/record'));
   app.use('/api/events', require('./api/event'));
-  app.use('/api/things', require('./api/thing'));
   app.use('/api/users', require('./api/user'));
 
   app.use('/auth', require('./auth').default);
