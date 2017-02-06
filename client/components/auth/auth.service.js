@@ -8,7 +8,7 @@ class _User {
   $promise = undefined;
 }
 
-export function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
+export function AuthService($location, $http, $cookies, $q, $window, appConfig, Util, User) {
   'ngInject';
 
   var safeCb = Util.safeCb;
@@ -35,19 +35,38 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @param  {Function} callback - function(error, user)
      * @return {Promise}
      */
-    login({
-      email,
-      password
-    }, callback) {
+    login({email, password}, callback) {
       return $http.post('/auth/local', {
-        email,
-        password
-      })
+          email,
+          password
+        })
         .then(res => {
           $cookies.put('token', res.data.token);
           currentUser = User.get();
           return currentUser.$promise;
         })
+        .then(user => {
+          safeCb(callback)(null, user);
+          return user;
+        })
+        .catch(err => {
+          Auth.logout();
+          safeCb(callback)(err.data);
+          return $q.reject(err.data);
+        });
+    },
+    
+    /**
+     * Login or sign up using WCA account
+     */
+    startWcaLogin(callback) {
+      $window.location.href = '/auth/wca';
+    },
+    
+    finishWcaLogin(token, callback) {
+      $cookies.put('token', token);
+      currentUser = User.get();
+      return currentUser.$promise
         .then(user => {
           safeCb(callback)(null, user);
           return user;

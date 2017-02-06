@@ -35,4 +35,8 @@ export default class LoginController {
         });
     }
   }
+  
+  wcalogin() {
+    this.Auth.startWcaLogin();
+  }
 }

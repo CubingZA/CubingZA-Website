@@ -8,8 +8,9 @@ import routing from './account.routes';
 import login from './login';
 import settings from './settings';
 import signup from './signup';
+import wcalogin from './wcalogin';
 
-export default angular.module('cubingzaApp.account', [uiRouter, login, settings, signup])
+export default angular.module('cubingzaApp.account', [uiRouter, login, settings, signup, wcalogin])
   .config(routing)
   .run(function($rootScope) {
     'ngInject';

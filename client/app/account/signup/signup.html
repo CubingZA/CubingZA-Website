@@ -1,9 +1,21 @@
 <div class="container">
+
   <div class="row">
     <div class="col-sm-12">
       <h1>Sign up</h1>
-    </div>
-    <div class="col-sm-12">
+    </div> 
+  </div>
+  
+  <br/>
+  
+  
+  <div class="row" ng-show="vm.showManualSignup">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <h3>
+        Create a local CubingZA account
+      </h3>
+      <br/>
+      
       <form class="form" name="form" ng-submit="vm.register(form)" novalidate>
 
         <div class="form-group" ng-class="{ 'has-success': form.name.$valid && vm.submitted,
@@ -68,16 +80,42 @@
         </div>
 
         <div>
-          <button class="btn btn-inverse btn-lg btn-register" type="submit">
+          <button class="btn btn-primary btn-lg btn-register" type="submit">
             Sign up
           </button>
           <a class="btn btn-default btn-lg btn-login" ui-sref="login">
             Login
           </a>
         </div>
-
+        
       </form>
+      
+      
+      
+      <div class="strike"><span>OR</span></div>
+      
+      
+      
     </div>
   </div>
-  <hr>
+  
+  
+  
+  <div class="row">
+    <div class="col-sm-12">
+      <button class="btn btn-xlg btn-default center-block" ng-click="vm.wcalogin();">
+        <img src="assets/images/WCAlogo_notext.svg" class="btn-icon-image">
+        Sign up using your WCA account
+      </button>
+      <br/>
+    </div>
+    <br/>
+    <div class="col-sm-12">
+      <button class="btn btn btn-default center-block" ng-click="vm.showManualSignup = true;" ng-show="!vm.showManualSignup">
+        I don't have a WCA account
+      </button>
+      <br/>
+    </div>
+  </div>
+ 
 </div>

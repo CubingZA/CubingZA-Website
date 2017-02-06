@@ -8,8 +8,16 @@
 module.exports = {
   DOMAIN: 'http://localhost:9000',
   SESSION_SECRET: 'project-secret',
-  MAILGUN_API_KEY: 'your-api-key'
   
+  // Mailgun parameters
+  MAILGUN_DOMAIN: 'your-mailgun-domain',
+  MAILGUN_API_KEY: 'your-mailgun-api',
+  
+  // WCA OAuth Details
+  WCA_OAUTH_CLIENTID: 'your-wca-app-id',
+  WCA_OAUTH_CLIENT_SECRET: 'your-wca-client-secret',
+  WCA_OAUTH_CALLBACKURL: 'https://example.com/auth/wca/callback',
+
   // Control debug level for modules using visionmedia/debug
   DEBUG: ''
 };

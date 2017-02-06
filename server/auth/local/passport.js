@@ -11,6 +11,12 @@ function localAuthenticate(User, email, password, done) {
           message: 'This email is not registered.'
         });
       }
+      if(user.provider === 'wca') {
+        return done(null, false, {
+          message: 'This account requires logging in using a WCA account.'
+        });
+      }
+    
       user.authenticate(password, function(authError, authenticated) {
         if(authError) {
           return done(authError);
@@ -22,7 +28,11 @@ function localAuthenticate(User, email, password, done) {
         }
       });
     })
-    .catch(err => done(err));
+    .catch(err => {
+      console.log('Log in error');
+      console.log(err)
+      done(err)
+  });
 }
 
 export function setup(User/*, config*/) {

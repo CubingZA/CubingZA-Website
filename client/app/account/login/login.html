@@ -1,9 +1,28 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <h1>Login</h1>
+    <div class="col-sm-12">
+      <h1>Log in</h1>
+    </div> 
+  </div>
+  
+  <br/>
+  
+  <div class="row">
+    <div class="col-sm-12">
+      <button class="btn btn-xlg btn-default center-block" ng-click="vm.wcalogin();">
+        <img src="assets/images/WCAlogo_notext.svg" class="btn-icon-image">
+        Log in using your WCA account
+      </button>
+      <br/>
     </div>
+    <br/>   
+  </div>
+  
+  <div class="row">    
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      
+      <div class="strike"><span>OR</span></div>
+      
       <form class="form" name="form" ng-submit="vm.login(form)" novalidate>
 
         <div class="form-group">
@@ -30,7 +49,7 @@
         </div>
 
         <div>
-          <button class="btn btn-inverse btn-lg btn-login" type="submit">
+          <button class="btn btn-primary btn-lg btn-login" type="submit">
             Login
           </button>
           <a class="btn btn-default btn-lg btn-register" ui-sref="signup">

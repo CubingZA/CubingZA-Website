@@ -20,6 +20,10 @@ export default class SignupController {
     
     this.emailValidator = $resource("https://api.mailgun.net/v3/address/validate");
   }
+  
+  wcalogin() {
+    this.Auth.startWcaLogin();
+  }
 
   register(form) {
     this.submitted = true;

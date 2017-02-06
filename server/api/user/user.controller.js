@@ -3,6 +3,7 @@
 import User from './user.model';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -36,9 +37,17 @@ export function index(req, res) {
 export function create(req, res) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
-  newUser.role = 'user';
+  newUser.role = 'unverified';
+  newUser.verificationToken = crypto.randomBytes(16).toString('hex');
   newUser.save()
     .then(function(user) {
+    
+      // Send out verification email.
+    
+    
+    
+      //------------
+    
       var token = jwt.sign({ _id: user._id }, config.secrets.session, {
         expiresIn: 60 * 60 * 5
       });

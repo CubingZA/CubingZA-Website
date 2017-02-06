@@ -17,11 +17,6 @@ var UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true
-  },
-  verified: {
-    type: Boolean,
-    default: false
   },
   verificationToken: String,
   notificationSettings: {
@@ -213,11 +208,11 @@ UserSchema.methods = {
     var salt = new Buffer(this.salt, 'base64');
 
     if(!callback) {
-      return crypto.pbkdf2Sync(password, salt, defaultIterations, defaultKeyLength)
+      return crypto.pbkdf2Sync(password, salt, defaultIterations, defaultKeyLength, 'sha512')
         .toString('base64');
     }
 
-    return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength, (err, key) => {
+    return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength, 'sha512', (err, key) => {
       if(err) {
         return callback(err);
       } else {
