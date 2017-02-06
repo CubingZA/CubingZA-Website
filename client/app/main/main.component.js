@@ -8,6 +8,7 @@ export class MainController {
 
   /*@ngInject*/
   constructor($http, $scope, socket, Auth, $resource) {
+    'ngInject';
     this.$http = $http;
     this.$resource = $resource;
     this.socket = socket;
@@ -18,15 +19,6 @@ export class MainController {
 
     this.isLoggedIn = Auth.isLoggedInSync;
   }
-
-  $onInit() {
-    this.$http.get('/api/things')
-      .then(response => {
-        this.awesomeThings = response.data;
-        this.socket.syncUpdates('thing', this.awesomeThings);
-      });
-  }
-
 }
 
 export default angular.module('cubingzaApp.main', [uiRouter])
