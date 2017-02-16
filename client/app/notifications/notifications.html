@@ -1,15 +1,4 @@
-<div class="container">
-<!--
-  <div class="form-group-horizontal">
-    <label>Location</label>
-    <select class="form-control">
-      <option ng-repeat="location in notificationsCtrl.locations">
-        {{location}}
-      </option>
-    </select>
-  </div>
--->
-  
+<div class="container" ng-if="notificationsCtrl.Auth.hasRoleSync('user')">  
   <div class="row">
     <div class="col-lg-12">
       <h1>Configure Competition Notifications</h1>
@@ -20,9 +9,21 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12">      
       <provinces-map></provinces-map>
     </div>
   </div>
-  
+</div>
+
+
+<div class="container" ng-if="!notificationsCtrl.Auth.hasRoleSync('user')">  
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Configure Competition Notifications</h1>
+      <div uib-alert class="alert-warning">
+        You must verify your email address before you can set up notifications.
+        <button class="btn btn-warning" ng-click="notificationsCtrl.sendVerification({})">Resend verification email</button>        
+      </div>
+    </div>
+  </div>
 </div>

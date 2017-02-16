@@ -7,7 +7,7 @@ import routes from './notifications.routes';
 
 export class NotificationsComponent {
   /*@ngInject*/
-  constructor($resource) {
+  constructor($resource, Auth, User) {
     'ngInject';
     
     this.locations = [
@@ -22,7 +22,11 @@ export class NotificationsComponent {
       'Eastern Cape'
     ];
     
+    this.Auth = Auth;
+    this.sendVerification = User.sendVerification;
   }
+  
+  
 }
 
 export default angular.module('cubingzaApp.notifications', [uiRouter])

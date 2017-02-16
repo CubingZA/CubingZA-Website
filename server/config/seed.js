@@ -42,7 +42,8 @@ User.find({}).remove()
       provider: 'local',
       name: 'Unver',
       email: 'unver@m.cubingza.org',
-      password: 'unver'
+      password: 'unver',
+      verificationToken: '123abc'
     })
     .then(() => {
       console.log('finished populating users');

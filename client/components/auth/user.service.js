@@ -17,6 +17,13 @@ export function UserResource($resource) {
       params: {
         id: 'me'
       }
+    },
+    sendVerification: {
+      method: 'POST',
+      params: {
+        id: 'me',
+        controller: 'verifications'
+      }
     }
   });
 }

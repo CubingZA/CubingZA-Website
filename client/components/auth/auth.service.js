@@ -155,6 +155,11 @@ export function AuthService($location, $http, $cookies, $q, $window, appConfig, 
       return currentUser;
     },
 
+    refreshCurrentUser() {
+      currentUser = User.get();
+      return currentUser;
+    },
+
     /**
      * Check if a user is logged in
      *

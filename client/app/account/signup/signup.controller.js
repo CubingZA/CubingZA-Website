@@ -14,11 +14,12 @@ export default class SignupController {
 
 
   /*@ngInject*/
-  constructor(Auth, $state, $resource) {
+  constructor(Auth, $state, $resource, User) {
     this.Auth = Auth;
     this.$state = $state;
     
     this.emailValidator = $resource("https://api.mailgun.net/v3/address/validate");
+    this.User = User;
   }
   
   wcalogin() {
@@ -43,7 +44,13 @@ export default class SignupController {
             password: this.user.password
           })
           .then(() => {
-            // Account created, redirect to home
+            // Account created, send verify email
+            console.log('Sending verify email');
+            
+            console.log(this.User.sendVerification({}).$promise
+            .then(function() {console.log('Verification Email sent')})
+            .catch(function() {console.log('Verification Email Error')}));
+            
             this.$state.go('main');
           })
           .catch(err => {
