@@ -55,7 +55,7 @@ function wcaAuthenticate(User, accessToken, done) {
         else {
           // User already exists.
           
-          console.log('Need to create a new user');          
+          console.log('USer already exists');          
           console.log(user);          
           return done(null, user);
         }
