@@ -501,7 +501,7 @@ gulp.task('build:images', () => {
 });
 
 gulp.task('revReplaceWebpack', function() {
-    return gulp.src('dist/client/app.*.js')
+    return gulp.src('dist/client/{app.*.js,index.html}')
         .pipe(plugins.revReplace({manifest: gulp.src(`${paths.dist}/${paths.client.revManifest}`)}))
         .pipe(gulp.dest('dist/client'));
 });
