@@ -1,13 +1,19 @@
+
+.navbar-text {
+  margin-left: 15px;
+}
+
 .navbar-brand {
   padding: 0;
   font-family: monospace;
   align-items: center;
-//  min-width: 150px;
+  padding-right: 15px;
 }
 
 .navbar-brand>img {
-  height: 100%;
-  padding: 5px 15px;
+  display: inline-block;
+  max-height: 100%;
+  padding: 5px;
   width: auto;
 }
 
