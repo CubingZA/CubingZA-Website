@@ -14,8 +14,10 @@
       </td>
       <td class="table-single">
         <a href="https://www.worldcubeassociation.org/results/events.php?eventId={{record.eventId}}&regionId=South%2BAfrica&years=&show=100%2BPersons&single=Single" target="_blank">
+          <span class="label label-info" ng-if="recordsCtrl.isNew(record.singleDate)">New</span>
           {{record.singleResult}}
         </a>
+        
       </td>
       
       <td class="table-middle">
@@ -29,6 +31,7 @@
       <td class="table-average">
         <a href="https://www.worldcubeassociation.org/results/events.php?eventId={{record.eventId}}&regionId=South%2BAfrica&years=&show=100%2BPersons&average=Average" target="_blank">
           {{record.averageResult}}
+          <span class="label label-info" ng-if="recordsCtrl.isNew(record.averageDate, 3)">New</span>
         </a>
       </td>
       <td class="table-average">

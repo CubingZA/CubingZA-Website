@@ -8,9 +8,11 @@ var RecordSchema = new mongoose.Schema({
   singleName: String,
   singleResult: String,
   singleId: String,
+  singleDate: Date,
   averageName: String,
   averageResult: String,
   averageId: String,
+  averageDate: Date,
   eventRank: Number
 });
 

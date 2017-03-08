@@ -1,5 +1,6 @@
 'use strict';
 const angular = require('angular');
+const moment = require('moment')
 
 export class recordListComponent {
 
@@ -12,6 +13,12 @@ export class recordListComponent {
     this.records = this.Record.query({}, () => {
       this.records.sort((a, b) => {return a.eventRank-b.eventRank});
     });
+
+  }
+  
+  isNew(date) {
+    var oneMonthAgo = moment().subtract(1, 'months');
+    return moment(date).isAfter(oneMonthAgo);
   }
 }
 
