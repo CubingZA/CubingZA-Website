@@ -2,11 +2,18 @@
   <h1>Manage Users</h1>
   <ul class="list-group user-list">
     <li class="list-group-item" ng-repeat="user in admin.users">
-	    <div class="user-info">
-	        <strong>{{user.name}}</strong><br>
-	        <span class="text-muted">{{user.email}}</span>
-	    </div>
-        <a ng-click="admin.delete(user.name, user)" class="trash"><span class="fa fa-trash fa-2x"></span></a>
+      <div class="user-info">
+          <strong>{{user.name}}</strong>          
+        <br/>
+          <span>{{user.email}}</span>
+          <span class="text-muted"> - <i>{{user.provider}} ({{user.role}})</i></span>
+        <br/>
+          <span class="text-muted small" ng-if="admin.hasProvinces(user)">
+            Provinces: {{admin.getProvinceString(user)}}
+          </span>
+          
+      </div>
+      <a ng-click="admin.delete(user.name, user)" class="trash"><span class="fa fa-trash fa-2x"></span></a>
     </li>
   </ul>
 </div>
