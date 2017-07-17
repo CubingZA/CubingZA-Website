@@ -35,4 +35,26 @@ export default class AdminController {
     }
     return false;
   } 
+  
+  filterUsers(searchFilter) {
+    let users = this.users.sort((a,b) => {return a.name.toLowerCase().localeCompare(b.name.toLowerCase())});
+    
+    return users.filter((user) => {
+      if (!searchFilter) {
+        return true;
+      }
+      
+      searchFilter = searchFilter.toLowerCase();
+      if (this.getProvinceString(user).toLowerCase().includes(searchFilter) ||
+          user.role.toLowerCase().includes(searchFilter) ||
+          user.provider.toLowerCase().includes(searchFilter) ||
+          user.name.toLowerCase().includes(searchFilter) ||
+          user.email.toLowerCase().includes(searchFilter)) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    });
+  }
 }

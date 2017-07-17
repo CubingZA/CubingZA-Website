@@ -1,17 +1,30 @@
 <div class="container">
   <h1>Manage Users</h1>
+  
+  <div class="row">
+    <div class="col-xs-7 col-sm-6 pull-right">
+      <div class="form-group has-feedback">
+        <label class="sr-only control-label" for="usersearch">Search</label>
+        <input type="text" class="form-control" id="usersearch" placeholder="Search users" ng-model="searchFilter">
+        <i class="glyphicon glyphicon-search form-control-feedback"></i>
+        </div>
+    </div>
+  </div>
+    
   <ul class="list-group user-list">
-    <li class="list-group-item" ng-repeat="user in admin.users">
+    <li class="list-group-item" ng-repeat="user in admin.filterUsers(searchFilter)">
       <div class="user-info">
           <strong>{{user.name}}</strong>          
         <br/>
-          <span>{{user.email}}</span>
-          <span class="text-muted"> - <i>{{user.provider}} ({{user.role}})</i></span>
-        <br/>
-          <span class="text-muted small" ng-if="admin.hasProvinces(user)">
-            Provinces: {{admin.getProvinceString(user)}}
+          <span class="text-muted">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i> 
+            {{user.email}} - <i>{{user.provider}} ({{user.role}})</i>
           </span>
-          
+        <br/>          
+          <span class="text-muted small" ng-if="admin.hasProvinces(user)">
+            <i class="fa fa-map-o" aria-hidden="true"></i> 
+            {{admin.getProvinceString(user)}}
+          </span>
       </div>
       <a ng-click="admin.delete(user.name, user)" class="trash"><span class="fa fa-trash fa-2x"></span></a>
     </li>
