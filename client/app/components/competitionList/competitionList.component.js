@@ -11,7 +11,14 @@ export class competitionListComponent {
     
 //    this.comps = [];
     this.comps = this.Comp.query({}, () => {
+      
+      // Sort competitions by start date
       this.comps.sort(function (a, b) {if (a.startDate < b.startDate) {return -1;} {return 1;}});
+      
+      // Show competitions by default
+      for (let i=0; i<this.comps.length; i++) {
+        this.comps[i].showDetails = true;
+      }
     });
     
   }
