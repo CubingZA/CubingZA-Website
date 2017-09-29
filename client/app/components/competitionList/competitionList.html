@@ -33,11 +33,18 @@
         </li>
         <li class="list-group-item">
           <span class="list-group-icon">&nbsp;</span>
-          <a ng-href="https://www.worldcubeassociation.org/competitions/{{comp.registrationName}}/register"
-             class="btn btn-success" target="_blank">
-            Register
-            <i class="fa fa-arrow-right" aria-hidden="true"></i>
-          </a>
+          <div class="btn-group-vertical" role="group">
+            <a ng-href="https://www.worldcubeassociation.org/competitions/{{comp.registrationName}}"
+               class="btn btn-default" target="_blank">
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
+              More Details
+            </a>
+            <a ng-href="https://www.worldcubeassociation.org/competitions/{{comp.registrationName}}/register"
+               class="btn btn-success" target="_blank">
+              <i class="fa fa-arrow-right" aria-hidden="true"></i>
+              Register
+            </a>
+          </div>
 
         </li>
 
