@@ -28,7 +28,7 @@ export function Modal($rootScope, $uibModal, $sce, notificationsService) {
 
     inform: {
       message() {
-        
+
         return function() {
           var args = Array.prototype.slice.call(arguments);
           var title = args.shift();
@@ -55,7 +55,7 @@ export function Modal($rootScope, $uibModal, $sce, notificationsService) {
         };
       }
     },
-    
+
     /* Confirmation modals */
     confirm: {
 
@@ -104,7 +104,7 @@ export function Modal($rootScope, $uibModal, $sce, notificationsService) {
             });
         };
       },
-      
+
       sendMessage(send = angular.noop) {
         /**
          * Open a delete confirmation modal
@@ -146,30 +146,29 @@ export function Modal($rootScope, $uibModal, $sce, notificationsService) {
         };
       }
     },
-    
+
     edit: {
       compedit(callback = angular.noop) {
-        
-        return function() {          
+
+        return function() {
           var args = Array.prototype.slice.call(arguments);
           var title = args.shift();
           var comp = args.shift();
-          
+
           var newcomp = {
             name: comp.name,
-            venue: comp.venue,            
+            venue: comp.venue,
             address: comp.address,
             city: comp.city,
             province: comp.province,
             registrationName: comp.registrationName,
-            
+            multiDay: comp.multiDay,
             startDate: new Date(Date.parse(comp.startDate)),
-            endDate: new Date(Date.parse(comp.endDate)),            
+            endDate: new Date(Date.parse(comp.endDate)),
           };
-          newcomp.multiDay = newcomp.endDate > newcomp.startDate;
-          
+
           var editModal;
-          
+
           editModal = openModal({
             modal: {
               dismissable: true,
@@ -192,14 +191,14 @@ export function Modal($rootScope, $uibModal, $sce, notificationsService) {
             comp: newcomp,
             provinces: Object.keys(notificationsService.provinceNames).map(key => notificationsService.provinceNames[key]).sort()
           }, 'modal-success');
-          
+
           editModal.result
             .then(function(event) {
               // Modal was accepted, do something.
               callback.apply(event, [comp, newcomp, args]);
             }, function() {
               // Modal was dismissed, so don't do anything.
-            }); 
+            });
         };
       }
     }
@@ -209,5 +208,3 @@ export function Modal($rootScope, $uibModal, $sce, notificationsService) {
 export default angular.module('cubingzaApp.Modal', [])
   .factory('Modal', Modal)
   .name;
-
-
