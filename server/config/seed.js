@@ -8,13 +8,13 @@ import User from '../api/user/user.model';
 import Record from '../api/record/record.model';
 import Event from '../api/event/event.model';
 
-//Record.find({}).remove()
-//  .then(() => {
-//    Record.create(require('../../../cuberecords.json'))
-//    .then(() => {
-//      console.log('finished loading records');
-//    })
-//  });
+Record.find({}).remove()
+ .then(() => {
+   Record.create(require('../../../cuberecords.json'))
+   .then(() => {
+     console.log('finished loading records');
+   })
+ });
 
 Event.find({}).remove()
   .then(() => {
