@@ -3,7 +3,7 @@ import request from 'request'
 import passport from 'passport';
 import OAuth2Strategy from 'passport-oauth2'
 
-  
+
 function wcaAuthenticate(User, accessToken, done) {
   var wcaUserAPI = {
     url: 'https://www.worldcubeassociation.org/api/v0/me',
@@ -12,24 +12,24 @@ function wcaAuthenticate(User, accessToken, done) {
       Authorization: 'Bearer '+accessToken,
     }
   };
-  
+
   return request.get(wcaUserAPI, (err, res, data) => {
     if (err) {
       return done(err);
     }
     else if (res.statusCode !== 200) {
       return done(null, null, {message: 'Error retrieving WCA profile ('+res.statusCode+')'});
-    } 
+    }
     else {
-      
+
       var wcaProfile = JSON.parse(data).me;
-      
+
       if (!wcaProfile) {
         return done(null, null, {message: 'No WCA profile retrieved'});
       }
-      
+
       // Attempt to find the user in the database
-      User.findOne({
+      return User.findOne({
         email: wcaProfile.email.toLowerCase(),
         provider: 'wca'
       }).exec()
@@ -37,26 +37,25 @@ function wcaAuthenticate(User, accessToken, done) {
         if(!user) {
           // User does not exist, need to create
           console.log('Need to create a new user')
-          
+
           var user = new User({
             name: wcaProfile.name,
             email: wcaProfile.email.toLowerCase(),
             provider: 'wca',
             role: 'user'
           });
-          
-          user.save()
+
+          return user.save()
             .then((user) => {
               console.log('Created user');
-              console.log(done);
               return done(null, user);
             });
         }
         else {
           // User already exists.
-          
-          console.log('USer already exists');          
-          console.log(user);          
+
+          console.log('User already exists');
+          console.log(user);
           return done(null, user);
         }
       })
@@ -64,7 +63,7 @@ function wcaAuthenticate(User, accessToken, done) {
     }
   });
 }
-    
+
 export function setup(User/*, config*/) {
   passport.use(new OAuth2Strategy({
     authorizationURL: 'https://www.worldcubeassociation.org/oauth/authorize',
