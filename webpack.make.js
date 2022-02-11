@@ -306,7 +306,8 @@ module.exports = function makeWebpackConfig(options) {
                     comments: false
                 },
                 compress: {
-                    warnings: false
+                    warnings: false/*,
+                    drop_console: false*/
                 }
             }),
 
