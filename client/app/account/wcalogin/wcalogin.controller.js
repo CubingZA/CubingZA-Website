@@ -15,10 +15,10 @@ export default class WcaLoginController {
         // Logged in, redirect to home
         $state.go('main');
       })
-      .catch((err) => {
+      .catch(err => {
         // Error in, redirect to login
-        console.log(err)
+        console.log(err);
         $state.go('login');
-      })
+      });
   }
 }

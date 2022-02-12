@@ -21,13 +21,13 @@ export default class LoginController {
   login(form) {
     this.submitted = true;
 
-    if(form.$valid) {
+    if (form.$valid) {
       this.Auth.login({
         email: this.user.email,
         password: this.user.password
       })
         .then(() => {
-          // Logged in, redirect to home          
+          // Logged in, redirect to home
           this.$state.go('main');
         })
         .catch(err => {

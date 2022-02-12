@@ -1,6 +1,6 @@
 'use strict';
 const angular = require('angular');
-const moment = require('moment')
+const moment = require('moment');
 
 export class recordListComponent {
 
@@ -11,11 +11,10 @@ export class recordListComponent {
     this.Record = $resource('/api/records');
 
     this.records = this.Record.query({}, () => {
-      this.records.sort((a, b) => {return a.eventRank-b.eventRank});
+      this.records.sort((a, b) => a.eventRank - b.eventRank);
     });
-
   }
-  
+
   isNew(date) {
     var oneMonthAgo = moment().subtract(1, 'months');
     return moment(date).isAfter(oneMonthAgo);
@@ -27,6 +26,6 @@ export default angular.module('cubingzaApp.recordList', [])
     template: require('./recordList.html'),
     bindings: { message: '<' },
     controller: recordListComponent,
-    controllerAs: "recordsCtrl"
+    controllerAs: 'recordsCtrl'
   })
   .name;

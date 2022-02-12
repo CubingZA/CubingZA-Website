@@ -18,7 +18,7 @@ export default class SignupController {
     this.Auth = Auth;
     this.$state = $state;
     
-    this.emailValidator = $resource("https://api.mailgun.net/v3/address/validate");
+    this.emailValidator = $resource('https://api.mailgun.net/v3/address/validate');
     this.User = User;
   }
   
@@ -30,15 +30,15 @@ export default class SignupController {
     this.submitted = true;
     this.mailgunError = false;
     
-    if(form.$valid) {
+    if (form.$valid) {
       let data = {
         address: this.user.email,
         api_key: 'pubkey-2a46820e96f5c254b40e74675620e124'
-      }
+      };
       
       var validationResult = this.emailValidator.get(data, () => {
         if (validationResult.is_valid) {
-          var user = this.Auth.createUser({
+          this.Auth.createUser({
             name: this.user.name,
             email: this.user.email,
             password: this.user.password
@@ -48,8 +48,12 @@ export default class SignupController {
             console.log('Sending verify email');
             
             console.log(this.User.sendVerification({}).$promise
-            .then(function() {console.log('Verification Email sent')})
-            .catch(function() {console.log('Verification Email Error')}));
+            .then(function() {
+              console.log('Verification Email sent');
+            })
+            .catch(function() {
+              console.log('Verification Email Error');
+            }));
             
             this.$state.go('main');
           })
@@ -63,7 +67,7 @@ export default class SignupController {
             });
           });
         }
-        else if (validationResult.did_you_mean) {          
+        else if (validationResult.did_you_mean) {
           form.email.$valid = false;
           form.email.$invalid = true;
           form.email.didYouMean = validationResult.did_you_mean;

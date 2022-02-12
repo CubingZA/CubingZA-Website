@@ -3,10 +3,6 @@ const angular = require('angular');
 
 export class cubeimageComponent {
   /*@ngInject*/
-  constructor() {
-    
-  }
-
   $onInit() {
     
   }
