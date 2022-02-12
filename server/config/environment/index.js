@@ -39,9 +39,8 @@ var all = {
   // MongoDB connection options
   mongo: {
     options: {
-      db: {
-        safe: true
-      }
+      useUnifiedTopology: true,
+      useNewUrlParser: true
     }
   }
 };

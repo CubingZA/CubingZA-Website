@@ -73,16 +73,15 @@ UserSchema
 // Validate email is not taken
 UserSchema
   .path('email')
-  .validate(function(value, respond) {
+  .validate(function(value) {
     return this.constructor.findOne({ email: value }).exec()
       .then(user => {
         if(user) {
-          if(this.id === user.id) {
-            return respond(true);
-          }
-          return respond(false);
+          return (this.id === user.id) 
         }
-        return respond(true);
+        else {
+          return true;
+        }
       })
       .catch(function(err) {
         throw err;
