@@ -16,7 +16,7 @@ var genUser = function() {
 describe('User Model', function() {
   before(function() {
     // Clear users before testing
-    return User.remove();
+    return User.deleteMany({});
   });
 
   beforeEach(function() {
@@ -24,7 +24,7 @@ describe('User Model', function() {
   });
 
   afterEach(function() {
-    return User.remove();
+    return User.deleteMany({});
   });
 
   it('should begin with no users', function() {

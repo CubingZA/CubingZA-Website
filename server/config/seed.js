@@ -16,7 +16,7 @@ Record.find({}).remove()
    })
  });
 
-Event.find({}).remove()
+Event.find({}).deleteMany({})
   .then(() => {
     Event.create(require('../../../cubecompetitions.json'))
     .then(() => {
@@ -24,7 +24,7 @@ Event.find({}).remove()
     })
   });
 
-User.find({}).remove()
+User.find({}).deleteMany({})
   .then(() => {
     User.create({
       provider: 'local',

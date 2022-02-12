@@ -8,7 +8,8 @@ var eventCtrlStub = {
   create: 'eventCtrl.create',
   upsert: 'eventCtrl.upsert',
   patch: 'eventCtrl.patch',
-  destroy: 'eventCtrl.destroy'
+  destroy: 'eventCtrl.destroy',
+  upcoming: 'eventCtrl.upcoming'
 };
 
 var routerStub = {
@@ -42,42 +43,10 @@ describe('Event API Router:', function() {
     });
   });
 
-  describe('GET /api/events/:id', function() {
-    it('should route to event.controller.show', function() {
+  describe('GET /api/events/upcoming', function() {
+    it('should route to event.controller.upcoming', function() {
       expect(routerStub.get
-        .withArgs('/:id', 'eventCtrl.show')
-        ).to.have.been.calledOnce;
-    });
-  });
-
-  describe('POST /api/events', function() {
-    it('should route to event.controller.create', function() {
-      expect(routerStub.post
-        .withArgs('/', 'eventCtrl.create')
-        ).to.have.been.calledOnce;
-    });
-  });
-
-  describe('PUT /api/events/:id', function() {
-    it('should route to event.controller.upsert', function() {
-      expect(routerStub.put
-        .withArgs('/:id', 'eventCtrl.upsert')
-        ).to.have.been.calledOnce;
-    });
-  });
-
-  describe('PATCH /api/events/:id', function() {
-    it('should route to event.controller.patch', function() {
-      expect(routerStub.patch
-        .withArgs('/:id', 'eventCtrl.patch')
-        ).to.have.been.calledOnce;
-    });
-  });
-
-  describe('DELETE /api/events/:id', function() {
-    it('should route to event.controller.destroy', function() {
-      expect(routerStub.delete
-        .withArgs('/:id', 'eventCtrl.destroy')
+        .withArgs('/upcoming', 'eventCtrl.upcoming')
         ).to.have.been.calledOnce;
     });
   });

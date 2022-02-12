@@ -42,43 +42,4 @@ describe('Record API Router:', function() {
     });
   });
 
-  describe('GET /api/records/:id', function() {
-    it('should route to record.controller.show', function() {
-      expect(routerStub.get
-        .withArgs('/:id', 'recordCtrl.show')
-        ).to.have.been.calledOnce;
-    });
-  });
-
-  describe('POST /api/records', function() {
-    it('should route to record.controller.create', function() {
-      expect(routerStub.post
-        .withArgs('/', 'recordCtrl.create')
-        ).to.have.been.calledOnce;
-    });
-  });
-
-  describe('PUT /api/records/:id', function() {
-    it('should route to record.controller.upsert', function() {
-      expect(routerStub.put
-        .withArgs('/:id', 'recordCtrl.upsert')
-        ).to.have.been.calledOnce;
-    });
-  });
-
-  describe('PATCH /api/records/:id', function() {
-    it('should route to record.controller.patch', function() {
-      expect(routerStub.patch
-        .withArgs('/:id', 'recordCtrl.patch')
-        ).to.have.been.calledOnce;
-    });
-  });
-
-  describe('DELETE /api/records/:id', function() {
-    it('should route to record.controller.destroy', function() {
-      expect(routerStub.delete
-        .withArgs('/:id', 'recordCtrl.destroy')
-        ).to.have.been.calledOnce;
-    });
-  });
 });

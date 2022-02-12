@@ -1,13 +1,3 @@
-/**
- * Using Rails-like standard naming convention for endpoints.
- * GET     /api/records              ->  index
- * POST    /api/records              ->  create
- * GET     /api/records/:id          ->  show
- * PUT     /api/records/:id          ->  upsert
- * PATCH   /api/records/:id          ->  patch
- * DELETE  /api/records/:id          ->  destroy
- */
-
 'use strict';
 
 import jsonpatch from 'fast-json-patch';
