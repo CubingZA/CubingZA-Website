@@ -1,7 +1,6 @@
 'use strict';
 
 import angular from 'angular';
-// import ngAnimate from 'angular-animate';
 import ngCookies from 'angular-cookies';
 import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize';

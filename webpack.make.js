@@ -42,8 +42,6 @@ module.exports = function makeWebpackConfig(options) {
             polyfills: './client/polyfills.js',
             vendor: [
                 'angular',
-                'angular-animate',
-                'angular-aria',
                 'angular-cookies',
                 'angular-resource',
 
@@ -232,9 +230,7 @@ module.exports = function makeWebpackConfig(options) {
      * Add vendor prefixes to your css
      */
     config.postcss = [
-        autoprefixer({
-            browsers: ['last 2 version']
-        })
+        autoprefixer()
     ];
 
     /**
