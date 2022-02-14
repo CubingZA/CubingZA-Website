@@ -57,12 +57,12 @@ export default function sendNotificationEmails(comp) {
             if (err) {
               console.log('error');
               let datestamp = new Date().toISOString();
-              User.update({_id: user._id}, {$push: {eventLog: `${datestamp}Error sending message: ${message.to}, ${message.subject}`}});
+              User.updateOne({_id: user._id}, {$push: {eventLog: `${datestamp}Error sending message: ${message.to}, ${message.subject}`}});
             }
             else {
               console.log('success');
               let datestamp = new Date().toISOString();
-              User.update({_id: user._id}, {$push: {eventLog: `${datestamp}Message successfully sent: ${message.to}, ${message.subject}`}});
+              User.updateOne({_id: user._id}, {$push: {eventLog: `${datestamp}Message successfully sent: ${message.to}, ${message.subject}`}});
             }
           });
           

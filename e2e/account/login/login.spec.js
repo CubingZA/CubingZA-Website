@@ -20,7 +20,7 @@ describe('Login View', function() {
 
   before(function() {
     return UserModel
-      .remove()
+      .deleteMany({})
       .then(function() {
         return UserModel.create(testUser);
       })
@@ -28,7 +28,7 @@ describe('Login View', function() {
   });
 
   after(function() {
-    return UserModel.remove();
+    return UserModel.deleteMany({});
   });
 
   it('should include login form with correct inputs and submit button', function() {

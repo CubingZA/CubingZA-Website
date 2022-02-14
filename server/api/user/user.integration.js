@@ -9,7 +9,7 @@ describe('User API:', function() {
 
   // Clear users before testing
   before(function() {
-    return User.remove().then(function() {
+    return User.deleteMany({}).then(function() {
       user = new User({
         name: 'Fake User',
         email: 'test@example.com',
@@ -22,7 +22,7 @@ describe('User API:', function() {
 
   // Clear users after testing
   after(function() {
-    return User.remove();
+    return User.deleteMany({});
   });
 
   describe('GET /api/users/me', function() {

@@ -18,7 +18,7 @@ describe('Logout View', function() {
 
   beforeEach(function() {
     return UserModel
-      .remove()
+      .deleteMany({})
       .then(function() {
         return UserModel.create(testUser);
       })
@@ -28,7 +28,7 @@ describe('Logout View', function() {
   });
 
   after(function() {
-    return UserModel.remove();
+    return UserModel.deleteMany({});
   })
 
   describe('with local auth', function() {

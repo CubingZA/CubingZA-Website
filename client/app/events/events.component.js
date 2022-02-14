@@ -17,7 +17,7 @@ export class EventsComponent {
     this.today = new Date();
 
     this.deleteModal = Modal.confirm.delete(comp => {
-      this.CompAPI.remove({id: comp._id});
+      this.CompAPI.deleteOne({id: comp._id});
       this.comps.splice(this.comps.indexOf(comp), 1);
     });
 
@@ -49,7 +49,7 @@ export class EventsComponent {
 
       if (comp._id) {
         // Existing comp, update details
-        this.CompAPI.update({id: comp._id}, newcomp);
+        this.CompAPI.updateOne({id: comp._id}, newcomp);
       }
       else {
         // Existing comp, create new

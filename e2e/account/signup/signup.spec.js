@@ -44,7 +44,7 @@ describe('Signup View', function() {
   describe('with local auth', function() {
 
     before(function() {
-      return UserModel.remove();
+      return UserModel.deleteMany({});
     })
 
     it('should signup a new user, log them in, and redirecting to "/"', function() {
