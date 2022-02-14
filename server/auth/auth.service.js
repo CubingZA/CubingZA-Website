@@ -6,7 +6,8 @@ import compose from 'composable-middleware';
 import User from '../api/user/user.model';
 
 var validateJwt = expressJwt({
-  secret: config.secrets.session
+  secret: config.secrets.session,
+  algorithms: ['HS256']
 });
 
 /**
