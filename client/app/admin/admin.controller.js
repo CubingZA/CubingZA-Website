@@ -38,7 +38,7 @@ export default class AdminController {
 
   filterUsers(searchFilter) {
     let users = this.users.sort((a,b) => {
-      if (!a.name | !b.name) {
+      if (!a.name || !b.name) {
         return false;
       }
       return a.name.toLowerCase().localeCompare(b.name.toLowerCase())});
