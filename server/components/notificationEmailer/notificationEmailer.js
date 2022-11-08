@@ -11,7 +11,7 @@ function getProvinceCode(province) {
       LM:'Limpopo',
       NW:'North West',
       FS:'Free State',
-      KZ:'Kwa-Zulu Natal',
+      KZ:'KwaZulu Natal',
       EC:'Eastern Cape',
       WC:'Western Cape',
       NC:'Northern Cape'
