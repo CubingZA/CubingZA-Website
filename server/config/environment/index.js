@@ -1,26 +1,16 @@
-'use strict';
-/*eslint no-process-env:0*/
+import shared from './shared.config';
+import * as dotenv from 'dotenv'
 
-import path from 'path';
-import _ from 'lodash';
+const nodeEnv = process.env['NODE_ENV'] = process.env['NODE_ENV'] || 'development';
+const envconfig = (await import(`./${nodeEnv}.config.js`)).default;
 
-/*function requiredProcessEnv(name) {
-  if(!process.env[name]) {
-    throw new Error('You must set the ' + name + ' environment variable');
-  }
-  return process.env[name];
-}*/
+// Load dev environment
+if (nodeEnv === 'development' || nodeEnv === 'test') {
+  dotenv.config({path: './config/local.env'});
+}
 
-// All configurations will extend these options
-// ============================================
-var all = {
+const all = {
   env: process.env.NODE_ENV,
-
-  // Root path of server
-  root: path.normalize(`${__dirname}/../../..`),
-
-  // Browser-sync port
-  browserSyncPort: process.env.BROWSER_SYNC_PORT || 3000,
 
   // Server port
   port: process.env.PORT || 9000,
@@ -33,10 +23,11 @@ var all = {
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
-    session: process.env.SESSION_SECRET
+    session: process.env.SESSION_SECRET || "Don't forget to set session secret"
   },
 
   // MongoDB connection options
+  mongoUrl: "mongodb://localhost:27017",
   mongo: {
     options: {
       useUnifiedTopology: true,
@@ -45,9 +36,8 @@ var all = {
   }
 };
 
-// Export the config object based on the NODE_ENV
-// ==============================================
-module.exports = _.merge(
-  all,
-  require('./shared'),
-  require(`./${process.env.NODE_ENV}.js`) || {});
+export default {
+  ...all,
+  ...shared,
+  ...envconfig
+}

@@ -1,8 +1,5 @@
-'use strict';
-
-import Event from '../../api/event/event.model';
-import User from '../../api/user/user.model';
-import Mailgun from 'mailgun-js';
+import User from '../../api/users/user.model';
+import Mailgun from 'mailgun.js';
 
 function getProvinceCode(province) {
   let provinceNames = {

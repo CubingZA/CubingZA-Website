@@ -1,0 +1,6 @@
+{
+  "setupFiles": [
+    "./config/environment"
+  ],
+  "transform": {}
+}

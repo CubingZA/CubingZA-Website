@@ -1,0 +1,35 @@
+{
+  "version": "0.2.0",
+  "configurations": [        
+    {
+      "name": "Launch via NPM",
+      "request": "launch",
+      "runtimeArgs": [
+        "start"
+      ],
+      "runtimeExecutable": "npm",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node"
+    },
+    {
+      "type": "node",
+      "name": "Run Tests with Jest",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "args": [
+        "test",
+        "--run-in-band",
+        "--watch-all=false",
+        "--test-name-pattern",
+        "${jest.testNamePattern}",
+        "--test-path-pattern",
+        "${jest.testFilePattern}"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+    }
+  ]
+}

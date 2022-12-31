@@ -1,12 +1,32 @@
-'use strict';
+import express from 'express';
+import mongoose from 'mongoose';
+import Bluebird from 'bluebird';
 
-// Set default node environment to development
-var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+import config from './config/environment'
+import configExpress from './config/express';
+import seedDB from './config/seed'
+import routes from './routes';
 
-if(env === 'development' || env === 'test') {
-  // Register the Babel require hook
-  require('babel-register');
+// Connect to MongoDB
+mongoose.Promise = Bluebird;
+mongoose.set('strictQuery', true);
+mongoose.connect(config.mongo.uri, config.mongo.options);
+mongoose.connection.on('error', function(err) {
+  console.error(`MongoDB connection error: ${err}`);
+  process.exit(-1); // eslint-disable-line no-process-exit
+});
+
+// Populate databases with sample data
+if(config.seedDB) {
+  seedDB();
 }
 
-// Export the application
-exports = module.exports = require('./app');
+const app = express();
+configExpress(app);
+routes(app);
+
+setImmediate(()=>{
+  app.listen(config.port, ()=>{
+    console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
+  });
+});

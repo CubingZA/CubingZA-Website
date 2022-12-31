@@ -1,15 +1,20 @@
-'use strict';
 import express from 'express';
 import config from '../config/environment';
-import User from '../api/user/user.model';
+import User from '../api/users/user.model';
+
+import localAuth from './local';
+import wcaAuth from './wca';
+
+import {setup as localPassportSetup} from './local/passport'
+import {setup as wcaPassportSetup} from './wca/passport'
 
 // Passport Configuration
-require('./local/passport').setup(User, config);
-require('./wca/passport').setup(User, config);
+localPassportSetup(User, config);
+wcaPassportSetup(User, config);
 
 var router = express.Router();
 
-router.use('/local', require('./local').default);
-router.use('/wca', require('./wca').default);
+router.use('/local', localAuth);
+router.use('/wca', wcaAuth);
 
 export default router;
