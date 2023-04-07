@@ -38,13 +38,13 @@ export function create(req, res) {
   const newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'unverified';
-  newUser.verificationToken = crypto.randomBytes(16).toString('hex');
+  newUser.verificationToken = crypto.randomBytes(24).toString('hex');
   return newUser.save()
     .then(function(user) {
       var token = jwt.sign({ _id: user._id }, config.secrets.session, {
         expiresIn: 60 * 60 * 5
       });
-      return res.json({ token });
+      return res.status(201).json({ token });
     })
     .catch(validationError(res));
 }
@@ -159,10 +159,10 @@ export function verify(req, res) {
   return User.findById(userId).exec()
     .then(user => {
       if(!user) {
-        console.log('Not found')
+        console.log('User not found', userId)
         return res.status(401).end();
       }
-      if (verificationToken === user.verificationToken && user.role === 'unverified')
+      if (user.role === 'unverified' && verificationToken === user.verificationToken) {
         console.log('Success')
         user.role = 'user';
         return user.save()
@@ -172,12 +172,22 @@ export function verify(req, res) {
             message: 'Message successfully sent'
           });
         })
-        .catch(err => next(err));
+        .catch(err => {
+          console.log('Error saving user', err);
+          next(err)
+        });
+      } else {
+        console.log('Incorrect token for user', userId)
+        return res.status(401).end();
+      }
     })
-    .catch(err => res.status(500).json({
-      success: false,
-      message: 'Could not verify user'
-    }));
+    .catch(err => {
+      console.log('Error finding user', err);
+      res.status(500).json({
+        success: false,
+        message: 'Could not verify user'
+      })
+    });
 }
   
 /**
@@ -196,7 +206,7 @@ export function sendVerificationEmail(req, res) {
       console.log(emailLink);
       
       let message = {
-        from: `CubingZA <info@${process.env.MAILGUN_DOMAIN}>` ,
+        from: `CubingZA <info@m.cubingza.org>` ,
         to: `${user.name} <${user.email}>`,
         subject: 'Please verify your email address',
         text: `Hi ${user.name}. Your CubingZA account has been created. To access the full site functionality, please verify your email address by clicking the following link: ${emailLink}`,
@@ -205,12 +215,14 @@ export function sendVerificationEmail(req, res) {
 
       return emailService.send(message)
         .then(body=>{
+          console.log("Verification email sent", body);
           return res.status(200).json({
             success: true,
             message: 'Message successfully sent'
           });
         })
         .catch(err=>{
+          console.log(err);
           return res.status(500).json({
             success: false,
             error: 'Error sending message'
