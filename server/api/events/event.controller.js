@@ -97,6 +97,8 @@ export function sendNotifications(req, res) {
     .then(handleEntityNotFound(res))
     .then(comp => {
       sendNotificationEmails(comp);
+      comp.notificationsSent = true;
+      comp.save();
       return {message: 'success'};
     })
    .then(respondWithResult(res))
