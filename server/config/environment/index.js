@@ -27,7 +27,7 @@ const all = {
   },
 
   // MongoDB connection options
-  mongoUrl: "mongodb://localhost:27017",
+  mongoUrl: "mongodb://127.0.0.1:27017",
   mongo: {
     options: {
       useUnifiedTopology: true,
