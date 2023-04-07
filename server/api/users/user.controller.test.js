@@ -77,6 +77,7 @@ const getMockModel = () => {
   jest.spyOn(Model.prototype, 'save')
     .mockImplementation(makeFunToPromiseCurrentModel());
 
+  Model.save = makeFunToFilterAndPromiseDoc();
   document.save = makeFunToFilterAndPromiseDoc();
   document.remove = makeFunToFilterAndPromiseDoc();
 
@@ -160,36 +161,14 @@ describe ("User controller:", function() {
       expect(res.status).toHaveBeenCalledWith(201);
     });   
     
-    it("should call the model's create method with the request body", async function() {
-      expect(EventModel.create).toHaveBeenCalledWith(req.body);
+    it("should instantiate a new UserModel method with the request body", async function() {
+      expect(UserModel).toHaveBeenCalledWith(req.body);
     });
-  });
-  
-  describe("Calling controller.send", function () {
-    beforeEach(async function() {
-      await controller.send(req, res)
+    it("should save the user", async function() {
+      expect(UserModel.mock.instances[0].save).toHaveBeenCalled()
     });
-
-    it("should respond with 200 OK status", async function() {
-      expect(res.status).toHaveBeenCalledWith(200);
-    });
-
-    it("should respond with a success flag that is set to true", async function() {
-      expect(res.json.mock.calls.length).toBe(1);
-      expect(res.json.mock.calls[0][0].success).toBe(true);
-    });   
-    
-    it("should respond with json containing list of all events", async function() {
-      const expectedMessage = {
-        from: 'Sender <sender@example.com>', 
-        to: 'info@your-mailgun-domain', 
-        subject: 'Subject', 
-        text: 'Test Message'
-      };
-      expect(mockClient.messages.create).toHaveBeenCalledWith(
-        process.env.MAILGUN_DOMAIN,
-        expectedMessage
-      );
+    it("should respond with JSON", async function() {
+      expect(res.json).toHaveBeenCalled();
     });
   });
 })
