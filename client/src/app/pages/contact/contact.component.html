@@ -1,0 +1,71 @@
+<div class="container">
+  
+  <div class="row">
+    <div *ngFor="let error of errors" class="alert alert-danger">
+      {{error}}
+    </div>
+    <div *ngFor="let message of messages" class="alert alert-success">
+      {{message}}
+    </div>
+  </div>
+
+  <div class="row">
+    <h1>Contact Us</h1>
+  </div>
+
+  <div class="row">
+    <form class="form" name="form" (submit)="submit()" [formGroup]="form">
+
+      <div class="form-group" [ngClass]="{
+        'has-success': name.valid && name.touched,
+        'has-error': name.invalid && name.touched 
+      }">
+        <label for="name">Name</label>
+        <input type="text" name="name" class="form-control" formControlName="name"/>
+        <p class="help-block" *ngIf="name.invalid && name.touched">
+          A name is required
+        </p>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 
+        'has-error': email.invalid && email.touched,
+        'has-success': email.valid && email.touched
+      }">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" name="email" formControlName="email"/>
+        <div *ngIf="email.errors && email.errors['required'] && email.touched" class="help-block">
+          An email address is required.
+        </div>
+        <div *ngIf="email.errors && email.errors['email'] && email.touched" class="help-block">
+          Please check your email address.
+        </div>
+      </div>
+
+      <div class="form-group" [ngClass]="{
+        'has-success': subject.valid && subject.touched,
+        'has-error': subject.invalid && subject.touched 
+      }">
+        <label for="subject">Subject</label>
+        <input type="text" name="subject" class="form-control" formControlName="subject"/>
+        <p class="help-block" *ngIf="subject.invalid && subject.touched">
+          A subject is required
+        </p>
+      </div>
+
+      <div class="form-group" [ngClass]="{
+        'has-success': message.valid && message.touched,
+        'has-error': message.invalid && message.touched 
+      }">
+        <label for="message">Message</label>
+        <textarea type="text" name="message" rows="10" class="form-control" formControlName="message"></textarea>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary btn-lg btn-submit" type="submit" [disabled]="!form.valid">
+          Send<span *ngIf="sending">ing</span> Message<span *ngIf="sending">...</span>
+        </button>
+      </div>
+      
+    </form>
+  </div>
+</div>

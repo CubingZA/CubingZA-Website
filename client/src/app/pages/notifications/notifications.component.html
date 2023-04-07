@@ -1,0 +1,53 @@
+<div class="container notifications-page">
+
+  <div class="row">
+    <div class="col-full">
+      <h1>Configure Competition Notifications</h1>
+    </div>
+  </div>
+  
+  <div *ngIf="!hasVerifiedEmail()">
+    <div class="row">
+      <div class="alert alert-info">
+        You must verify your email address before you can configure notifications. Check your email for a verification link.
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="hasVerifiedEmail()">
+    <div class="row">
+      <div class="col-full">
+        <p>
+          Select provinces on the map below to recieve notifications by email when a competition in that province is announced.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-two-thirds">
+        <app-province-map/>
+      </div>
+      <div class="col-third">
+        <div>
+          <app-province-list/>
+        </div>
+        <div>
+          <div class="alert alert-warning" *ngIf="isUnsaved()">
+            <strong>Notifications have not been saved</strong>
+          </div>      
+          <button class="btn btn-primary btn-block" (click)="saveSelection()">
+            <span *ngIf="!hasSelection()">Disable</span> 
+            <span *ngIf="hasSelection()">Save</span> 
+            Notifications
+          </button>
+          <button class="btn btn-default btn-block" (click)="resetSelection()">
+            Reset Changes
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
