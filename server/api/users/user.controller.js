@@ -1,10 +1,9 @@
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
-import formData from 'form-data';
-import Mailgun from 'mailgun.js';
 import User from './user.model';
 import config from '../../config/environment';
 
+import * as emailService from '../../services/email/email.service';
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -193,15 +192,7 @@ export function sendVerificationEmail(req, res) {
         return res.status(401).end();
       }
     
-      // Send Verification Email
-      const mailgun = new Mailgun(formData);
-      const mgClient = mailgun.client({
-        username: 'api',
-        apiKey: process.env.MAILGUN_API_KEY,
-        domain: process.env.MAILGUN_DOMAIN
-      })
-      
-      var emailLink = `${process.env.DOMAIN}/verify/${user._id}/${user.verificationToken}`
+      var emailLink = `${process.env.DOMAIN}/verify/${user._id}#${user.verificationToken}`
       console.log(emailLink);
       
       let message = {
@@ -212,7 +203,7 @@ export function sendVerificationEmail(req, res) {
         html: `Hi ${user.name}<br/><br/>Your CubingZA account has been created. To access the full site functionality, please <a href="${emailLink}">click here</a> to verify your email address`
       }
 
-      return mailgun.messages.create(process.env.MAILGUN_DOMAIN, message)
+      return emailService.send(message)
         .then(body=>{
           return res.status(200).json({
             success: true,

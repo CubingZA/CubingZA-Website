@@ -1,10 +1,6 @@
-import formData from 'form-data';
-import Mailgun from 'mailgun.js';
-import mailgunConfig from './mailgunConfig'
+import * as emailService from '../../services/email/email.service';
 
 export function send(req, res) {  
-  const mailgun = new Mailgun(formData);
-  const mgClient = mailgun.client(mailgunConfig.getOptions());
 
   let message = {
     from: `${req.body.name} <${req.body.email}>`,
@@ -13,9 +9,9 @@ export function send(req, res) {
     text: req.body.message || 'No message'
   };
 
-  return mgClient.messages.create(process.env.MAILGUN_DOMAIN, message)
+  return emailService.send(message)
     .then((data) => {
-        res.status(200).json({
+      res.status(200).json({
         success: true,
         message: 'Message successfully sent'
       });
