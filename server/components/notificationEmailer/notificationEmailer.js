@@ -40,8 +40,8 @@ export default function sendNotificationEmails(comp) {
                     
           let message = {
             from: 'CubingZA Notifications <compnotifications@m.cubingza.org>',
-            to: `@${user.name} <${user.email}>`,
-            subject: `New Cubing Competion Announcement: ${comp.name}`,
+            to: `${user.name} <${user.email}>`,
+            subject: `New Cubing Competition Announcement: ${comp.name}`,
             text: `Hello ${user.name}\n\nThe ${comp.name} cubing competition has been announced. Visit http://cubingza.org for more details, or https://www.worldcubeassociation.org/competitions/${comp.registrationName}/register to register.\n\nRegards,\nCubingZA Team`
           };
 
