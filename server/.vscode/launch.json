@@ -21,11 +21,7 @@
       "args": [
         "test",
         "--run-in-band",
-        "--watch-all=false",
-        "--test-name-pattern",
-        "${jest.testNamePattern}",
-        "--test-path-pattern",
-        "${jest.testFilePattern}"
+        "--watch-all=false"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
