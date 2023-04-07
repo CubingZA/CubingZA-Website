@@ -1,30 +1,34 @@
 # CubingZA
 
-This is the source code for the Cubing South Africa Website which runs at https://cubingza.org
-
-The project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 4.1.1.
+This is the source code for the Cubing South Africa Website which runs at https://cubingza.org.
 
 ## Getting Started
+
+There are three independent components that need to be set up and run: The Database, the API, and the website.
+
+1. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running. You'll probably want to create a new folder for the database files and specify this as an argument when running the database. The default in runDB.sh is `../Data/db`.
+
+2. Change to the `server` directory and the run `npm install` to install server dependencies.
+
+3. Create the file `server/config/local.env.js` with app secrets. For local development, you can simply copy the sample file `server/config/local.env.sample.js`, but you will need to set the Mailgun details to your own. It is recommended to use a sandbox account.
+
+4. Start the API server by running `npm start` while in the `server` directory. You can also run the server from within the `client` directory by running `npm --prefix ../server start`, or you can run the "Run backend" task from within VS Code. The API server can be accessed at `http://localhost:9000`.
+
+5. Start the web server by running `ng serve` from within the `client` directory. Navigate to `http://localhost:4200`. The application will automatically reload if you change any of the source files.
+
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Running unit tests
+
+To test the website, run `ng test` from within the `client` directory to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+To test the API, run `npm test` from within the `server` directory.
 
 ### Prerequisites
 
 - [Git](https://git-scm.com/)
 - [Node.js and npm](nodejs.org) Node >= 4.x.x, npm >= 2.x.x
-- [Gulp](http://gulpjs.com/) (`npm install --global gulp`)
 - [MongoDB](https://www.mongodb.org/) - Keep a running daemon with `mongod`
-
-### Developing
-
-1. Run `npm install` to install server dependencies.
-
-2. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running. You'll probably want to create a new folder for the database files and specify this as an argument when running the database. The default in runDB.sh is `../Data/db`.
-
-3. Create the file `server/config/local.env.js` with app secrets. For local development, simply you can simply copy the sample file `server/config/local.env.sample.js`, but you will need to set the Mailgun and WCA OAuth details to your own.
-
-4. The files `cubecompetitions.json` and `cuberecords.json` must exist in the parent of the root folder.
-
-5. Run `gulp serve` to start the development server. It should automatically open the client in your browser when ready.
-
-## Build & development
-
-Run `gulp build` for building and `gulp serve` for preview.
+- (Optional) [Angular CLI](https://github.com/angular/angular-cli)

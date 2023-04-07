@@ -1,0 +1,58 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-full">
+      <h1>Manage Users</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-full">
+      <div class="form-group has-feedback">
+        <label class="sr-only control-label" for="usersearch">Search</label>
+        <input type="text" class="form-control" id="usersearch" placeholder="Search users" [(ngModel)]="searchFilter">
+        <i class="glyphicon glyphicon-search form-control-feedback"></i>
+      </div>    
+    </div>
+  </div>
+
+  <ul class="list-group user-list">
+    <li class="list-group-item" *ngFor="let user of getFilteredUsers()">
+      <div class="user-info">
+        <div>
+          <strong>{{user.name}}</strong>
+        </div>
+        
+        <div>
+          <span class="text-muted">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i> 
+            {{user.email}} - <i>{{user.provider}} ({{user.role}})</i>
+          </span>
+        </div>
+        
+        <div>
+          <span class="text-muted small" ng-if="admin.hasProvinces(user)">
+            <i class="fa fa-map-o" aria-hidden="true"></i> 
+            {{getProvinceString(user)}}
+          </span>
+        </div>
+
+      </div>
+
+      <a (click)="openConfirmDeleteModal(user)" class="trash">Delete</a>
+
+    </li>
+  </ul>
+
+</div>
+
+<app-modal id="confirm-delete-modal">
+  <h4>Delete</h4>
+  <p>
+    Are you sure you want to delete 
+    <strong>{{confirmDeletingUser?.name}}</strong> 
+    permanently?</p><p>This action cannot be undone.
+  </p>
+  <button (click)="deleteUser(confirmDeletingUser)">Delete</button>
+  <button (click)="closeConfirmDeleteModal()">Close</button>
+</app-modal>

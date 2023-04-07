@@ -1,0 +1,16 @@
+<div class="province-list-container">
+  <div class="province-list">
+    
+    <div class="province-list-item">
+      <h3>Selected Provinces</h3>
+    </div>
+
+    <div class="province-list-item" *ngIf="getSelectedProvinces().length === 0">
+      <i>No provinces selected</i>
+    </div>
+    <button class="province-list-item" *ngFor="let province of getSelectedProvinces()" (click)="toggleProvince(province)">
+      <span class="province-list-item-name">{{getProvinceName(province)}}</span>
+    </button>
+
+  </div>
+</div>

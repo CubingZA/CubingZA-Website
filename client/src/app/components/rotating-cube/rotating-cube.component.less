@@ -1,0 +1,121 @@
+@facesize: 120px;
+
+@piecesize: (@facesize / 3);
+
+@m: (@facesize/2);
+@n: (@piecesize/2);
+@p: @piecesize;
+
+@x: (@m - @n/2);
+@y: (@m - @n/2);
+
+.rotating-cube-wrapper {
+
+  width: (3/2 * @facesize);
+  height: (1.9 * @facesize);
+  
+  perspective: 9*@facesize;
+  perspective-origin: (0) (0 - @facesize*2);
+  
+  transform: translateX(0) translateY(@m); 
+  
+  margin: 0 auto;
+}
+
+.rotating-cube {
+  position: relative;
+  width: @facesize;
+  transform-style: preserve-3d;
+
+  transform-origin: @x @y; 
+}
+
+.rotating-cube div {
+	position: absolute;
+	width: @piecesize - 3px;
+	height: @piecesize - 3px;
+
+  box-shadow: inset 0 0 @n rgba(96,96,96,0.8);
+  border: 3px solid black;
+  border-radius: 6px;
+  margin: 30px;
+  
+  backface-visibility: hidden;
+}
+
+.rotating-cube-UFR, .rotating-cube-UF, .rotating-cube-UFL, .rotating-cube-UL, .rotating-cube-U, .rotating-cube-UR, .rotating-cube-UBR, .rotating-cube-UB, .rotating-cube-UBL {background-color: #ff2;}
+.rotating-cube-FDR, .rotating-cube-FD, .rotating-cube-FDL, .rotating-cube-FL, .rotating-cube-F, .rotating-cube-FR, .rotating-cube-FUR, .rotating-cube-FU, .rotating-cube-FUL {background-color: #24f;}
+.rotating-cube-RUF, .rotating-cube-RU, .rotating-cube-RUB, .rotating-cube-RF, .rotating-cube-R, .rotating-cube-RB, .rotating-cube-RDF, .rotating-cube-RD, .rotating-cube-RDB {background-color: #d00;}
+.rotating-cube-BUR, .rotating-cube-BU, .rotating-cube-BUL, .rotating-cube-BR, .rotating-cube-B, .rotating-cube-BL, .rotating-cube-BDL, .rotating-cube-BD, .rotating-cube-BDR {background-color: #2f2;}
+.rotating-cube-LDF, .rotating-cube-LD, .rotating-cube-LDB, .rotating-cube-LF, .rotating-cube-L, .rotating-cube-LB, .rotating-cube-LUF, .rotating-cube-LU, .rotating-cube-LUB {background-color: #fc7804;}
+.rotating-cube-DFR, .rotating-cube-DF, .rotating-cube-DFL, .rotating-cube-DR, .rotating-cube-D, .rotating-cube-DL, .rotating-cube-DBR, .rotating-cube-DB, .rotating-cube-DBL {background-color: #eee;}
+
+
+.rotating-cube-UFL {transform: rotateX(90deg) translateX(-@p) translateY( @p) translateZ(@m);}
+.rotating-cube-UF  {transform: rotateX(90deg) translateX(  0) translateY( @p) translateZ(@m);}
+.rotating-cube-UFR {transform: rotateX(90deg) translateX( @p) translateY( @p) translateZ(@m);}
+.rotating-cube-UL  {transform: rotateX(90deg) translateX(-@p) translateY(  0) translateZ(@m);}
+.rotating-cube-U   {transform: rotateX(90deg) translateX(  0) translateY(  0) translateZ(@m);}
+.rotating-cube-UR  {transform: rotateX(90deg) translateX( @p) translateY(  0) translateZ(@m);}
+.rotating-cube-UBL {transform: rotateX(90deg) translateX(-@p) translateY(-@p) translateZ(@m);}
+.rotating-cube-UB  {transform: rotateX(90deg) translateX(  0) translateY(-@p) translateZ(@m);}
+.rotating-cube-UBR {transform: rotateX(90deg) translateX( @p) translateY(-@p) translateZ(@m);}
+
+.rotating-cube-FUL {transform: translateX(-@p) translateY(-@p) translateZ(@m);}
+.rotating-cube-FU  {transform: translateX(  0) translateY(-@p) translateZ(@m);}
+.rotating-cube-FUR {transform: translateX( @p) translateY(-@p) translateZ(@m);}
+.rotating-cube-FL  {transform: translateX(-@p) translateY(  0) translateZ(@m);}
+.rotating-cube-F   {transform: translateX(  0) translateY(  0) translateZ(@m);}
+.rotating-cube-FR  {transform: translateX( @p) translateY(  0) translateZ(@m);}
+.rotating-cube-FDL {transform: translateX(-@p) translateY( @p) translateZ(@m);}
+.rotating-cube-FD  {transform: translateX(  0) translateY( @p) translateZ(@m);}
+.rotating-cube-FDR {transform: translateX( @p) translateY( @p) translateZ(@m);}
+
+.rotating-cube-BUL {transform: translateX(-@p) translateY(-@p) translateZ(-@m) rotateY(180deg);}
+.rotating-cube-BU  {transform: translateX(  0) translateY(-@p) translateZ(-@m) rotateY(180deg);}
+.rotating-cube-BUR {transform: translateX( @p) translateY(-@p) translateZ(-@m) rotateY(180deg);}
+.rotating-cube-BL  {transform: translateX(-@p) translateY(  0) translateZ(-@m) rotateY(180deg);}
+.rotating-cube-B   {transform: translateX(  0) translateY(  0) translateZ(-@m) rotateY(180deg);}
+.rotating-cube-BR  {transform: translateX( @p) translateY(  0) translateZ(-@m) rotateY(180deg);}
+.rotating-cube-BDL {transform: translateX(-@p) translateY( @p) translateZ(-@m) rotateY(180deg);}
+.rotating-cube-BD  {transform: translateX(  0) translateY( @p) translateZ(-@m) rotateY(180deg);}
+.rotating-cube-BDR {transform: translateX( @p) translateY( @p) translateZ(-@m) rotateY(180deg);}
+
+.rotating-cube-RUF {transform: rotateY(-270deg) translateX(-@p) translateY(-@p) translateZ(@m);}
+.rotating-cube-RU  {transform: rotateY(-270deg) translateX(  0) translateY(-@p) translateZ(@m);}
+.rotating-cube-RUB {transform: rotateY(-270deg) translateX( @p) translateY(-@p) translateZ(@m);}
+.rotating-cube-RF  {transform: rotateY(-270deg) translateX(-@p) translateY(  0) translateZ(@m);}
+.rotating-cube-R   {transform: rotateY(-270deg) translateX(  0) translateY(  0) translateZ(@m);}
+.rotating-cube-RB  {transform: rotateY(-270deg) translateX( @p) translateY(  0) translateZ(@m);}
+.rotating-cube-RDF {transform: rotateY(-270deg) translateX(-@p) translateY( @p) translateZ(@m);}
+.rotating-cube-RD  {transform: rotateY(-270deg) translateX(  0) translateY( @p) translateZ(@m);}
+.rotating-cube-RDB {transform: rotateY(-270deg) translateX( @p) translateY( @p) translateZ(@m);}
+
+.rotating-cube-LUB {transform: rotateY(270deg) translateX(-@p) translateY(-@p) translateZ(@m);}
+.rotating-cube-LU  {transform: rotateY(270deg) translateX(  0) translateY(-@p) translateZ(@m);}
+.rotating-cube-LUF {transform: rotateY(270deg) translateX( @p) translateY(-@p) translateZ(@m);}
+.rotating-cube-LB  {transform: rotateY(270deg) translateX(-@p) translateY(  0) translateZ(@m);}
+.rotating-cube-L   {transform: rotateY(270deg) translateX(  0) translateY(  0) translateZ(@m);}
+.rotating-cube-LF  {transform: rotateY(270deg) translateX( @p) translateY(  0) translateZ(@m);}
+.rotating-cube-LDB {transform: rotateY(270deg) translateX(-@p) translateY( @p) translateZ(@m);}
+.rotating-cube-LD  {transform: rotateY(270deg) translateX(  0) translateY( @p) translateZ(@m);}
+.rotating-cube-LDF {transform: rotateY(270deg) translateX( @p) translateY( @p) translateZ(@m);}
+
+.rotating-cube-DBL {transform: rotateX(-90deg) translateX(-@p) translateY( @p) translateZ(@m);};
+.rotating-cube-DB  {transform: rotateX(-90deg) translateX(  0) translateY( @p) translateZ(@m);};
+.rotating-cube-DBR {transform: rotateX(-90deg) translateX( @p) translateY( @p) translateZ(@m);};
+.rotating-cube-DL  {transform: rotateX(-90deg) translateX(-@p) translateY(  0) translateZ(@m);};
+.rotating-cube-D   {transform: rotateX(-90deg) translateX(  0) translateY(  0) translateZ(@m);};
+.rotating-cube-DR  {transform: rotateX(-90deg) translateX( @p) translateY(  0) translateZ(@m);};
+.rotating-cube-DFL {transform: rotateX(-90deg) translateX(-@p) translateY(-@p) translateZ(@m);};
+.rotating-cube-DF  {transform: rotateX(-90deg) translateX(  0) translateY(-@p) translateZ(@m);};
+.rotating-cube-DFR {transform: rotateX(-90deg) translateX( @p) translateY(-@p) translateZ(@m);};
+
+@keyframes spin {
+	from { transform: rotateX(0deg) rotateY(0deg); }
+	to { transform: rotateX(360deg) rotateY(720deg);}
+}
+
+.rotating-cube {
+	animation: spin 20s infinite linear;
+}
