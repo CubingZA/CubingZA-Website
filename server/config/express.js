@@ -32,6 +32,10 @@ export default function(app) {
     secret: config.secrets.session,
     saveUninitialized: true,
     resave: false,
+    cookie: {
+      secure: env !== 'development' && env !== 'test',
+      sameSite: 'lax'
+    },
     store: MongoStore.create({
       mongoUrl: config.mongoUrl,
       db: 'project'
