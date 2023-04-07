@@ -65,6 +65,9 @@ export function show(req, res) {
 
 // Creates a new Event in the DB
 export function create(req, res) {
+  if (req.body._id !== undefined) {
+    delete req.body._id;
+  }
   return Event.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
