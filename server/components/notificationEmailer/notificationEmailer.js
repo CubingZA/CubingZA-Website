@@ -34,7 +34,7 @@ export default function sendNotificationEmails(comp) {
     
     for (let u in users) {
       let user = users[u];
-        if (user.notificationSettings[province]) {
+        if (user.notificationSettings[province] && user.role !== 'unverified') {
           // User has notification settings turned on for this province
           console.log('Sending email for',user.name, user.email);
                     

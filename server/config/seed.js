@@ -34,7 +34,18 @@ Event.find({}).deleteMany({})
         role: 'user',
         name: 'Test User',
         email: 'test@m.cubingza.org',
-        password: 'test'
+        password: 'test',
+        notificationSettings: {
+          GT: true,
+          MP: false,
+          LM: false,
+          NW: false,
+          FS: false,
+          KZ: false,
+          EC: false,
+          WC: false,
+          NC: false
+        }
       }, {
         provider: 'local',
         role: 'admin',
@@ -46,7 +57,18 @@ Event.find({}).deleteMany({})
         name: 'Unver',
         email: 'unver@m.cubingza.org',
         password: 'unver',
-        verificationToken: '123abc'
+        verificationToken: '123abc',
+        notificationSettings: {
+          GT: true,
+          MP: false,
+          LM: false,
+          NW: false,
+          FS: false,
+          KZ: false,
+          EC: false,
+          WC: false,
+          NC: false
+        }
       })
       .then(() => {
         console.log('finished populating users');
