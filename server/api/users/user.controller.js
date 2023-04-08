@@ -5,6 +5,7 @@ import config from '../../config/environment';
 
 import * as emailService from '../../services/email/email.service';
 
+
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
   return function(err) {
@@ -60,7 +61,7 @@ export function show(req, res, next) {
       if(!user) {
         return res.status(404).end();
       }
-      return res.status(200).json(user.profile);
+      return res.status(200).json(user);
     })
     .catch(err => next(err));
 }
@@ -111,7 +112,7 @@ export function me(req, res, next) {
       if(!user) {
         return res.status(401).end();
       }
-      return res.json(user);
+      return res.status(200).json(user);
     })
     .catch(err => next(err));
 }
@@ -127,7 +128,7 @@ export function getNotifications(req, res, next) {
       if(!user) {
         return res.status(401).end();
       }
-      return res.json(user.notificationSettings);
+      return res.status(200).json(user.notificationSettings);
     })
     .catch(err => next(err));
 }
@@ -167,7 +168,7 @@ export function verify(req, res) {
         user.role = 'user';
         return user.save()
         .then(() => {
-          return res.status(204).json({
+          return res.status(200).json({
             success: true,
             message: 'Message successfully sent'
           });

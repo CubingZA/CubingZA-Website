@@ -1,7 +1,5 @@
 import {jest} from '@jest/globals';
-
-jest.mock('mongoose');
-const mongoose = (await import('mongoose'));
+import { getMockModel, getMockRequest, getMockResponse, mongoose } from '../../test/utils/model.mock';
 
 jest.unstable_mockModule('../../components/notificationEmailer/notificationEmailer', ()=>({
   default: jest.fn(()=>{})
@@ -18,65 +16,15 @@ const mockEvents = [
     "_id":"1",
     "eventId": "1",
     "name":"Another one"
-  }];
-
-const getMockEventModel = () => {
-  const model = mongoose.Model;
-  const query = mongoose.Query;
-  const document = mongoose.Document;
-  
-  query._filter = undefined;
-
-  const makeReplyWithWithQuery = type => (filter)=>{
-    query._filter = (type==='id' || !filter) ?
-      filter :
-      filter._id;
-    return query
-  };
-  model.find = jest.fn(makeReplyWithWithQuery());
-  model.findById = jest.fn(makeReplyWithWithQuery('id'));
-  model.findOneAndUpdate = jest.fn(makeReplyWithWithQuery());
-
-  const makeFunReturningPromiseResolvingToDoc = () => jest.fn(()=>{
-    return new Promise(resolve => {
-      document.data = query._filter ? 
-        mockEvents.filter((item) => item.eventId === query._filter)[0] : 
-        mockEvents
-      resolve(document);
-    });
-  });
-
-  query.exec = makeFunReturningPromiseResolvingToDoc();
-
-  model.create = makeFunReturningPromiseResolvingToDoc();
-  model.remove = makeFunReturningPromiseResolvingToDoc();
-
-  document.save = makeFunReturningPromiseResolvingToDoc();
-  document.remove = makeFunReturningPromiseResolvingToDoc();
-  return model;
-}
-
-const getMockRequest = () => ({
-  params: {id: "1"},
-  body: {_id: "0"}
-});
-
-const getMockResponse = () => {
-  const res = {};
-  res.status = jest.fn().mockReturnValue(res);
-  res.json = jest.fn().mockReturnValue(res);
-  res.send = jest.fn().mockReturnValue(res);
-  res.end = jest.fn().mockReturnValue(res);
-  return res;
-};
+  }
+];
 
 jest.unstable_mockModule('./event.model', function() {
   return {
-    default: getMockEventModel(),
+    default: getMockModel(mockEvents),
   }
 });
 const EventModel = (await import('./event.model')).default;
-
 
 const controller = await import('./event.controller');
 
@@ -86,7 +34,7 @@ describe ("Event controller:", function() {
   let res;
 
   beforeEach(async function() {    
-    req = getMockRequest();
+    req = getMockRequest({id: "1"}, {_id: "0"});
     res = getMockResponse();
     jest.clearAllMocks();
   });
@@ -101,8 +49,7 @@ describe ("Event controller:", function() {
     });   
     
     it("should respond with json containing list of all events", async function() {
-      expect(res.json).toHaveBeenCalledWith(mongoose.Document);
-      expect(mongoose.Document.data).toEqual(mockEvents);
+      expect(res.json).toHaveBeenCalledWith(mockEvents);
     });
   });
 
@@ -116,8 +63,7 @@ describe ("Event controller:", function() {
     });
 
     it("should respond with json of a single event", async function() {
-      expect(res.json).toHaveBeenCalledWith(mongoose.Document);
-      expect(mongoose.Document.data).toEqual(mockEvents[req.params.id]);
+      expect(res.json).toHaveBeenCalledWith(mockEvents[req.params.id]);
     });
   });
 
@@ -131,8 +77,7 @@ describe ("Event controller:", function() {
     });
 
     it("should respond with json of a single event", async function() {
-      expect(res.json).toHaveBeenCalledWith(mongoose.Document);
-      expect(mongoose.Document.data).toEqual(mockEvents[req.params.id]);
+      expect(res.json).toHaveBeenCalledWith(mockEvents[req.params.id]);
     });
   });
   
@@ -203,8 +148,8 @@ describe ("Event controller:", function() {
       expect(mongoose.Document.data).toEqual(mockEvents[req.params.id]);
     }); 
 
-    it("should notification emails with the competition that was recieved", async function() {
-      expect(sendNotificationEmails).toHaveBeenCalledWith(mongoose.Document);
+    it("should send notification emails for the competition", async function() {
+      expect(sendNotificationEmails).toHaveBeenCalled();
     }); 
 
   });

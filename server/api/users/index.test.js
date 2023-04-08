@@ -66,10 +66,10 @@ describe('User API Router:', function() {
     });
   });
 
-  describe('POST /api/users/me/verifications', function() {
+  describe('POST /api/users//me/verifications/send', function() {
     it('should check for unverified user and route to user.controller.sendVerificationEmail', function() {
       expect(routerMock.post)
-        .toHaveBeenCalledWith('/me/verifications', "authService.hasRole.unverified", controller.sendVerificationEmail);
+        .toHaveBeenCalledWith('/me/verifications/send', "authService.hasRole.unverified", controller.sendVerificationEmail);
     });
   });
   

@@ -5,9 +5,14 @@ const nodeEnv = process.env['NODE_ENV'] = process.env['NODE_ENV'] || 'developmen
 const envconfig = (await import(`./${nodeEnv}.config.js`)).default;
 
 // Load dev environment
-if (nodeEnv === 'development' || nodeEnv === 'test') {
-  dotenv.config({path: './config/local.env'});
-}
+switch (nodeEnv) {
+  case 'development':
+    dotenv.config({path: './config/local.env'});
+    break;
+  case 'test':
+    dotenv.config({path: './config/test.env'});
+    break;
+  }
 
 const all = {
   env: process.env.NODE_ENV,

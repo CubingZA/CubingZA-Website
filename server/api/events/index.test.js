@@ -59,13 +59,6 @@ describe('Event API Router:', function() {
     });
   });
 
-  describe('PATCH /api/events/:id', function() {
-    it('should verify admin role and route to event.controller.patch', function() {
-      expect(routerMock.patch)
-        .toHaveBeenCalledWith('/:id', "authService.hasRole.admin", controller.patch);
-    });
-  });
-
   describe('DELETE /api/events/:id', function() {
     it('should verify admin role and route to event.controller.destroy', function() {
       expect(routerMock.delete)

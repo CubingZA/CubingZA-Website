@@ -21,7 +21,9 @@
       "args": [
         "test",
         "--run-in-band",
-        "--watch-all=false"
+        "--watch-all=false",
+        "--coverage",
+        "--detectOpenHandles"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",

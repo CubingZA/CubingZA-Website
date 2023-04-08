@@ -2,5 +2,12 @@
   "setupFiles": [
     "./config/environment"
   ],
-  "transform": {}
+  "transform": {},
+  "collectCoverage": true,
+  "coverageDirectory": "coverage",
+  "coveragePathIgnorePatterns": [
+    "/node_modules/",
+    "/config/",
+    "/coverage/"
+  ]
 }

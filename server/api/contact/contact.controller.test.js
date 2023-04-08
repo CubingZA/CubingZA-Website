@@ -1,18 +1,14 @@
 import {jest} from '@jest/globals';
 
-const mockClient = {
-  messages: {
-    create: jest.fn(()=>{
-      return new Promise(resolve=>{resolve()});
-    })
+// Mock Email service
+jest.unstable_mockModule('../../services/email/email.service', function() {
+  return {
+    send: jest.fn().mockReturnValue(new Promise(resolve => {resolve({})})),
+    validate: jest.fn().mockReturnValue(new Promise(resolve => {resolve({})})),
   }
-};
-jest.mock('mailgun.js', function() {  
-  return jest.fn(()=>({
-    client: jest.fn(()=>mockClient)
-  }))
 });
-const Mailgun = (await import('mailgun.js')).default;
+const emailService = (await import('../../services/email/email.service'));
+
 
 const getMockRequest = () => ({
   body: {
@@ -59,15 +55,14 @@ describe ("Contact controller:", function() {
       expect(res.json.mock.calls[0][0].success).toBe(true);
     });   
     
-    it("should create a Mailgun message", async function() {
+    it("should send an email message", async function() {
       const expectedMessage = {
         from: 'Sender <sender@example.com>', 
         to: 'info@your-mailgun-domain', 
         subject: 'Subject', 
         text: 'Test Message'
       };
-      expect(mockClient.messages.create).toHaveBeenCalledWith(
-        process.env.MAILGUN_DOMAIN,
+      expect(emailService.send).toHaveBeenCalledWith(
         expectedMessage
       );
     });
@@ -89,15 +84,14 @@ describe ("Contact controller:", function() {
       expect(res.json.mock.calls[0][0].success).toBe(true);
     });   
     
-    it("should create a Mailgun message with \"No message\"", async function() {
+    it("should send an email with \"No message\"", async function() {
       const expectedMessage = {
         from: 'Sender <sender@example.com>', 
         to: 'info@your-mailgun-domain', 
         subject: 'Subject', 
         text: 'No message'
       };
-      expect(mockClient.messages.create).toHaveBeenCalledWith(
-        process.env.MAILGUN_DOMAIN,
+      expect(emailService.send).toHaveBeenCalledWith(
         expectedMessage
       );
     });

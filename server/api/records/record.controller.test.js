@@ -1,4 +1,5 @@
 import {jest} from '@jest/globals';
+import { getMockModel, getMockRequest, getMockResponse, mongoose } from '../../test/utils/model.mock';
 
 const mockRecords = [
   {
@@ -6,51 +7,14 @@ const mockRecords = [
     "name":"Test Record 1"
   },
   {
-    "_id":"0",
+    "_id":"1",
     "name":"Another one"
   }];
 
-const getMockRecordModel = () => {
-  const model = {_action: undefined, _filter: undefined};
-  const reply = (filter)=>{model._action = 'find'; model._filter = filter; return model};
-  model.find = jest.fn(reply);
-  model.findById = jest.fn(reply);
-  model.findOneAndUpdate = jest.fn(reply);
-  model.exec = jest.fn(()=>{
-    return new Promise((resolve) => {
-      switch (model._action) {       
-        case 'find':
-          resolve(model._filter ? mockRecords[model._filter.eventId] : mockRecords);
-          break;
-        case 'findById':
-          resolve(mockRecords[model._filter.eventId]);
-          break;
-        case 'findOneAndUpdate':
-          resolve(mockRecords[model._filter.eventId]);
-          break;
-      }
-    });
-  });
-  return model;
-}
-
-const getMockRequest = () => ({
-  params: {id: 1},
-  body: {_id: 0}
-});
-
-const getMockResponse = () => {
-  const res = {};
-  res.status = jest.fn().mockReturnValue(res);
-  res.json = jest.fn().mockReturnValue(res);
-  res.send = jest.fn().mockReturnValue(res);
-  res.end = jest.fn().mockReturnValue(res);
-  return res;
-};
 
 jest.unstable_mockModule('./record.model', function() {
   return {
-    default: getMockRecordModel(),
+    default: getMockModel(mockRecords, "eventId"),
   }
 });
 const Record = (await import('./record.model')).default;
@@ -63,8 +27,9 @@ describe ("Record controller:", function() {
   let res;
 
   beforeEach(async function() {
-    req = getMockRequest();
+    req = getMockRequest({id: "1"}, {_id: "0"});
     res = getMockResponse();
+    jest.clearAllMocks();
   });
 
   describe("Calling controller.index", function () {

@@ -7,7 +7,7 @@ function getClient() {
   return mailgun.client(mailgunConfig.getOptions());
 }
 
-export function send(message, callback) {
+export function send(message) {
   return getClient().messages.create(process.env.MAILGUN_DOMAIN, message);
 }
 
