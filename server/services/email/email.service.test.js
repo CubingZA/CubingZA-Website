@@ -1,6 +1,6 @@
 import {jest} from '@jest/globals';
 
-const messageCreate = jest.fn();
+const messageCreate = jest.fn().mockReturnValue(Promise.resolve({result: 'success'}));
 const validateGet = jest.fn();
 
 // Mock Mailgun
