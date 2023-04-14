@@ -2,13 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { ProvinceSelection } from '../province/province.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+  ) { }
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>('/api/users');
@@ -18,15 +21,12 @@ export class UserService {
     return this.http.get<User>('/api/users/me');
   }
 
-  register(user: NewUser) {
-    return this.http.post('/api/users', user);
-  }
-
   verify(id: string, token: string) {
-    return this.http.post("/api/users/verify", {
+    let request = this.http.post("/api/users/verify", {
       id: id,
       verificationToken: token
-    });
+    })
+    return request;
   }
 
   sendVerification() {
@@ -59,7 +59,8 @@ export class UserService {
   }
 
   deleteUser(id: string) {
-    return this.http.delete(`/api/users/${id}`);
+    let request = this.http.delete(`/api/users/${id}`);
+    return request;
   }
 
 }

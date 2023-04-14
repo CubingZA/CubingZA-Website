@@ -41,6 +41,7 @@ export class VerifyComponent {
     this.userService.verify(this.id, this.token).subscribe({
       next: (res) => {
         console.log("Verification successful");
+        this.authService.updateCurrentUser();
         this.checking = false;
         this.verified = true;
       },

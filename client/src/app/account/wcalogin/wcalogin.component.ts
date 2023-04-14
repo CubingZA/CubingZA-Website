@@ -10,9 +10,9 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class WcaLoginComponent {
   constructor(private cookieService: CookieService, private authService: AuthService) {
     const token: string = this.cookieService.get('wcaToken');
-    if (token) {      
+    if (token) {
       this.cookieService.delete('wcaToken');
     }
-    this.authService.finishWcaLogin(token);
+    this.authService.finishLoginProcess(token);
   }
 }

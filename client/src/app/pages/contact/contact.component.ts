@@ -19,7 +19,7 @@ export class ContactComponent {
     subject: new FormControl('', [Validators.required]),
     message: new FormControl('')
   });
-  
+
   constructor(
     private emailService: EmailService
   ) { }
@@ -28,10 +28,10 @@ export class ContactComponent {
   get email(): FormControl { return this.form.get('email') as FormControl; }
   get subject(): FormControl { return this.form.get('subject') as FormControl; }
   get message(): FormControl { return this.form.get('message') as FormControl; }
-  
+
   submit() {
     console.log(this.form);
-    
+
     const message: EmailMessage = {
       name: this.name.value,
       email: this.email.value,
@@ -49,7 +49,8 @@ export class ContactComponent {
         this.sending = false;
       },
       error: (err) => {
-        this.errors.push(err.error.message);
+        console.log(err);
+        this.errors.push("Error sending message. Please try again later.");
         this.sending = false;
       }
     });

@@ -1,0 +1,25 @@
+<div class="row" *ngIf="isUnverified()">
+  <div class="col-full">
+    <div class="alert alert-warning" role="alert">
+      <p>
+        Your account is not verified. Please check your email for a verification link.
+      </p>  
+      <div *ngIf="emailSending">
+        <p>
+          Sending email.
+        </p>
+      </div>
+      <div *ngIf="emailSent">
+        <p>
+          A new verification email has been sent to {{getEmail()}}.
+        </p>
+      </div>
+      <div *ngIf="!emailSent && !emailSending">
+        <button class="btn btn-warning" (click)="sendVerification()">
+          <span class="icon"><fa-icon [icon]="faEnvelope"/></span>
+          Resend verification email
+        </button>
+      </div>
+
+    </div>
+</div>

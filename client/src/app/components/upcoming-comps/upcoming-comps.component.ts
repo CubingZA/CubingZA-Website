@@ -21,6 +21,8 @@ export class UpcomingCompsComponent {
   faAngleDoubleDown = faAngleDoubleDown;
   faAngleDoubleUp = faAngleDoubleUp;
 
+  error: string = "";
+
   upcomingCompetitions: Competition[];
 
   constructor(private authService: AuthService, private compService: CompetitionService) {
@@ -34,6 +36,16 @@ export class UpcomingCompsComponent {
       next: (data: Competition[]) => {
         this.upcomingCompetitions = data;
         this.expandAll();
+      },
+      error: (err) => {
+        switch (err.status) {
+          case 504:
+            this.error = "Could not fetch upcoming competitions. The server is not responding.";
+            break;
+          default:
+            this.error = "Could not fetch upcoming competitions. Please try again later.";
+            throw err;
+        }
       }
     });
   }

@@ -1,8 +1,14 @@
 <div class="container">
 
-  <div class="row">
+  <h1>Sign Up</h1>
+
+  <div class="row" *ngIf="errors.length > 0">
     <div class="col-full">
-      <h1>Sign Up</h1>
+      <div class="alert alert-danger" role="alert"  *ngFor="let error of errors">
+        <p>
+          {{error}}
+        </p>
+      </div>
     </div>
   </div>
 

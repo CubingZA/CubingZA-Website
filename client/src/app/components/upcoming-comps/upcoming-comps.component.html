@@ -11,6 +11,14 @@
     </div>
   </h2>
 
+  <div *ngIf="error">
+    <div class="alert alert-danger" role="alert">
+      <p>
+        {{error}}
+      </p>
+    </div>
+  </div>
+
   <div *ngFor="let comp of upcomingCompetitions" class="comp-list-card">
     <div class="comp-list-card-header">
       <h3 class="comp-list-card-title" (click)="toggleShowComp(comp, $event)">

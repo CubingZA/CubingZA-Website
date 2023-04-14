@@ -37,6 +37,11 @@ export class LoginComponent {
             case 401:
               this.errors.push("Invalid email or password");
               break;
+            case 504:
+              this.errors.push("Error: Could not connect to server");
+              break;
+            default:
+              this.errors.push("Error: Could not log in");
           }
         }
       });
