@@ -32,3 +32,7 @@ To test the API, run `npm test` from within the `server` directory.
 - [Node.js and npm](nodejs.org) Node >= 4.x.x, npm >= 2.x.x
 - [MongoDB](https://www.mongodb.org/) - Keep a running daemon with `mongod`
 - (Optional) [Angular CLI](https://github.com/angular/angular-cli)
+
+## License
+
+This project is licensed under the terms of the MIT license. See LICENSE for more information, or ror more information about the MIT License, you can visit the [official website](https://opensource.org/license/mit/).
