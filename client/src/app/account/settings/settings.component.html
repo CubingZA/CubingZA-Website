@@ -6,34 +6,36 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="alerts.messages.length > 0 || alerts.errors.length > 0">
     <div class="col-full" *ngIf="alerts">
-      <div *ngFor="let message of alerts.messages" class="alert alert-success">  
+      <div *ngFor="let message of alerts.messages" class="alert alert-success">
         {{message}}
       </div>
-      <div *ngFor="let error of alerts.errors" class="alert alert-danger">  
+      <div *ngFor="let error of alerts.errors" class="alert alert-danger">
         {{error}}
       </div>
     </div>
   </div>
 
+  <app-unverified-warning/>
+
   <div class="row">
     <div class="col-full" *ngIf="isLocalUser()">
 
-      <h3>
-        Change Password
-      </h3>
-
       <form class="form" name="form" (submit)="changePassword()" [formGroup]="passwordForm">
+
+        <h3>
+          Change Password
+        </h3>
 
         <div class="form-group" [ngClass]="{
           'has-error': oldPassword.invalid && oldPassword.touched,
           'has-success': oldPassword.valid && oldPassword.touched
         }">
           <label for="oldPassword">Current password</label>
-          <input type="password" id="oldPassword" name="oldPassword" class="form-control" 
+          <input type="password" id="oldPassword" name="oldPassword" class="form-control"
             formControlName="oldPassword" autocomplete="new-password" />
-          <div *ngIf="oldPassword.invalid && oldPassword.touched" class="help-block">
+          <div *ngIf="oldPassword.invalid && oldPassword.touched" class="alert alert-danger">
             Current password is required.
           </div>
         </div>
@@ -43,12 +45,12 @@
           'has-success': password.valid && password.touched
         }">
           <label for="password">New password</label>
-          <input type="password" id="password" name="password" class="form-control" 
+          <input type="password" id="password" name="password" class="form-control"
             formControlName="password" autocomplete="new-password" />
-          <div *ngIf="password.errors && password.errors['required'] && password.touched" class="help-block">
+          <div *ngIf="password.errors && password.errors['required'] && password.touched" class="alert alert-danger">
             New password is required.
           </div>
-          <div *ngIf="password.errors && password.errors['minlength'] && password.touched" class="help-block">
+          <div *ngIf="password.errors && password.errors['minlength'] && password.touched" class="alert alert-danger">
             Password must be at least 6 characters.
           </div>
         </div>
@@ -58,12 +60,12 @@
           'has-success': confirmPassword.valid && confirmPassword.touched
         }">
           <label for="confirmPassword">Confirm new password</label>
-          <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" 
+          <input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
             formControlName="confirmPassword" autocomplete="new-password" />
-          <div *ngIf="confirmPassword.invalid && confirmPassword.touched" class="help-block">
+          <div *ngIf="confirmPassword.invalid && confirmPassword.touched" class="alert alert-danger">
             Confirm password is required.
           </div>
-          <div *ngIf="passwordForm.errors && passwordForm.errors['passwordMismatch'] && confirmPassword.touched" class="help-block">
+          <div *ngIf="passwordForm.errors && passwordForm.errors['passwordMismatch'] && confirmPassword.touched" class="alert alert-danger">
             Passwords do not match.
           </div>
         </div>

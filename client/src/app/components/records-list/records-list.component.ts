@@ -8,12 +8,25 @@ import { RecordService, Record } from 'src/app/services/record/record.service';
 })
 export class RecordsListComponent {
 
+  error: string = "";
   records: Record[] = [];
 
-  constructor(private recordService: RecordService) { 
-    this.recordService.getRecords().subscribe((records) => {
-      records.sort((a, b) => a.eventRank - b.eventRank);
-      this.records = records;
+  constructor(private recordService: RecordService) {
+    this.recordService.getRecords().subscribe({
+      next: (records) => {
+        records.sort((a, b) => a.eventRank - b.eventRank);
+        this.records = records;
+      },
+      error: (err) => {
+        switch (err.status) {
+          case 504:
+            this.error = "Could not fetch records. The server is not responding.";
+            break;
+          default:
+            this.error = "Could not fetch records. Please try again later.";
+            throw err;
+        }
+      }
     });
   }
 

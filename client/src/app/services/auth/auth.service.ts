@@ -47,7 +47,7 @@ export class AuthService {
       return true;
     } else {
       const decodedJWT = this.getDecodedJWT();
-      if (decodedJWT && decodedJWT.role !== 'unverified') {
+      if (decodedJWT && decodedJWT.role && decodedJWT.role !== 'unverified') {
         return true;
       }
     }
@@ -64,7 +64,22 @@ export class AuthService {
       }
     }
     return false;
-  }      
+  }
+
+  register(user: NewUser, errorCb: (err: any)=>void): Observable<Token> {
+    const registerAttempt = this.http.post<Token>('/api/users', user);
+
+    registerAttempt.subscribe({
+      next: (data: Token) => {
+        this.finishLoginProcess(data.token);
+      },
+      error: (error) => {
+        errorCb(error);
+      }
+    });
+
+    return registerAttempt;
+  }
 
   login(loginDetails: LoginDetails): Observable<Token> {
     const loginAttempt = this.http.post<Token>('/auth/local', loginDetails);
@@ -78,7 +93,9 @@ export class AuthService {
       error: (error) => {
         switch (error.status) {
           case 401:
-            break;
+            break; // Invalid email or password, handled in component
+          case 504:
+            break; // Server timeout, handled in component
           default:
             console.log(error);
             throw new Error("Error logging in");
@@ -149,6 +166,6 @@ export type LoginDetails = {
   password: string;
 }
 
-type Token = {
+export type Token = {
   "token": string;
 }

@@ -2,13 +2,7 @@
 
   <h1>Configure Competition Notifications</h1>
 
-  <div *ngIf="!hasVerifiedEmail()">
-    <div class="row">
-      <div class="alert alert-info">
-        You must verify your email address before you can configure notifications. Check your email for a verification link.
-      </div>
-    </div>
-  </div>
+  <app-unverified-warning/>
 
   <div *ngIf="hasVerifiedEmail()">
     <div class="row">

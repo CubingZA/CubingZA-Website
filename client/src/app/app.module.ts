@@ -36,6 +36,7 @@ import { RecordsListComponent } from './components/records-list/records-list.com
 import { ProvinceMapComponent } from './components/province-map/province-map.component';
 import { ProvinceListComponent } from './components/province-list/province-list.component';
 import { CompEditBoxComponent } from './components/comp-edit-box/comp-edit-box.component';
+import { UnverifiedWarningComponent } from './components/unverified-warning/unverified-warning.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { CompEditBoxComponent } from './components/comp-edit-box/comp-edit-box.c
     FooterComponent,
     ProvinceListComponent,
     ModalComponent,
-    CompEditBoxComponent
+    CompEditBoxComponent,
+    UnverifiedWarningComponent
   ],
   imports: [
     BrowserModule,

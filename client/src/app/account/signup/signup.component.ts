@@ -3,9 +3,10 @@ import { AbstractControl, AsyncValidator, FormControl, FormGroup, ValidationErro
 import { Observable, of, catchError, map } from 'rxjs';
 import { faUserPlus, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { AuthService, Token } from 'src/app/services/auth/auth.service';
 import { EmailCheckService } from 'src/app/services/email/email-check.service';
 import { PasswordMatchValidator } from '../password.validator';
+import { NewUser } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -30,7 +31,7 @@ export class SignupComponent {
     confirmPassword: new FormControl('', [Validators.required]),
   }, [PasswordMatchValidator()]);
 
-  errors: any = {};
+  errors: string[] = [];
   mailgunError: boolean = false;
   submitted: boolean = false;
 
@@ -74,8 +75,25 @@ export class SignupComponent {
   }
 
   register() {
-    console.log(this.form);
-    console.log(this.email);
+    this.errors = [];
+    let user: NewUser = {
+      name: this.name.value,
+      email: this.email.value,
+      password: this.password.value
+    };
+    this.authService.register(user, (error) => {
+      switch (error.status) {
+        case 504:
+          this.errors.push("Could not connect to the server. Please try again later.");
+          break;
+        case 422:
+          this.errors.push(error.error.message);
+          break;
+        default:
+          this.errors.push("An unknown error occurred. Please try again later.");
+          break;
+      }
+    });
   }
 
   wcaLogin() {
@@ -100,31 +118,7 @@ class EmailCheckValidator implements AsyncValidator {
     this.inProgress = true;
 
     let errors = this.emailCheckService.checkEmail(control.value);
-    console.log("About to call");
     console.log(control);
-
-    // errors.subscribe({
-    //   next: (response) => {
-    //     this.inProgress = false;
-    //     if (response.did_you_mean) {
-    //       this.emailCheckService.setDidYouMean(response.did_you_mean);
-    //     }
-    //     else {
-    //       this.emailCheckService.setDidYouMean();
-    //     }
-    //     return response.valid ? null : { check_failed: true };
-    //   },
-    //   error: (error) => {
-    //     if (error.status === 429) {
-    //       // We hit the rate limit
-    //       // assume another request is in progress and allow that to complete
-    //       this.inProgress = false;
-    //     }
-    //     return of(null);
-    //   }
-    // });
-
-    // return errors;
 
     return errors.pipe(
       map(response => {

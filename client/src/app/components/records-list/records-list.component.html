@@ -1,7 +1,13 @@
 <div class="record-list-container">
   <h2>South African Records</h2>
 
-  <table class="record-table">
+  <div class="alert alert-danger" role="alert" *ngIf="error">
+    <p>
+      {{error}}
+    </p>
+  </div>
+
+  <table class="record-table" *ngIf="!error">
     <thead>
       <tr>
         <th class="table-single" colspan="2"><h3>Single</h3></th>

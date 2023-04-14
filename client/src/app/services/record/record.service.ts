@@ -10,12 +10,7 @@ export class RecordService {
   constructor(private http: HttpClient) { }
 
   getRecords() {
-    return this.http.get<Record[]>('/api/records')
-    .pipe(
-      catchError((error) => {
-        throw new Error("Error getting records");
-      })
-    );
+    return this.http.get<Record[]>('/api/records');
   }
 }
 

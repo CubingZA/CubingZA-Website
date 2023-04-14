@@ -1,20 +1,22 @@
 <div class="container">
-  <div *ngIf="checking" class="alert-info">
+  <h1>Verify Email Address</h1>
+
+  <div *ngIf="checking" class="alert alert-info">
     Verifying your email address. Please wait.
   </div>
-  <div *ngIf="!checking && !verified" class="alert-danger">
+  <div *ngIf="!checking && !verified" class="alert alert-danger">
     Your email address could not be verified.
     <span>
-      <button *ngIf="isLoggedIn() && !emailSent" class="btn btn-danger" (click)="sendVerification()">Resend verification email</button>   
-      <span *ngIf="emailSent">Verification email has been resent.</span>   
+      <button *ngIf="isLoggedIn() && !emailSent" class="btn btn-danger" (click)="sendVerification()">Resend verification email</button>
+      <span *ngIf="emailSent">Verification email has been resent.</span>
     </span>
-  <div>
-
-  <div *ngIf="!verified">
-    Having trouble? <a class="btn btn-default" routerLink="/contact">Contact Us</a>.  
   </div>
 
-  <div *ngIf="!checking && verified" class="alert-success">
+  <div *ngIf="!verified">
+    Having trouble? <a class="btn btn-default" routerLink="/contact">Contact Us</a>.
+  </div>
+
+  <div *ngIf="verified" class="alert alert-success">
     Thank you. Your email address has been verified.
   </div>
 </div>
