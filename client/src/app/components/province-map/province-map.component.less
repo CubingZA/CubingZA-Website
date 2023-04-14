@@ -1,3 +1,5 @@
+@import url('src/app/styles/variables.less');
+
 .province-map-container {
   margin: 0 auto;
   width: 100%;
@@ -9,19 +11,19 @@
 }
 
 .province {
-  fill: lightgray; 
-  stroke: white; 
+  fill: @default-color-dark;
+  stroke: white;
   stroke-linejoin: bevel;
 }
 
 .province:hover {
-  fill: darkgray; 
+  fill: @info-color-soft;
 }
 
 .province.active {
-  fill: green; 
+  fill: @primary-color-dark;
 }
 
 .province.active:hover {
-  fill: lime; 
+  fill: @primary-color-bright;
 }

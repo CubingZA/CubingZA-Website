@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { faRightToBracket, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { AuthService, LoginDetails } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -8,6 +9,9 @@ import { AuthService, LoginDetails } from 'src/app/services/auth/auth.service';
   styleUrls: ['./login.component.less']
 })
 export class LoginComponent {
+
+  faUserPlus = faUserPlus;
+  faRightToBracket = faRightToBracket;
 
   form = new FormGroup({
     email: new FormControl("", [Validators.required]),

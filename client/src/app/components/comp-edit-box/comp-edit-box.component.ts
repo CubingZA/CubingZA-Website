@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { faCloudArrowUp, faBan } from '@fortawesome/free-solid-svg-icons';
+
 import { Competition, CompetitionService } from 'src/app/services/competition/competition.service';
 import { ProvinceService } from 'src/app/services/province/province.service';
 
@@ -10,7 +12,9 @@ import { ProvinceService } from 'src/app/services/province/province.service';
 })
 export class CompEditBoxComponent {
 
-  // @Input() competition: Competition | undefined;
+  faCloudArrowUp = faCloudArrowUp;
+  faBan = faBan;
+
   private _competition: Competition;
 
   @Input() set competition(comp: Competition) {
@@ -36,6 +40,8 @@ export class CompEditBoxComponent {
 
   @Input() saveFn: (comp: Competition)=>void = ()=>{};
   @Input() closeFn: ()=>void = ()=>{};
+
+  @Input() title: string = 'Edit Competition';
   
   form: FormGroup = new FormGroup({
     compName: new FormControl('', [Validators.required]),

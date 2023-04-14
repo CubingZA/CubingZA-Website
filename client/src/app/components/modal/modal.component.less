@@ -1,0 +1,109 @@
+@import url('../../styles/variables.less');
+
+app-modal {
+  .modal {
+    /* modal container fixed across whole screen */
+    position: fixed;
+    inset: 0;
+
+    /* z-index must be higher than everything else on the page */
+    z-index: 10000;
+
+    /* semi-transparent black background exposed by padding */
+    background-color: rgba(0, 0, 0, .65);
+    padding: 4em;
+    @media screen and (max-width: @small-screen) {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+
+    /* enables scrolling for tall modals */
+    overflow: auto;
+
+    * {
+      box-sizing: border-box;
+    }
+  }
+
+  .modal-popup {
+    display: block;
+    background: #fff;
+    border-radius: 1em;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+
+    border: 1px solid black;
+    box-shadow: 0 0 20px rgba(0, 0, 0);
+    
+    @media screen and (max-width: @small-screen) {
+      width: 100%;
+    }
+
+    .modal-close-button {
+      position: relative;
+      float: right;
+      top: 0.8em;
+      right: 1em;
+      text-align: right;
+      width: 100%;
+      color: @default-text-color-highlight;
+
+      button {
+        border: none;
+        background: none;
+        color: inherit;
+        font-size: large;
+        cursor: pointer;
+      }
+    }
+
+    .modal-header {
+      padding: 0em 1em 0.8em 1em;
+      margin: 0;
+      font-size: 110%;
+      border-bottom: 1px solid #ccc;
+      
+      &.modal-default {
+        background-color: @default-color;
+        color: @default-text-color-highlight;
+      }
+
+      &.modal-primary {
+        background-color: @primary-color;
+        color: @primary-text-color-highlight;
+      }
+
+      &.modal-success {
+        background-color: @success-color;
+        color: @success-text-color-highlight;
+      }
+
+      &.modal-info {
+        background-color: @info-color;
+        color: @info-text-color-highlight;
+      }
+
+      &.modal-warning {
+        background-color: @warning-color;
+        color: @warning-text-color-highlight;
+      }
+
+      &.modal-danger {
+        background-color: @danger-color;
+        color: @danger-text-color-highlight;
+      }
+    }
+
+    .modal-body {
+      padding: 1em;
+    }
+
+  }
+
+}
+
+body.has-open-modal {
+  overflow: hidden;
+}

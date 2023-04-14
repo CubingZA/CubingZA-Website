@@ -1,12 +1,16 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewEncapsulation } from '@angular/core';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { ModalService } from './modal.service';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.less']
+  styleUrls: ['./modal.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ModalComponent {
+
+  faXmark = faXmark;
 
   @Input() id?: string;
   isOpen = false;
@@ -36,10 +40,12 @@ export class ModalComponent {
 
   open() {
     this.isOpen = true;
+    document.body.classList.add('has-open-modal');
   }
 
   close() {
     this.isOpen = false;
+    document.body.classList.remove('has-open-modal');
   }
 
 }

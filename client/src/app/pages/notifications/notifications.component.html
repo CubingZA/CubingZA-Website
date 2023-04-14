@@ -1,11 +1,7 @@
 <div class="container notifications-page">
 
-  <div class="row">
-    <div class="col-full">
-      <h1>Configure Competition Notifications</h1>
-    </div>
-  </div>
-  
+  <h1>Configure Competition Notifications</h1>
+
   <div *ngIf="!hasVerifiedEmail()">
     <div class="row">
       <div class="alert alert-info">
@@ -31,16 +27,25 @@
         <div>
           <app-province-list/>
         </div>
-        <div>
-          <div class="alert alert-warning" *ngIf="isUnsaved()">
-            <strong>Notifications have not been saved</strong>
-          </div>      
-          <button class="btn btn-primary btn-block" (click)="saveSelection()">
-            <span *ngIf="!hasSelection()">Disable</span> 
-            <span *ngIf="hasSelection()">Save</span> 
-            Notifications
+        <div class="alert alert-warning" *ngIf="isUnsaved()">
+          <strong>Notifications have not been saved</strong>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-warning" *ngIf="hasSelection()" (click)="clearSelection()">
+            <span class="icon"><fa-icon [icon]="faXmark"/></span>
+            Clear selection
           </button>
-          <button class="btn btn-default btn-block" (click)="resetSelection()">
+          <button class="btn btn-primary" *ngIf="!hasSelection()" (click)="saveSelection()">
+            <span class="icon"><fa-icon [icon]="faBellSlash"/></span>
+            Disable Notifications
+          </button>
+          <button class="btn btn-primary" *ngIf="hasSelection()" (click)="saveSelection()">
+            <span class="icon"><fa-icon [icon]="faCloudArrowUp"/></span>
+            Save Notifications
+          </button>
+          <button class="btn btn-default" *ngIf="isUnsaved()" (click)="resetSelection()">
+            <span class="icon"><fa-icon [icon]="faArrowsRotate"/></span>
             Reset Changes
           </button>
         </div>

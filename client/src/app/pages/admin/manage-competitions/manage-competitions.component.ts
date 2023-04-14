@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { faPlus, faEdit, faTrash, faEnvelope, faBan, faPaperPlane, faLocationDot, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { faMap } from '@fortawesome/free-regular-svg-icons';
+
 import { ModalService } from 'src/app/components/modal/modal.service';
 import { Competition, CompetitionService } from 'src/app/services/competition/competition.service';
 
@@ -9,10 +12,21 @@ import { Competition, CompetitionService } from 'src/app/services/competition/co
 })
 export class ManageCompetitionsComponent {
 
+  faPlus = faPlus;
+  faEdit = faEdit;
+  faTrash = faTrash;
+  faEnvelope = faEnvelope;
+  faBan = faBan;
+  faPaperPlane = faPaperPlane;
+  faLocationDot = faLocationDot;
+  faMap = faMap;
+  faCalendar = faCalendar;
+
   competitions: Competition[] = [];
   selectedCompetition: Competition;
   searchFilter: string = "";
   today: Date;
+  editModalTitle: string = "";
 
   constructor(
     private compService: CompetitionService,
@@ -37,8 +51,8 @@ export class ManageCompetitionsComponent {
 
   getFilteredCompetitions() {
     const searchFilter = this.searchFilter.toLowerCase();
-    
-    let comps = this.competitions.filter(comp => 
+
+    let comps = this.competitions.filter(comp =>
       comp.name.toLowerCase().includes(searchFilter) ||
       comp.address.toLowerCase().includes(searchFilter) ||
       comp.venue?.toLowerCase().includes(searchFilter) ||
@@ -47,7 +61,7 @@ export class ManageCompetitionsComponent {
       comp.registrationName.toLowerCase().includes(searchFilter)
     );
 
-    comps.sort(function (a, b) {      
+    comps.sort(function (a, b) {
       return a.startDate > b.startDate ? -1 : 1;
     });
 
@@ -59,15 +73,14 @@ export class ManageCompetitionsComponent {
   }
 
   startAddCompetition() {
-    console.log("Add competition");
     this.selectedCompetition = this.compService.getBlankCompetition();
+    this.editModalTitle = "Add Competition";
     this.modalService.open("comp-edit-modal");
   }
 
   startEditCompetition(comp: Competition) {
-    console.log("Edit competition: " + comp.name);
-    
     this.selectedCompetition = comp;
+    this.editModalTitle = "Edit Competition";
     this.modalService.open("comp-edit-modal");
   }
 

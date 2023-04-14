@@ -28,14 +28,7 @@ yarn-error.log
 .history/*
 
 # Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-/public
+client/.angular/cache
 coverage/
 .tmp
 

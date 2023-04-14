@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faXmark, faCloudArrowUp, faArrowsRotate, faBellSlash } from '@fortawesome/free-solid-svg-icons';
 import { ProvinceService, ProvinceSelection } from '../../services/province/province.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -8,6 +9,11 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./notifications.component.less']
 })
 export class NotificationsComponent {
+
+  faXmark = faXmark;
+  faCloudArrowUp = faCloudArrowUp;
+  faArrowsRotate = faArrowsRotate;
+  faBellSlash = faBellSlash;
 
   constructor(
     private provinceService: ProvinceService,
@@ -22,6 +28,10 @@ export class NotificationsComponent {
 
   getSelection() {
     return this.provinceService.getProvinceSelection();
+  }
+
+  clearSelection() {
+    this.provinceService.unselectAll();
   }
 
   saveSelection() {

@@ -8,8 +8,8 @@ export const AdminRoutes: Routes = [
     path: '',     
     canActivate: [AdminGuard],
     children: [
-      { path: 'users', component: ManageUsersComponent },
-      { path: 'competitions', component: ManageCompetitionsComponent },
+      { path: 'users', component: ManageUsersComponent, title: 'CubingZA - User Admin' },
+      { path: 'competitions', component: ManageCompetitionsComponent, title: 'CubingZA - Competition Admin' },
       { path: '', redirectTo: 'users', pathMatch: 'full' }
     ]
   }, 

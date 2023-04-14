@@ -92,7 +92,7 @@ export class AuthService {
   logout() {
     this.cookies.delete('token');
     this.currentUser = undefined;
-    this.router.navigate(['/']);
+    window.location.reload();
   }
 
   startWcaLogin() {    
