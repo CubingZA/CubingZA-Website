@@ -377,4 +377,4 @@ describe ("User controller:", function() {
     });
   });
   
-})
+});

@@ -47,7 +47,7 @@ export function create(req, res) {
       });
       return res.status(201).json({ token });
     })
-    .catch(validationError(res));
+    .catch(validationError(res, 400));
 }
 
 /**
