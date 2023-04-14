@@ -4,13 +4,13 @@ import { ManageCompetitionsComponent } from './manage-competitions/manage-compet
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 
 export const AdminRoutes: Routes = [
-  { 
-    path: '',     
+  {
+    path: '',
     canActivate: [AdminGuard],
     children: [
       { path: 'users', component: ManageUsersComponent, title: 'CubingZA - User Admin' },
       { path: 'competitions', component: ManageCompetitionsComponent, title: 'CubingZA - Competition Admin' },
       { path: '', redirectTo: 'users', pathMatch: 'full' }
     ]
-  }, 
+  },
 ];
