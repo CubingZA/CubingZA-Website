@@ -13,5 +13,8 @@ export function send(message, errCallback) {
 }
 
 export function validate(email) {
-  return getClient().validate.get(email);
+  if (process.env.MAILGUN_VERIFY_EMAIL === "true") {
+    return getClient().validate.get(email);
+  }
+  return Promise.resolve({result: 'unchecked'});
 }
