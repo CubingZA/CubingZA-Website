@@ -1,0 +1,157 @@
+@import url('src/app/styles/variables.less');
+
+.comp-manage-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  max-width: @small-screen;
+  margin: 0 auto;
+
+  .form {
+    width: 50%;
+    height: 100%;
+    * { margin: 0; }
+  }
+
+  .add-button-label, .icon {
+    @media screen and (max-width: @extra-small-screen) {
+      display: none;
+    }
+  }
+  .small-screen-label {
+    display: none;
+    @media screen and (max-width: @extra-small-screen) {
+      display: block;
+
+    }
+  }
+
+}
+
+.comp-list{
+  * {
+    box-sizing: border-box;
+  }
+
+  max-width: @small-screen;
+  margin: 0 auto;
+  padding: 0;
+
+  .label-past {
+    padding: 0.3em 0.6em;
+    margin-right: 1em;
+    border-radius: 0.3em;
+    background-color: @info-color-soft;
+    color: @info-text-color;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+
+  .comp-list-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    h4 {
+      font-size: 1.4em;
+      font-weight: normal;
+      margin: 0 0 0.3em 0;
+    }
+
+    .comp-info-controls {
+      display: flex;
+      flex-direction: row;
+      justify-content: right;
+      height: min-content;
+      padding: 0;
+      margin: 0;
+
+      button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 0 0.3em;
+        font-size: larger;
+
+        &.btn-default {
+          color: @default-color;
+          &:hover {
+            color: @default-color-light;
+          }
+        }
+        &.btn-primary {
+          color: @primary-color;
+          &:hover {
+            color: @primary-color-light;
+          }
+        }
+        &.btn-info {
+          color: @info-color;
+          &:hover {
+            color: @info-color-light;
+          }
+        }
+        &.btn-success {
+          color: @success-color;
+          &:hover {
+            color: @success-color-light;
+          }
+        }
+        &.btn-warning {
+          color: @warning-color;
+          &:hover {
+            color: @warning-color-light;
+          }
+        }
+        &.btn-danger {
+          color: @danger-color;
+          &:hover {
+            color: @danger-color-light;
+          }
+        }
+      }
+    }
+  }
+
+  .list-group-item {
+    list-style: none;
+    border-left: 0.3em solid transparent;
+    border-right: 0.3em solid transparent;
+    border-bottom: 1px solid @border-color-soft;
+    border-radius: 0.5em;
+
+    &:first-child  {
+      border-top: 1px solid @border-color-soft;
+    }
+
+    &:hover {
+      border-left: 0.3em solid @info-color;
+      border-right: 0.3em solid @info-color;
+    }
+
+    .past-event {
+      color: @text-color-muted;
+    }
+
+    .comp-info {
+      margin: 0;
+      padding: 1em;
+
+      .comp-info-element {
+        min-height: 2em;
+
+        .comp-list-icon {
+          float: left;
+          height: 100%;
+          text-align: center;
+          font-size: 120%;
+          width: 2em;
+          margin-right: 0.5em;
+        }
+      }
+    }
+  }
+}

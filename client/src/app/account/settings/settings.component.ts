@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { faKey } from '@fortawesome/free-solid-svg-icons';
+
 import { UserService, User, Alerts } from 'src/app/services/user/user.service';
 import { PasswordMatchValidator } from '../password.validator';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -10,6 +12,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./settings.component.less']
 })
 export class SettingsComponent {
+
+  faKey = faKey;
 
   alerts: Alerts = {
     errors: [],

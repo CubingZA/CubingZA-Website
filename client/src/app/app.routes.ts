@@ -9,11 +9,11 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 
 export const AppRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'privacy', component: PrivacyComponent },
-  { path: 'notifications', canActivate: [AuthGuard], component: NotificationsComponent },
-  { path: 'contact', component: ContactComponent },
+  { path: '', component: HomeComponent, title: 'CubingZA - Home' },
+  { path: 'about', component: AboutComponent, title: 'CubingZA - About' },
+  { path: 'privacy', component: PrivacyComponent, title: 'CubingZA - Privacy Policy' },
+  { path: 'notifications', canActivate: [AuthGuard], component: NotificationsComponent, title: 'CubingZA - Notifications' },
+  { path: 'contact', component: ContactComponent, title: 'CubingZA - Contact Us' },
   ...AccountRoutes,
   {
     path: 'admin',

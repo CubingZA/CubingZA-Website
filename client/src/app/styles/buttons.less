@@ -1,0 +1,199 @@
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+
+  border-radius: 0.6em;
+  border: 1px solid #ccc;
+
+  text-decoration: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+
+  width: fit-content;
+
+  height: 2.5em;
+  padding: 0 1em;
+  margin: 0.5em;
+
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #e6e6e6;
+  }
+
+  img, .icon {
+    display: inline-block;
+    border-right: 1px solid #ccc;
+  }
+
+  img {
+    height: 1.5em;
+    margin-right: 0.5em;
+    padding-right: 1.5em;
+  }
+
+  .icon {
+    font-size: 0.8em;
+    margin-right: 1.5em;
+    padding-right: 0em;
+    fa-icon {
+      position: relative;
+      left: -0.3em;
+      margin: 0;
+      padding: 0 ;
+    }
+  }
+
+  fa-icon {
+    float:left;
+    height: 100%;
+    text-align: center;
+    font-size: 150%;
+    width: 2em;
+  }
+
+  img::after {
+    padding: 0 1em;
+  }
+
+  &.btn-large {
+    // font-size: 1.5em;
+    height: 4em;
+    padding: 0 1.5em;
+
+    img, icon {
+      height: 2.5em;
+    }
+  }
+
+  &.btn-small {
+    // font-size: 0.8em;
+    height: 1.5em;
+    padding: 0 0.5em 0 0.5em;
+
+    img, fa-icon {
+      height: 1em;
+    }
+  }
+
+
+  &.btn-default {
+    background-color: @default-color;
+    border: 1px solid @border-color-soft;
+    color: @default-text-color;
+    &:hover {
+      color: @link-color;
+      background-color: @default-color-dark;
+    }
+    &:disabled {
+      border: 1px solid @border-color-soft;
+      background-color: @default-color-disabled;
+      color: @default-text-color-disabled;
+    }
+  }
+
+  &.btn-primary {
+    background-color: @primary-color;
+    border: none;
+    color: @primary-text-color-light;
+    &:hover {
+      color: @primary-text-color-highlight;
+      background-color: @primary-color-dark;
+    }
+    &:disabled {
+      background-color: @primary-color-disabled;
+      color: @primary-text-color-disabled;
+    }
+  }
+
+  &.btn-info {
+    background-color: @info-color;
+    border: none;
+    color: @info-text-color-light;
+    &:hover {
+      color: @info-text-color-highlight;
+      background-color: @info-text-color-disabled;
+    }
+    &:disabled {
+      background-color: @info-color-disabled;
+      color: @info-text-color-disabled;
+    }
+  }
+
+  &.btn-success {
+    background-color: @success-color;
+    border: none;
+    color: @success-text-color-light;
+    &:hover {
+      color: @success-text-color-highlight;
+      background-color: @success-color-dark;
+    }
+    &:disabled {
+      background-color: @success-color-disabled;
+      color: @success-text-color-disabled;
+    }
+  }
+
+  &.btn-warning {
+    background-color: @warning-color;
+    border: none;
+    color: @warning-text-color-light;
+    &:hover {
+      color: @warning-text-color-highlight;
+      background-color: @warning-color-dark;
+    }
+    &:disabled {
+      background-color: @warning-color-disabled;
+      color: @warning-text-color-disabled;
+    }
+  }
+
+  &.btn-danger {
+    background-color: @danger-color;
+    border: none;
+    color: @danger-text-color-light;
+    &:hover {
+      color: @danger-text-color-highlight;
+      background-color: @danger-color-dark;
+    }
+    &:disabled {
+      background-color: @danger-color-disabled;
+      color: @danger-text-color-disabled;
+    }
+  }
+
+  &:disabled {
+    border: none;
+    cursor: not-allowed;
+  }
+}
+
+.btn-group {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0.3em 0.5em;
+
+  width: 100%;
+
+  .btn {
+    width: 100%;
+    text-align: center;
+    margin: 0.2em 0;
+  }
+}
+
+.btn-group-horizontal {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: left;
+  justify-content: center;
+
+  .btn {
+    margin: 0 0.5em;
+  }
+}

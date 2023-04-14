@@ -13,12 +13,12 @@
 
   width: (3/2 * @facesize);
   height: (1.9 * @facesize);
-  
+
   perspective: 9*@facesize;
   perspective-origin: (0) (0 - @facesize*2);
-  
-  transform: translateX(0) translateY(@m); 
-  
+
+  transform: translateX(0) translateY(@m);
+
   margin: 0 auto;
 }
 
@@ -27,19 +27,19 @@
   width: @facesize;
   transform-style: preserve-3d;
 
-  transform-origin: @x @y; 
+  transform-origin: @x @y;
 }
 
 .rotating-cube div {
 	position: absolute;
-	width: @piecesize - 3px;
-	height: @piecesize - 3px;
+	width: @piecesize + 3px;
+	height: @piecesize + 3px;
 
   box-shadow: inset 0 0 @n rgba(96,96,96,0.8);
   border: 3px solid black;
   border-radius: 6px;
   margin: 30px;
-  
+
   backface-visibility: hidden;
 }
 

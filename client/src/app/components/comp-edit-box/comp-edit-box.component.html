@@ -1,61 +1,69 @@
-<h4>Edit Competition</h4>
+<h4 class="modal-header modal-primary">{{title}}</h4>
 
-<form class="comp-edit-form" [formGroup]="form">
-  <div class="form-group">
-    <label for="compname">Name</label>
-    <input type="text" class="form-control" 
-      placeholder="Competition Name" formControlName="compName" />
-  </div>
-  <div class="form-group">
-    <label for="compname">WCA ID</label>
-    <input type="text" class="form-control" 
-      placeholder="Competition ID" formControlName="registrationName" />
-  </div>
-  <div class="form-group">
-    <label for="compname">Venue</label>
-    <input type="text" class="form-control" 
-      placeholder="Venue" formControlName="venue" />
-  </div>
-  <div class="form-group">
-    <label for="compname">Address</label>
-    <input type="text" class="form-control" 
-      placeholder="Address" formControlName="address" />
-  </div>
-  <div class="form-group">
-    <label for="compname">City</label>
-    <input type="text" class="form-control" 
-      placeholder="City" formControlName="city" />
-  </div>
-  <div class="form-group">
-    <label for="compname">Province</label>
-    <select class="form-control" formControlName="province" placeholder="Province">
-      <option *ngFor="let province of getProvinces()" value="{{province}}">
-        {{province}}
-      </option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="compname">Start Date</label>
-    <input type="date" class="form-control" 
-      placeholder="Start Date" formControlName="startDate" />
-  </div>
-  <div class="form-group">
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" formControlName="multiDay" /> 
-        Multi-day competition
-      </label>
+<div class="modal-body">
+  <form class="form comp-edit-form" [formGroup]="form">
+    <div class="form-group">
+      <label for="compname">Name</label>
+      <input type="text" class="form-control"
+        placeholder="Competition Name" formControlName="compName" />
     </div>
-  </div>
-  <div class="form-group" *ngIf="multiDay.value">
-    <label for="compname">End Date</label>
-    <input type="date" class="form-control" 
-      placeholder="End Date" formControlName="endDate" />
-  </div>
-  
-  <div class="form-group">  
-    <button (click)="handleOK()" type="button" [disabled]="!form.valid">Save</button>
-    <button (click)="close()" type="button">Cancel</button>
-  </div>
+    <div class="form-group">
+      <label for="compname">WCA ID</label>
+      <input type="text" class="form-control"
+        placeholder="Competition ID" formControlName="registrationName" />
+    </div>
+    <div class="form-group">
+      <label for="compname">Venue</label>
+      <input type="text" class="form-control"
+        placeholder="Venue" formControlName="venue" />
+    </div>
+    <div class="form-group">
+      <label for="compname">Address</label>
+      <input type="text" class="form-control"
+        placeholder="Address" formControlName="address" />
+    </div>
+    <div class="form-group">
+      <label for="compname">City</label>
+      <input type="text" class="form-control"
+        placeholder="City" formControlName="city" />
+    </div>
+    <div class="form-group">
+      <label for="compname">Province</label>
+      <select class="form-control" formControlName="province" placeholder="Province">
+        <option *ngFor="let province of getProvinces()" value="{{province}}">
+          {{province}}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="compname">Start Date</label>
+      <input type="date" class="form-control"
+        placeholder="Start Date" formControlName="startDate" />
+    </div>
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" formControlName="multiDay" />
+          Multi-day competition
+        </label>
+      </div>
+    </div>
+    <div class="form-group" *ngIf="multiDay.value">
+      <label for="compname">End Date</label>
+      <input type="date" class="form-control"
+        placeholder="End Date" formControlName="endDate" />
+    </div>
 
-</form>
+    <div class="btn-group-horizontal">
+      <button class="btn btn-primary" (click)="handleOK()" type="button" [disabled]="!form.valid">
+        <span class="icon"><fa-icon [icon]="faCloudArrowUp"/></span>
+        Save
+      </button>
+      <button class="btn btn-default" (click)="close()" type="button">
+        <span class="icon"><fa-icon [icon]="faBan"/></span>
+        Cancel
+      </button>
+    </div>
+
+  </form>
+</div>

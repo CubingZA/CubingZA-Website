@@ -1,0 +1,154 @@
+@import url('src/app/styles/variables.less');
+
+.user-count-box {
+  text-align: left;
+  font-size: 0.9em;
+  padding: 0.4em 0.8em;
+}
+
+.user-list-container {
+  width: 100%;
+  overflow: auto;
+}
+
+.user-list-table {
+
+  border-spacing: 0;
+
+  * {
+    background: none;
+  }
+
+  th {
+    text-align: left;
+    font-size: 1.1em;
+    font-weight: 200;
+    padding: 1em 0.5em;
+
+    border-bottom: 1px solid @border-color-soft;
+    border-top: 1px solid @border-color-soft;
+  }
+
+  .user-list-row {
+    td {
+      vertical-align: top;
+      border-bottom: 1px solid @border-color-soft;
+
+      &.long-text-cell {
+        max-width: 30%;
+        font-size: 0.9em;
+      }
+
+    }
+
+    .user-info-control-cell {
+      width: 2em;
+      min-width: 2em;
+    }
+
+    &:nth-child(even) {
+      background-color: @default-color-light;
+    }
+
+    .user-info-controls {
+
+      display: none;
+
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        &.btn-default {
+          color: @default-color;
+          &:hover {
+            color: @default-color-light;
+          }
+        }
+        &.btn-primary {
+          color: @primary-color;
+          &:hover {
+            color: @primary-color-light;
+          }
+        }
+        &.btn-info {
+          color: @info-color;
+          &:hover {
+            color: @info-color-light;
+          }
+        }
+        &.btn-success {
+          color: @success-color;
+          &:hover {
+            color: @success-color-light;
+          }
+        }
+        &.btn-warning {
+          color: @warning-color;
+          &:hover {
+            color: @warning-color-light;
+          }
+        }
+        &.btn-danger {
+          color: @danger-color;
+          &:hover {
+            color: @danger-color-light;
+          }
+        }
+
+      }
+    }
+
+    td:first-child{
+      border-top-left-radius : 0.5em;
+      border-bottom-left-radius : 0.5em;
+      border-left: 0.3em solid transparent;
+    }
+    td:last-child{
+      border-top-right-radius : 0.5em;
+      border-bottom-right-radius : 0.5em;
+      border-right: 0.3em solid transparent;
+    }
+
+    &:hover {
+      td:first-child{
+        border-left: 0.3em solid @info-color;
+      }
+      td:last-child{
+        border-right: 0.3em solid @info-color;
+      }
+
+      background-color: @info-color-softer;
+
+      .user-info-controls {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        margin: 0.5em 0 0 0;
+      }
+    }
+
+    .user-info-element {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      height: 100%;
+      padding: 0.5em;
+
+      @media screen and (max-width: @small-screen) {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        font-size: 0.9em;
+      }
+
+      .additional-info {
+        font-size: 0.9em;
+        color: @text-color-muted;
+        padding-left: 0.5em;
+      }
+    }
+  }
+
+}

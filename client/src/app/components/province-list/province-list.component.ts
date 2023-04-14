@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 import { ProvinceService, ProvinceSelection } from 'src/app/services/province/province.service';
 
 @Component({
@@ -7,6 +8,8 @@ import { ProvinceService, ProvinceSelection } from 'src/app/services/province/pr
   styleUrls: ['./province-list.component.less']
 })
 export class ProvinceListComponent {
+
+  faCircleMinus = faCircleMinus;
 
   constructor(private provinceService: ProvinceService) { }
 

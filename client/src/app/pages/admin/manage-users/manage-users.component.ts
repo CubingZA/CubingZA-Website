@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { faTrash, faBan } from '@fortawesome/free-solid-svg-icons';
+
 import { ModalService } from 'src/app/components/modal/modal.service';
 import { ProvinceSelection, ProvinceService } from 'src/app/services/province/province.service';
 import { User, UserService } from 'src/app/services/user/user.service';
@@ -9,6 +11,9 @@ import { User, UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./manage-users.component.less']
 })
 export class ManageUsersComponent {
+
+  faTrash = faTrash;
+  faBan = faBan;
 
   users: User[] = [];
   searchFilter: string = "";
@@ -36,7 +41,7 @@ export class ManageUsersComponent {
     });
   }
 
-  getProvinceString(user: User): string {    
+  getProvinceString(user: User): string {
     const keys = Object.keys(user.notificationSettings).filter(
       (key) => user.notificationSettings[key as keyof ProvinceSelection]
     );
@@ -60,11 +65,18 @@ export class ManageUsersComponent {
     });
     users.sort((a,b) => {
       // Need to handle the case of a missing name
-      if (!a.name || !b.name) { return 0; }      
+      if (!a.name || !b.name) { return 0; }
       return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
     });
     return users;
   }
+
+  hasProvinces(user: User): boolean {
+    return Object.keys(user.notificationSettings).some(
+      (key) => user.notificationSettings[key as keyof ProvinceSelection]
+    );
+  }
+
 
   closeConfirmDeleteModal() {
     this.confirmDeletingUser = null;
@@ -88,6 +100,7 @@ export class ManageUsersComponent {
         }
       });
     }
+    this.closeConfirmDeleteModal();
   }
 
 }

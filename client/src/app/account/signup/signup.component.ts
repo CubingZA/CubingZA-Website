@@ -1,6 +1,8 @@
 import { Component, Injectable } from '@angular/core';
 import { AbstractControl, AsyncValidator, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Observable, of, catchError, map } from 'rxjs';
+import { faUserPlus, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { EmailCheckService } from 'src/app/services/email/email-check.service';
 import { PasswordMatchValidator } from '../password.validator';
@@ -12,12 +14,15 @@ import { PasswordMatchValidator } from '../password.validator';
 })
 export class SignupComponent {
 
+  faUserPlus = faUserPlus;
+  faRightToBracket = faRightToBracket;
+
   showManualSignup: boolean = false;
-  
+
   form: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', {
-      validators: [Validators.required, Validators.email], 
+      validators: [Validators.required, Validators.email],
       asyncValidators: [this.emailCheckValidator.validate.bind(this.emailCheckValidator)],
       updateOn: 'blur'
     }),
@@ -30,7 +35,7 @@ export class SignupComponent {
   submitted: boolean = false;
 
   constructor(
-    private emailCheckService: EmailCheckService, 
+    private emailCheckService: EmailCheckService,
     private emailCheckValidator: EmailCheckValidator,
     private authService: AuthService
   ) { }
@@ -46,7 +51,7 @@ export class SignupComponent {
 
   checkPasswords() {
     console.log(this.email);
-    
+
     if (this.password.value != this.confirmPassword.value) {
       return true;
     }
@@ -72,7 +77,7 @@ export class SignupComponent {
     console.log(this.form);
     console.log(this.email);
   }
-  
+
   wcaLogin() {
     this.errors = [];
     this.authService.startWcaLogin();
@@ -85,21 +90,21 @@ class EmailCheckValidator implements AsyncValidator {
   private inProgress = false;
 
   constructor(private emailCheckService: EmailCheckService) { }
-  
+
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
-    
+
     if (this.inProgress) {
       return of(null);
     }
 
     this.inProgress = true;
-    
+
     let errors = this.emailCheckService.checkEmail(control.value);
     console.log("About to call");
     console.log(control);
-    
+
     // errors.subscribe({
-    //   next: (response) => {        
+    //   next: (response) => {
     //     this.inProgress = false;
     //     if (response.did_you_mean) {
     //       this.emailCheckService.setDidYouMean(response.did_you_mean);
@@ -118,9 +123,9 @@ class EmailCheckValidator implements AsyncValidator {
     //     return of(null);
     //   }
     // });
-    
-    // return errors;   
-    
+
+    // return errors;
+
     return errors.pipe(
       map(response => {
         this.inProgress = false;

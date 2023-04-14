@@ -1,0 +1,55 @@
+@import url('../../styles/variables.less');
+
+.province-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid @border-color-soft;
+  margin-bottom: 1em;
+
+  .province-list-header {
+    padding: 0.5em 1em;
+
+    h3 {
+      font-size: 1.2em;
+      font-weight: normal;
+    }
+  }
+
+  .province-list-item {
+    border: none;
+    border-top: 1px solid @border-color-soft;
+    background-color: inherit;
+
+    font-size: 1em;
+    color: @text-color;
+    padding: 0.5em 1em;
+  }
+
+  button {
+    cursor: pointer;
+    .province-list-item-icon {
+      display: none;
+    }
+
+    &.clear-all {
+      padding: 1em;
+      text-align: left;
+      font-size: 1.1em;
+    }
+
+    &:hover {
+      background-color: @danger-color-soft;
+      color: @danger-text-color;
+
+      .province-list-item-icon {
+        display: block;
+        float:right;
+        right: 2em;
+        color: @danger-text-color;
+      }
+    }
+
+
+  }
+
+}

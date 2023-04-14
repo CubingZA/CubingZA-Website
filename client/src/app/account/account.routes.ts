@@ -8,11 +8,11 @@ import { WcaLoginComponent } from './wcalogin/wcalogin.component';
 import { VerifyComponent } from './verify/verify.component';
 
 export const AccountRoutes: Routes = [
-  { path: 'signup', canActivate: [LoginGuard], component: SignupComponent }, 
-  { path: 'login', canActivate: [LoginGuard], component: LoginComponent,
+  { path: 'signup', canActivate: [LoginGuard], component: SignupComponent, title: 'CubingZA - Sign Up' },
+  { path: 'login', canActivate: [LoginGuard], component: LoginComponent, title: 'CubingZA - Log In',
     children: [
-      { path: 'wca', component: WcaLoginComponent } 
+      { path: 'wca', component: WcaLoginComponent, title: 'CubingZA - Logging you in' }
     ]},
-  { path: 'settings', canActivate: [AuthGuard], component: SettingsComponent },
-  { path: 'verify/:id', component: VerifyComponent },
+  { path: 'settings', canActivate: [AuthGuard], component: SettingsComponent, title: 'CubingZA - Settings' },
+  { path: 'verify/:id', component: VerifyComponent, title: 'CubingZA - Verifying' },
 ];

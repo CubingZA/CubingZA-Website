@@ -46,6 +46,11 @@ export class ProvinceService {
     };
   }
 
+  unselectAll() {
+    this.unsavedChanges = true;
+    this.currentSelection = this.getBlankSelection();
+  }
+
   getProvinceSelection(): ProvinceSelection {
     return this.currentSelection;
   }
