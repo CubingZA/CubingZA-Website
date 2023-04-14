@@ -235,7 +235,6 @@ function sendVerificationEmailHelper(user) {
 
   return emailService.send(message)
     .then(body=>{
-      console.log("Verification email sent to " + user.email);
       return true;
     })
     .catch(err=>{
