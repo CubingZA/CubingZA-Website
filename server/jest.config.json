@@ -1,0 +1,13 @@
+{
+  "setupFiles": [
+    "./config/environment"
+  ],
+  "transform": {},
+  "collectCoverage": true,
+  "coverageDirectory": "coverage",
+  "coveragePathIgnorePatterns": [
+    "/node_modules/",
+    "/config/",
+    "/coverage/"
+  ]
+}

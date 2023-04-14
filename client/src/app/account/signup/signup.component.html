@@ -1,0 +1,116 @@
+<div class="container">
+
+  <h1>Sign Up</h1>
+
+  <div class="row" *ngIf="errors.length > 0">
+    <div class="col-full">
+      <div class="alert alert-danger" role="alert"  *ngFor="let error of errors">
+        <p>
+          {{error}}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-full">
+      <button class="btn btn-default btn-large center-block" (click)="wcaLogin();">
+        <img src="assets/images/WCAlogo_notext.svg" class="btn-icon-image">
+        <span>Sign up using your WCA account</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="strike"><span>OR</span></div>
+
+  <div class="row" *ngIf="!showManualSignup">
+    <div class="col-full">
+      <button class="btn btn-default btn-large center-block" (click)="setShowManualSignup();">
+        <span>I don't have a WCA account</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="showManualSignup">
+    <div class="col-full">
+
+      <form class="form" name="form" (submit)="register()" [formGroup]="form">
+        <h3>
+          Create a local CubingZA account
+        </h3>
+
+        <div class="form-group" [ngClass]="{
+          'has-error': name.invalid && name.touched,
+          'has-success': name.valid && name.touched
+        }">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" class="form-control" formControlName="name"/>
+          <div *ngIf="name.invalid && name.touched" class="alert alert-danger">
+            Name is required.
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{
+          'has-error': email.invalid && email.touched,
+          'has-success': email.valid && email.touched
+        }">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" name="email" formControlName="email"/>
+          <div *ngIf="email.errors && email.errors['required'] && email.touched" class="alert alert-danger">
+            An email address is required.
+          </div>
+          <div *ngIf="email.errors && email.errors['email'] && email.touched" class="alert alert-danger">
+            Please check your email address.
+          </div>
+          <div *ngIf="email.errors && email.errors['check_failed'] && email.touched" class="alert alert-danger">
+            The email address does not appear to be a deliverable address.
+          </div>
+          <div *ngIf="hasDidYouMean() && email.touched" class="alert alert-danger">
+            <b>Did you mean:</b> <a class="contact-did-you-mean" href
+            (click)="useDidYouMean($event)">{{getDidYouMean()}}</a>?
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{
+          'has-error': password.invalid && password.touched,
+          'has-success': password.valid && password.touched
+        }">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" formControlName="password"/>
+          <div *ngIf="password.errors && password.errors['required'] && password.touched" class="alert alert-danger">
+            Password is required.
+          </div>
+          <div *ngIf="password.errors && password.errors['minlength'] && password.touched" class="alert alert-danger">
+            Password must be at least {{password.errors['minlength']['requiredLength']}} characters.
+          </div>
+
+        </div>
+
+        <div class="form-group" [ngClass]="{
+          'has-error': form.errors && form.errors['passwordMismatch'] && confirmPassword.touched,
+          'has-success': !form.errors && confirmPassword.touched
+        }">
+          <label for="confirmPassword">Confirm password</label>
+          <input type="password" class="form-control" name="confirmPassword" formControlName="confirmPassword"/>
+          <div *ngIf="form.errors && form.errors['passwordMismatch'] && confirmPassword.touched" class="alert alert-danger">
+            Passwords must match.
+          </div>
+        </div>
+
+        <div class="btn-group-horizontal">
+          <button class="btn btn-primary btn-lg btn-register" type="submit" [disabled]="!form.valid">
+            <span class="icon"><fa-icon [icon]="faUserPlus"/> </span>
+            Sign up
+          </button>
+          <a class="btn btn-default btn-lg" routerLink="/login" href>
+            <span class="icon"><fa-icon [icon]="faRightToBracket"/> </span>
+            Go to log in
+          </a>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>

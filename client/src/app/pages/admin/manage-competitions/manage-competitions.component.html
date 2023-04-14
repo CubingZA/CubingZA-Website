@@ -1,0 +1,122 @@
+<div class="container">
+  <h1>Manage Competitions</h1>
+
+  <div class="row">
+    <div class="comp-manage-controls">
+      <div>
+        <button (click)="startAddCompetition()" class="btn btn-primary">
+          <span class="icon"><fa-icon [icon]="faPlus"/></span>
+          <span class="add-button-label">Add Competition</span>
+          <span class="small-screen-label"><fa-icon [icon]="faPlus"/></span>
+        </button>
+      </div>
+      <div class="form">
+        <div class="form-group has-feedback">
+          <label class="sr-only control-label" for="compsearch">Search</label>
+          <input type="text" class="form-control" id="compsearch" placeholder="Search competitions" [(ngModel)]="searchFilter">
+          <i class="glyphicon glyphicon-search form-control-feedback"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul class="list-group comp-list">
+    <li class="list-group-item" *ngFor="let comp of getFilteredCompetitions()">
+      <div class="comp-info" [ngClass]="{'past-event': isOld(comp)}">
+
+        <div class="comp-list-header">
+          <h4>
+            <span class="label label-danger label-past" *ngIf="isOld(comp)"> Past </span>
+            {{comp.name}}
+          </h4>
+
+          <div class="comp-info-controls">
+            <button *ngIf="!isOld(comp)" (click)="startEditCompetition(comp)" class="info-control btn-primary">
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </button>
+            <button *ngIf="!isOld(comp) && !comp.notificationsSent" (click)="startSendNotifications(comp)" class="info-control btn-warning">
+              <fa-icon [icon]="faPaperPlane"></fa-icon>
+            </button>
+            <button (click)="startDeleteCompetition(comp)" class="info-control btn-danger">
+              <fa-icon [icon]="faTrash"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="comp-info-element">
+          <span class="comp-list-icon"><fa-icon [icon]="faLocationDot" /></span>
+          {{comp.venue}}<br>
+          <span class="text-muted small">{{comp.address}}</span>
+        </div>
+        <div class="comp-info-element">
+          <span class="comp-list-icon"><fa-icon [icon]="faMap" /></span>
+          {{comp.city}}, <strong>{{comp.province}}</strong>
+        </div>
+        <div class="comp-info-element">
+          <span class="comp-list-icon"><fa-icon [icon]="faCalendar" /></span>
+          {{comp.startDate | date : 'EEE, d MMM yyyy'}}
+          <span *ngIf="comp.endDate > comp.startDate"> - {{comp.endDate | date : 'EEE, d MMM yyyy'}}</span>
+        </div>
+
+      </div>
+    </li>
+  </ul>
+
+</div>
+
+<app-modal id="comp-edit-modal">
+  <app-comp-edit-box
+    [competition]="selectedCompetition"
+    [saveFn]="saveCompetition.bind(this)"
+    [closeFn]="closeEditModal.bind(this)"
+    [title]="editModalTitle"
+  />
+</app-modal>
+
+<app-modal id="comp-delete-confirm-modal">
+  <h4 class="modal-header modal-danger">Delete</h4>
+  <div class="modal-body">
+    <div>
+      Are you sure you want to delete
+      <strong>{{selectedCompetition.name}}</strong>
+      permanently?
+    </div>
+    <div>
+      <br/>This action cannot be undone.
+    </div>
+    <br/>
+    <div class="btn-group-horizontal center-block">
+      <button class="btn btn-danger" (click)="deleteSelectedCompetition()">
+        <span class="icon"><fa-icon [icon]="faTrash"></fa-icon></span>
+        Delete
+      </button>
+      <button class="btn btn-default" (click)="closeConfirmDeleteModal()">
+        <span class="icon"><fa-icon [icon]="faBan"></fa-icon></span>
+        Cancel
+      </button>
+    </div>
+  </div>
+</app-modal>
+
+<app-modal id="comp-send-notifications-modal">
+  <h4 class="modal-header modal-warning">Confirm notifications send</h4>
+  <div class="modal-body">
+    <div>
+      Are you sure you want to send an announcement email
+      for <strong>{{selectedCompetition.name}}</strong> to
+      all users who have enabled notifications
+      for <strong>{{selectedCompetition.province}}</strong>?
+    </div>
+    <br/>
+    <div class="btn-group-horizontal center-block">
+      <button class="btn btn-warning" (click)="sendNotifications()">
+        <span class="icon"><fa-icon [icon]="faPaperPlane"></fa-icon></span>
+        Send
+      </button>
+      <button class="btn btn-default" (click)="closeSendNotificationsModal()">
+        <span class="icon"><fa-icon [icon]="faBan"></fa-icon></span>
+        Cancel
+      </button>
+    </div>
+  </div>
+</app-modal>

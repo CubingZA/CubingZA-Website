@@ -1,0 +1,78 @@
+@import url('@cubing/icons/www/css/cubing-icons.css');
+@import url('../../styles/variables.less');
+
+.record-list-container {
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.record-table {
+  width: 100%;
+  max-width: 100%;
+
+  .event-name {
+    padding-left: 0.4em;
+    @media screen and (max-width: @extra-small-screen) {
+      display: none;
+    }
+  }
+
+  .cubing-icon {
+    @media screen and (max-width: @extra-small-screen) {
+      font-size: 150%;
+    }
+    @media screen and (min-width: @medium-screen) {
+      font-size: 150%;
+    }
+  }
+
+  a {
+    color: @text-color;
+    text-decoration: none;
+
+    &:hover {
+      color: @link-color-hover;
+    }
+  }
+
+  td {
+    padding: 0.2em 0 0.3em 0;
+    // width: 20%;
+    @media screen and (max-width: @extra-small-screen) {
+      padding: 0.2em 0.5em 0.3em 0.5em;
+      font-size: small;
+    }
+  }
+
+  tr:nth-child(even) {
+    background-color: @background-color-highlight;
+  }
+
+  tr:nth-child(1) {
+    background: none;
+  }
+
+  th {
+    // padding: 0.2em 0;
+    margin: 0 auto;
+    background: none;
+
+    h3 {
+      font-weight: normal;
+      font-size: 1.5em;
+      margin: 0;
+      padding-bottom: 1em;
+    }
+  }
+
+  .table-single {
+    text-align: right;
+  }
+  .table-average {
+    text-align: left;
+  }
+  .table-middle {
+    text-align: center;
+  }
+}

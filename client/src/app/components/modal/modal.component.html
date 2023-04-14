@@ -1,0 +1,8 @@
+<div class="modal" *ngIf="isOpen">
+  <div class="modal-popup">
+    <div class="modal-close-button">
+      <button (click)="close()"><fa-icon [icon]="faXmark"/></button>
+    </div>
+    <ng-content></ng-content>
+  </div>
+</div>
