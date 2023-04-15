@@ -79,7 +79,7 @@ UserSchema
     return this.constructor.findOne({ email: value }).exec()
       .then(user => {
         if(user) {
-          return (this.id === user.id) 
+          return (this.id === user.id)
         }
         else {
           return true;
