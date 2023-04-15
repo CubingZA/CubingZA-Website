@@ -54,7 +54,7 @@ export function upcoming(req, res) {
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
-  
+
 // Gets a single Event from the DB
 export function show(req, res) {
   return Event.findById(req.params.id).exec()
@@ -92,7 +92,7 @@ export function destroy(req, res) {
 }
 
 // Send notifications for an event
-export function sendNotifications(req, res) {  
+export function sendNotifications(req, res) {
   return Event.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(comp => {
@@ -102,6 +102,5 @@ export function sendNotifications(req, res) {
       return {message: 'success'};
     })
    .then(respondWithResult(res))
-   .catch((something) => console.log(something))
    .catch(handleError(res));
 }
