@@ -74,7 +74,7 @@ export function signToken(id, role) {
  */
 export function setTokenCookie(req, res) {
   if(!req.auth) {
-    return res.status(404).send('It looks like you aren\'t logged in, please try again.');
+    return res.status(403).send('It looks like you aren\'t logged in, please try again.');
   }
   var token = signToken(req.auth._id, req.auth.role);
   res.cookie('token', token);
