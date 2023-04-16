@@ -1,7 +1,7 @@
 import {jest} from '@jest/globals';
 import mockingoose from 'mockingoose';
-import { getMockRequest, getMockResponse } from '../test/utils/model.mock';
-
+import { Request } from 'jest-express/lib/request';
+import { Response } from 'jest-express/lib/response';
 
 jest.mock('jsonwebtoken', () => {
   return {
@@ -47,8 +47,10 @@ describe('Auth Service', () => {
   let next;
 
   beforeEach(() => {
-    req = getMockRequest();
-    res = getMockResponse();
+    req = new Request();
+    req.setBody({});
+    req.auth = {};
+    res = new Response();
     next = jest.fn();
     jest.clearAllMocks();
     mockingoose.resetAll();

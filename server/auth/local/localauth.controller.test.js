@@ -1,7 +1,8 @@
 import {jest} from '@jest/globals';
 import mockingoose from 'mockingoose';
 import config from '../../config/environment';
-import { getMockRequest, getMockResponse } from '../../test/utils/model.mock';
+import { Request } from 'jest-express/lib/request';
+import { Response } from 'jest-express/lib/response';
 
 jest.unstable_mockModule('../auth.service', function() {
   return {
@@ -19,6 +20,7 @@ const mockUser = {
   name: "Test Person",
   email: "test@example.com",
   role: "user",
+  provider: "local",
   password: "secure-password"
 };
 
@@ -29,8 +31,10 @@ describe('Local Auth Controller', () => {
   let next;
 
   beforeEach(() => {
-    req = getMockRequest();
-    res = getMockResponse();
+    req = new Request();
+    req.setBody({});
+    req.auth = {};
+    res = new Response();
     next = jest.fn();
     jest.clearAllMocks();
     mockingoose.resetAll();

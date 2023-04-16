@@ -1,6 +1,8 @@
 import {jest} from '@jest/globals';
 import mockingoose from 'mockingoose';
-import { getMockRequest, getMockResponse } from '../../test/utils/model.mock';
+import { Request } from 'jest-express/lib/request';
+import { Response } from 'jest-express/lib/response';
+
 
 const Record = (await import('./record.model')).default;
 const controller = (await import('./record.controller'));
@@ -36,8 +38,9 @@ describe ("Record controller:", function() {
   let res;
 
   beforeEach(async function() {
-    req = getMockRequest();
-    res = getMockResponse();
+    req = new Request();
+    req.setBody({});
+    res = new Response();
     jest.clearAllMocks();
     mockingoose.resetAll();
   });

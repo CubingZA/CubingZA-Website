@@ -1,6 +1,7 @@
 import {jest} from '@jest/globals';
 import mockingoose from 'mockingoose';
-import { getMockRequest, getMockResponse } from '../../test/utils/model.mock';
+import { Request } from 'jest-express/lib/request';
+import { Response } from 'jest-express/lib/response';
 
 // Mock notificationEmailer
 jest.unstable_mockModule('../../components/notificationEmailer/notificationEmailer', ()=>({
@@ -39,8 +40,9 @@ describe ("Event controller:", function() {
   let res;
 
   beforeEach(async function() {
-    req = getMockRequest();
-    res = getMockResponse();
+    req = new Request();
+    req.setBody({});
+    res = new Response();
     jest.clearAllMocks();
     mockingoose.resetAll();
   });
