@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { faXmark, faCloudArrowUp, faArrowsRotate, faBellSlash } from '@fortawesome/free-solid-svg-icons';
-import { ProvinceService, ProvinceSelection } from '../../services/province/province.service';
+
+import { ProvinceService } from '../../services/province/province.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({

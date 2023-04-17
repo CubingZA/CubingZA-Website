@@ -14,6 +14,9 @@ describe('ModalComponent', () => {
 
     fixture = TestBed.createComponent(ModalComponent);
     component = fixture.componentInstance;
+
+    component.id = 'test';
+
     fixture.detectChanges();
   });
 

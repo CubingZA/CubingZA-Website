@@ -25,7 +25,10 @@ export class UpcomingCompsComponent {
 
   upcomingCompetitions: Competition[];
 
-  constructor(private authService: AuthService, private compService: CompetitionService) {
+  constructor(
+    private authService: AuthService,
+    private compService: CompetitionService
+  ) {
     this.upcomingCompetitions = [];
     this.updateUpcomingCompetitions();
   }

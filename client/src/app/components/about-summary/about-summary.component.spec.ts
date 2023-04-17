@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RotatingCubeComponent } from 'src/app/components/rotating-cube/rotating-cube.component';
 
 import { AboutSummaryComponent } from './about-summary.component';
 
@@ -8,7 +9,8 @@ describe('AboutSummaryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AboutSummaryComponent ]
+      imports: [],
+      declarations: [ AboutSummaryComponent, RotatingCubeComponent ]
     })
     .compileComponents();
 
