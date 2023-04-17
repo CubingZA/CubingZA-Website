@@ -27,8 +27,7 @@ function wcaAuthenticate(User, accessToken, done) {
       return User.findOne({
         email: wcaProfile.email.toLowerCase(),
         provider: 'wca'
-      })
-      .exec()
+      }).exec()
       .then(user => {
         if(!user) {
           // User does not exist, need to create
@@ -55,8 +54,8 @@ function wcaAuthenticate(User, accessToken, done) {
       });
     })
     .catch(err => {
-      return done(err);      
-    }); 
+      return done(err);
+    });
 }
 
 export function setup(User, config) {

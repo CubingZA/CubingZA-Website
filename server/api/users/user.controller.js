@@ -73,8 +73,12 @@ export function show(req, res, next) {
  */
 export function destroy(req, res) {
   return User.findByIdAndRemove(req.params.id).exec()
-    .then(function() {
-      return res.status(204).end();
+    .then(function(user) {
+      if(!user) {
+        return res.status(404).end();
+      } else {
+        return res.status(204).end();
+      }
     })
     .catch(handleError(res));
 }
@@ -151,7 +155,7 @@ export function saveNotifications(req, res) {
         .then(() => {
           return res.status(204).end();
         })
-        .catch(err => next(err));
+        .catch(err => handleError(err));
     });
 }
 
@@ -176,7 +180,7 @@ export function verify(req, res) {
         })
         .catch(err => {
           console.log('Error saving user', err);
-          next(err)
+          handleError(err)
         });
       } else {
         console.log('Incorrect token for user', userId)
@@ -185,7 +189,7 @@ export function verify(req, res) {
     })
     .catch(err => {
       console.log('Error finding user', err);
-      res.status(500).json({
+      return res.status(500).json({
         success: false,
         message: 'Could not verify user'
       })
