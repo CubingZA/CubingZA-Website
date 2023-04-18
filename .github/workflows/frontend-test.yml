@@ -1,4 +1,4 @@
-name: API Test
+name: Front End Test
 
 on: [push, pull_request]
 
@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./server
+        working-directory: ./client
 
     steps:
     - uses: actions/checkout@v3
@@ -18,11 +18,11 @@ jobs:
         node-version: 18
         registry-url: https://registry.npmjs.org/
 
-    - name: Cache API node modules
+    - name: Cache front end node modules
       id: cache-npm
       uses: actions/cache@v3
       env:
-        cache-name: cache-api-node-modules
+        cache-name: cache-front-end-node-modules
       with:
         # npm cache files are stored in `~/.npm` on Linux/macOS
         path: ~/.npm
@@ -41,4 +41,4 @@ jobs:
       run: npm ci
 
     - name: Test
-      run: npm test
+      run: npm run test:ci
