@@ -23,11 +23,11 @@ export class ModalComponent {
   ngOnInit() {
     this.modalService.add(this);
     const nativeElement = this.element.nativeElement;
-    
+
     document.body.appendChild(nativeElement);
 
     nativeElement.addEventListener('click', (el: any) => {
-      if (el.target.className === 'modal') {
+      if (el.target.className === 'modal-background-overlay') {
         this.close();
       }
     });
