@@ -5,6 +5,7 @@ import { faKey } from '@fortawesome/free-solid-svg-icons';
 import { UserService, User, Alerts } from 'src/app/services/user/user.service';
 import { PasswordMatchValidator } from '../password.validator';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { AlertsService } from 'src/app/components/alerts/alerts.service';
 
 @Component({
   selector: 'app-settings',
@@ -15,11 +16,6 @@ export class SettingsComponent {
 
   faKey = faKey;
 
-  alerts: Alerts = {
-    errors: [],
-    messages: [],
-  }
-
   passwordForm: FormGroup = new FormGroup({
     oldPassword: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -28,7 +24,8 @@ export class SettingsComponent {
 
   constructor(
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private alerts: AlertsService
   ) { }
 
   get oldPassword(): FormControl { return this.passwordForm.get('oldPassword') as FormControl; }
@@ -44,10 +41,13 @@ export class SettingsComponent {
     return this.authService.isLocalUser();
   }
 
+  isWCAUser(): boolean {
+    return this.authService.isWCAUser();
+  }
+
   changePassword() {
-    this.alerts.errors = [];
-    this.alerts.messages = [];
-    this.userService.changePassword(this.oldPassword.value, this.password.value, this.alerts);
-  } 
+    this.alerts.clear()
+    this.userService.changePassword(this.oldPassword.value, this.password.value);
+  }
 
 }

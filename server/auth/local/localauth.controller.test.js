@@ -44,7 +44,7 @@ describe('Local Auth Controller', () => {
 
     describe('with missing credentials', () => {
 
-      it("should return a 404", async () => {
+      it("should respond with 401 Unauthorized", async () => {
         mockingoose(User).toReturn(null, 'findOne');
         controller.authenticate(req, res, next);
         expect(res.status).toHaveBeenCalledWith(401);

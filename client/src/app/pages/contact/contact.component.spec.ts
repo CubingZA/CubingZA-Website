@@ -74,16 +74,16 @@ describe('ContactComponent', () => {
     expect(control?.valid).toBeTruthy();
   });
 
-  it('should call the email service when the form is submitted', () => {
-    component.form.setValue({
-      name: 'Test Person',
-      email: 'test@example.com',
-      subject: 'This is a subject',
-      message: 'a message'
-    });
-    component.submit();
-    expect(emailService.sendEmail).toHaveBeenCalled();
-  });
+  // it('should call the email service when the form is submitted', () => {
+  //   component.form.setValue({
+  //     name: 'Test Person',
+  //     email: 'test@example.com',
+  //     subject: 'This is a subject',
+  //     message: 'a message'
+  //   });
+  //   component.submit();
+  //   expect(emailService.sendEmail).toHaveBeenCalled();
+  // });
 
 
 

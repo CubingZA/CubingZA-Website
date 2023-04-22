@@ -6,17 +6,6 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="alerts.messages.length > 0 || alerts.errors.length > 0">
-    <div class="col-full" *ngIf="alerts">
-      <div *ngFor="let message of alerts.messages" class="alert alert-success">
-        {{message}}
-      </div>
-      <div *ngFor="let error of alerts.errors" class="alert alert-danger">
-        {{error}}
-      </div>
-    </div>
-  </div>
-
   <app-unverified-warning/>
 
   <div class="row">
@@ -81,8 +70,8 @@
 
     </div>
 
-    <div class="col-full" *ngIf="!isLocalUser()">
-      <p>
+    <div class="col-full" *ngIf="isWCAUser()">
+      <p class="wca-login-notice">
         Nothing to do here. You are using a WCA login.
         You can change your details on the <a [href]="getWCAProfileURL()">WCA website</a>.
       </p>

@@ -2,19 +2,9 @@
 
   <h1>Sign Up</h1>
 
-  <div class="row" *ngIf="errors.length > 0">
-    <div class="col-full">
-      <div class="alert alert-danger" role="alert"  *ngFor="let error of errors">
-        <p>
-          {{error}}
-        </p>
-      </div>
-    </div>
-  </div>
-
   <div class="row">
     <div class="col-full">
-      <button class="btn btn-default btn-large center-block" (click)="wcaLogin();">
+      <button class="btn btn-default btn-large center-block" id="wca-login-button" (click)="wcaLogin();">
         <img src="assets/images/WCAlogo_notext.svg" class="btn-icon-image">
         <span>Sign up using your WCA account</span>
       </button>
@@ -25,7 +15,7 @@
 
   <div class="row" *ngIf="!showManualSignup">
     <div class="col-full">
-      <button class="btn btn-default btn-large center-block" (click)="setShowManualSignup();">
+      <button class="btn btn-default btn-large center-block" id="manual-signup-button" (click)="setShowManualSignup();">
         <span>I don't have a WCA account</span>
       </button>
     </div>
@@ -55,7 +45,7 @@
           'has-success': email.valid && email.touched
         }">
           <label for="email">Email</label>
-          <input type="email" class="form-control" name="email" formControlName="email"/>
+          <input type="email" id="email" class="form-control" name="email" formControlName="email"/>
           <div *ngIf="email.errors && email.errors['required'] && email.touched" class="alert alert-danger">
             An email address is required.
           </div>
@@ -76,7 +66,7 @@
           'has-success': password.valid && password.touched
         }">
           <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" formControlName="password"/>
+          <input type="password" id="password" class="form-control" name="password" formControlName="password"/>
           <div *ngIf="password.errors && password.errors['required'] && password.touched" class="alert alert-danger">
             Password is required.
           </div>
@@ -91,14 +81,14 @@
           'has-success': !form.errors && confirmPassword.touched
         }">
           <label for="confirmPassword">Confirm password</label>
-          <input type="password" class="form-control" name="confirmPassword" formControlName="confirmPassword"/>
+          <input type="password" id="confirmPassword" class="form-control" name="confirmPassword" formControlName="confirmPassword"/>
           <div *ngIf="form.errors && form.errors['passwordMismatch'] && confirmPassword.touched" class="alert alert-danger">
             Passwords must match.
           </div>
         </div>
 
         <div class="btn-group-horizontal">
-          <button class="btn btn-primary btn-lg btn-register" type="submit" [disabled]="!form.valid">
+          <button class="btn btn-primary btn-lg btn-register" type="submit" id="submit-button" [disabled]="!form.valid">
             <span class="icon"><fa-icon [icon]="faUserPlus"/> </span>
             Sign up
           </button>

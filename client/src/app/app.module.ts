@@ -37,6 +37,7 @@ import { ProvinceMapComponent } from './components/province-map/province-map.com
 import { ProvinceListComponent } from './components/province-list/province-list.component';
 import { CompEditBoxComponent } from './components/comp-edit-box/comp-edit-box.component';
 import { UnverifiedWarningComponent } from './components/unverified-warning/unverified-warning.component';
+import { AlertsComponent } from './components/alerts/alerts.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { UnverifiedWarningComponent } from './components/unverified-warning/unve
     ProvinceListComponent,
     ModalComponent,
     CompEditBoxComponent,
-    UnverifiedWarningComponent
+    UnverifiedWarningComponent,
+    AlertsComponent
   ],
   imports: [
     BrowserModule,

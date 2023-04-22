@@ -11,6 +11,9 @@ export class ModalService {
   constructor() { }
 
   add(modal: ModalComponent) {
+    if (!modal.id) {
+      throw new Error('Modal element must define an id');
+    }
     if (!modal.id || this.modals.find(x => x.id === modal.id)) {
       throw new Error(`Modal with id ${modal.id} already exists`);
     }
@@ -35,5 +38,4 @@ export class ModalService {
       modal.close();
     }
   }
-
 }

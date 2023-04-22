@@ -7,6 +7,7 @@ import { AuthService, Token } from 'src/app/services/auth/auth.service';
 import { EmailCheckService } from 'src/app/services/email/email-check.service';
 import { PasswordMatchValidator } from '../password.validator';
 import { NewUser } from 'src/app/services/user/user.service';
+import { AlertsService } from 'src/app/components/alerts/alerts.service';
 
 @Component({
   selector: 'app-signup',
@@ -31,14 +32,14 @@ export class SignupComponent {
     confirmPassword: new FormControl('', [Validators.required]),
   }, [PasswordMatchValidator()]);
 
-  errors: string[] = [];
   mailgunError: boolean = false;
   submitted: boolean = false;
 
   constructor(
     private emailCheckService: EmailCheckService,
     private emailCheckValidator: EmailCheckValidator,
-    private authService: AuthService
+    private authService: AuthService,
+    private alerts: AlertsService
   ) { }
 
   get name(): FormControl { return this.form.get('name') as FormControl; }
@@ -75,7 +76,7 @@ export class SignupComponent {
   }
 
   register() {
-    this.errors = [];
+    this.alerts.clear();
     let user: NewUser = {
       name: this.name.value,
       email: this.email.value,
@@ -84,20 +85,20 @@ export class SignupComponent {
     this.authService.register(user, (error) => {
       switch (error.status) {
         case 504:
-          this.errors.push("Could not connect to the server. Please try again later.");
+          this.alerts.addAlert("danger", "Could not connect to the server. Please try again later.");
           break;
         case 422:
-          this.errors.push(error.error.message);
+          this.alerts.addAlert("danger", error.error.message);
           break;
         default:
-          this.errors.push("An unknown error occurred. Please try again later.");
+          this.alerts.addAlert("danger", "An unknown error occurred. Please try again later.");
           break;
       }
     });
   }
 
   wcaLogin() {
-    this.errors = [];
+    this.alerts.clear();
     this.authService.startWcaLogin();
   }
 }
@@ -117,10 +118,8 @@ class EmailCheckValidator implements AsyncValidator {
 
     this.inProgress = true;
 
-    let errors = this.emailCheckService.checkEmail(control.value);
-    console.log(control);
-
-    return errors.pipe(
+    let validate = this.emailCheckService.checkEmail(control.value)
+    .pipe(
       map(response => {
         this.inProgress = false;
         if (response.did_you_mean) {
@@ -141,5 +140,6 @@ class EmailCheckValidator implements AsyncValidator {
       })
     );
 
+    return validate;
   }
 }

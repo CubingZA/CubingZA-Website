@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { faXmark, faCloudArrowUp, faArrowsRotate, faBellSlash } from '@fortawesome/free-solid-svg-icons';
-import { ProvinceService, ProvinceSelection } from '../../services/province/province.service';
+
+import { ProvinceService } from '../../services/province/province.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -14,6 +15,8 @@ export class NotificationsComponent {
   faCloudArrowUp = faCloudArrowUp;
   faArrowsRotate = faArrowsRotate;
   faBellSlash = faBellSlash;
+
+  error?: string;
 
   constructor(
     private provinceService: ProvinceService,
@@ -35,7 +38,11 @@ export class NotificationsComponent {
   }
 
   saveSelection() {
-    this.provinceService.saveProvinceSelection();
+    this.provinceService.saveProvinceSelection().subscribe({
+      error: (error) => {
+        this.error = error.message;
+      }
+    });
   }
 
   resetSelection() {

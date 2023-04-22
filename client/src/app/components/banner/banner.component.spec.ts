@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BannerComponent } from './banner.component';
+import { CubingzaLogoComponent } from '../cubingza-logo/cubingza-logo.component';
 
 describe('BannerComponent', () => {
   let component: BannerComponent;
@@ -8,7 +9,7 @@ describe('BannerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BannerComponent ]
+      declarations: [ BannerComponent, CubingzaLogoComponent ]
     })
     .compileComponents();
 

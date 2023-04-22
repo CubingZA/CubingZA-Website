@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faRightToBracket, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { AlertsService } from 'src/app/components/alerts/alerts.service';
 import { AuthService, LoginDetails } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -17,15 +18,17 @@ export class LoginComponent {
     email: new FormControl("", [Validators.required]),
     password: new FormControl("", [Validators.required]),
   })
-  errors: string[] = [];
 
-  constructor(private authService: AuthService) {  }
+  constructor(
+    private authService: AuthService,
+    private alerts: AlertsService
+  ) {  }
 
   get email(): FormControl { return this.form.get('email') as FormControl; }
   get password(): FormControl { return this.form.get('password') as FormControl; }
 
   login() {
-    this.errors = [];
+    this.alerts.clear();
     if (this.email?.valid && this.password?.valid) {
       this.authService.login({
         email: this.email.value ? this.email.value : "",
@@ -35,13 +38,13 @@ export class LoginComponent {
         error: (error) => {
           switch (error.status) {
             case 401:
-              this.errors.push("Invalid email or password");
+              this.alerts.addAlert("danger", "Invalid email or password");
               break;
             case 504:
-              this.errors.push("Error: Could not connect to server");
+              this.alerts.addAlert("danger", "Error: Could not connect to server");
               break;
             default:
-              this.errors.push("Error: Could not log in");
+              this.alerts.addAlert("danger", "Error: Could not log in");
           }
         }
       });
@@ -49,7 +52,7 @@ export class LoginComponent {
   }
 
   wcaLogin() {
-    this.errors = [];
+    this.alerts.clear();
     this.authService.startWcaLogin();
   }
 }

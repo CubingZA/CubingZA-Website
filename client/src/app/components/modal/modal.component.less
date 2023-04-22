@@ -1,7 +1,7 @@
 @import url('../../styles/variables.less');
 
 app-modal {
-  .modal {
+  .modal-background-overlay {
     /* modal container fixed across whole screen */
     position: fixed;
     inset: 0;
@@ -36,7 +36,7 @@ app-modal {
 
     border: 1px solid black;
     box-shadow: 0 0 20px rgba(0, 0, 0);
-    
+
     @media screen and (max-width: @small-screen) {
       width: 100%;
     }
@@ -64,7 +64,7 @@ app-modal {
       margin: 0;
       font-size: 110%;
       border-bottom: 1px solid #ccc;
-      
+
       &.modal-default {
         background-color: @default-color;
         color: @default-text-color-highlight;

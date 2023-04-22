@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AboutComponent } from './about.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -20,4 +21,16 @@ describe('AboutComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have a heading', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('About CubingZA');
+  });
+
+  it('should have a section about competitions', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('h2').textContent).toContain('Competitions');
+  });
+
+
 });

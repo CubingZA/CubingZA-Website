@@ -8,13 +8,14 @@ import { ProvinceService, ProvinceSelection } from 'src/app/services/province/pr
 })
 
 export class ProvinceMapComponent {
-  
+
   constructor(private provinceService: ProvinceService) {
     this.provinceService.getProvinceSelection()
   }
 
   isSelected(id: keyof ProvinceSelection) {
-    return this.provinceService.getProvinceSelection()[id];
+    const selection = this.provinceService.getProvinceSelection();
+    return selection ? selection[id] : false;
   }
 
   handleClick(event: Event) {
@@ -23,5 +24,5 @@ export class ProvinceMapComponent {
       const provinceElement : SVGPathElement = event.target as SVGPathElement;
       this.provinceService.toggleProvince(provinceElement.id as keyof ProvinceSelection)
     }
-  }  
+  }
 }
