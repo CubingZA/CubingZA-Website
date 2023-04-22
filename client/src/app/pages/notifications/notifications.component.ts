@@ -16,6 +16,8 @@ export class NotificationsComponent {
   faArrowsRotate = faArrowsRotate;
   faBellSlash = faBellSlash;
 
+  error?: string;
+
   constructor(
     private provinceService: ProvinceService,
     private authService: AuthService
@@ -36,7 +38,11 @@ export class NotificationsComponent {
   }
 
   saveSelection() {
-    this.provinceService.saveProvinceSelection();
+    this.provinceService.saveProvinceSelection().subscribe({
+      error: (error) => {
+        this.error = error.message;
+      }
+    });
   }
 
   resetSelection() {

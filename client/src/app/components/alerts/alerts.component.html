@@ -1,0 +1,6 @@
+<div class="alerts-box" *ngIf="hasAlerts()">
+  <div *ngFor="let alert of getAlerts()" class="alert alert-{{alert.type}}">
+    <button type="button" class="close" (click)="removeAlert(alert)">&times;</button>
+    {{alert.message}}
+  </div>
+</div>

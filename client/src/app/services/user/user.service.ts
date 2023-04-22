@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { ProvinceSelection } from '../province/province.service';
 import { AuthService } from '../auth/auth.service';
+import { AlertsService } from 'src/app/components/alerts/alerts.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
+    private alerts: AlertsService
   ) { }
 
   getAllUsers(): Observable<User[]> {
@@ -25,7 +27,7 @@ export class UserService {
     let request = this.http.post("/api/users/verify", {
       id: id,
       verificationToken: token
-    })
+    });
     return request;
   }
 
@@ -33,27 +35,25 @@ export class UserService {
     return this.http.post("/api/users/me/verifications/send", {});
   }
 
-  changePassword(oldPassword: string, newPassword: string, alerts: Alerts) {
+  changePassword(oldPassword: string, newPassword: string) {
     this.getCurrentUser()
     .subscribe({
       next: user => {
-        console.log("Got user");        
-        const id: string = user._id;      
+        const id: string = user._id;
         this.http.put(`/api/users/${id}/password`, {
           oldPassword: oldPassword,
           newPassword: newPassword,
         }).subscribe({
           next: (res) => {
-            alerts.messages.push("Password changed successfully");
+            this.alerts.addAlert("success", "Password changed successfully");
           },
           error: (err) => {
-            alerts.errors.push("Error changing password. Perhaps your old password was incorrect?");
+            this.alerts.addAlert("danger", "Error changing password. Perhaps your old password was incorrect?");
           }
         });
       },
       error: err => {
-        console.log("Error getting user");
-        alerts.errors.push(err.error.message);
+        this.alerts.addAlert("danger", err.message);
       }
     });
   }
@@ -78,7 +78,7 @@ export type User = {
   role: string;
   provider: string;
   notificationSettings: ProvinceSelection;
-  eventLog: any[];
+  eventLog?: any[];
 }
 
 export type Alerts = {
