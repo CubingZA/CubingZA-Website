@@ -70,8 +70,8 @@
 
     </div>
 
-    <div class="col-full" *ngIf="!isLocalUser()">
-      <p>
+    <div class="col-full" *ngIf="isWCAUser()">
+      <p class="wca-login-notice">
         Nothing to do here. You are using a WCA login.
         You can change your details on the <a [href]="getWCAProfileURL()">WCA website</a>.
       </p>

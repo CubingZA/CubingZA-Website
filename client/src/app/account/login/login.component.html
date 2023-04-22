@@ -3,7 +3,7 @@
 
   <div class="row">
     <div class="col-full">
-      <button class="btn btn-default btn-large center-block" (click)="wcaLogin();">
+      <button class="btn btn-default btn-large center-block" id="wca-login" (click)="wcaLogin();">
         <img src="assets/images/WCAlogo_notext.svg" class="btn-icon-image">
         <span>Log in using your WCA account</span>
       </button>
@@ -35,11 +35,11 @@
         </div>
 
         <div class="btn-group-horizontal">
-          <button class="btn btn-primary btn-lg" type="submit" [disabled]="!form.valid">
+          <button class="btn btn-primary btn-lg" type="submit" id="login" [disabled]="!form.valid">
             <span class="icon"><fa-icon [icon]="faRightToBracket"/> </span>
             Log in
           </button>
-          <a class="btn btn-default btn-lg" routerLink="/signup" href>
+          <a class="btn btn-default btn-lg" routerLink="/signup" id="signup" href>
             <span class="icon"><fa-icon [icon]="faUserPlus"/> </span>
             Go to sign up
           </a>
