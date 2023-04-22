@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { UserService, User, NewUser } from '../user/user.service';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class AuthService {
 
   private currentUser: User | undefined;
   private busyUpdatingUser: boolean = false;
-  private redirectURL: string;
+  private redirectUrl: string;
 
   constructor(
       private http: HttpClient,
@@ -21,7 +21,7 @@ export class AuthService {
       private userService: UserService
   ) {
     this.currentUser = undefined;
-    this.redirectURL = "/";
+    this.redirectUrl = "/";
 
     if (this.cookies.check('token')) {
       this.updateCurrentUser();
@@ -37,6 +37,10 @@ export class AuthService {
 
   isLocalUser(): boolean {
     return this.currentUser ? this.currentUser.provider === 'local' : false;
+  }
+
+  isWCAUser(): boolean {
+    return this.currentUser ? this.currentUser.provider === 'wca' : false;
   }
 
   isLoggedIn(): boolean {
@@ -70,10 +74,9 @@ export class AuthService {
     return false;
   }
 
-  register(user: NewUser, errorCb: (err: any)=>void): Observable<Token> {
-    const registerAttempt = this.http.post<Token>('/api/users', user);
-
-    registerAttempt.subscribe({
+  register(user: NewUser, errorCb: (err: any)=>void): void {
+    this.http.post<Token>('/api/users', user)
+    .subscribe({
       next: (data: Token) => {
         this.finishLoginProcess(data.token);
       },
@@ -81,37 +84,35 @@ export class AuthService {
         errorCb(error);
       }
     });
-
-    return registerAttempt;
   }
 
   login(loginDetails: LoginDetails): Observable<Token> {
-    const loginAttempt = this.http.post<Token>('/auth/local', loginDetails);
-
-    loginAttempt.subscribe({
-      next: (data: Token) => {
+    return this.http.post<Token>('/auth/local', loginDetails)
+    .pipe(
+      tap((data: Token) => {
         this.finishLoginProcess(data.token);
-      },
-      error: (error) => {
+      }),
+      catchError(error => {
         switch (error.status) {
           case 401:
-            break; // Invalid email or password, handled in component
+            return throwError(()=>error); // Invalid email or password, handled in component
           case 504:
-            break; // Server timeout, handled in component
+            return throwError(()=>error); // Server timeout, handled in component
           default:
-            console.log(error);
             throw new Error("Error logging in");
         }
-      }
-    });
-
-    return loginAttempt;
+      })
+    );
   }
 
   logout() {
     this.cookies.delete('token');
     this.currentUser = undefined;
-    window.location.href = "/";
+    this.redirectToLogin();
+  }
+
+  redirectToLogin() {
+    window.location.href = "/login";
   }
 
   startWcaLogin() {
@@ -122,7 +123,7 @@ export class AuthService {
   finishLoginProcess(token: string) {
     this.cookies.set('token', token);
     this.updateCurrentUser(() => {
-      this.router.navigate([this.redirectURL]);
+      this.router.navigate([this.redirectUrl]);
     });
   }
 
@@ -139,19 +140,21 @@ export class AuthService {
       },
       error: (error) => {
         this.busyUpdatingUser = false;
+        console.log("Error while fetching user");
         this.logout();
-        throw new Error("Error fetching user");
       }
     });
   }
 
   private checkJWT(): boolean {
-    const decodedJwt = this.getDecodedJWT();
-    if (decodedJwt) {
-      const now = Date.now() / 1000;
-      if (decodedJwt.exp && decodedJwt.exp > now && decodedJwt.iat && decodedJwt.iat < now) {
-        // Check if the JWT has not expired and is within the valid timeframe
-        return true;
+    if (this.cookies.get('token')) {
+      const decodedJwt = this.getDecodedJWT();
+      if (decodedJwt) {
+        const now = Date.now() / 1000;
+        if (decodedJwt.exp && decodedJwt.exp > now && decodedJwt.iat && decodedJwt.iat < now) {
+          // Check if the JWT has not expired and is within the valid timeframe
+          return true;
+        }
       }
     }
     return false;

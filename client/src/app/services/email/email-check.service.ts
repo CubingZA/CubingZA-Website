@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +12,13 @@ export class EmailCheckService {
   constructor(private http: HttpClient) { }
 
   checkEmail(email: string): Observable<EmailCheckResponse> {
-    const request = this.http.post<EmailCheckResponse>('/api/emails/check', { email: email });
-    
-    request.subscribe({
-      next: (response) => {
-        if (response['did_you_mean']) {
-          this.didYouMean = response['did_you_mean'];
-        }
+    const request = this.http.post<EmailCheckResponse>('/api/emails/check', { email: email })
+    .pipe(tap(response => {
+      if (response['did_you_mean']) {
+        this.didYouMean = response['did_you_mean'];
       }
-    });
+      return response;
+    }));
     return request;
   }
 

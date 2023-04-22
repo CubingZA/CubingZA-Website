@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs';
+import { catchError, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class ProvinceService {
     NC:'Northern Cape'
   };
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.currentSelection = this.getBlankSelection();
     this.fetchProvinceSelection();
     this.unsavedChanges = false;
@@ -86,16 +86,19 @@ export class ProvinceService {
     this.unsavedChanges = false;
   }
 
-  saveProvinceSelection() {    
-    this.http.post('/api/users/me/notifications', this.currentSelection)
+  saveProvinceSelection() {
+    let request = this.http.post('/api/users/me/notifications', this.currentSelection)
+
     .pipe(
+      map(() => {
+        this.unsavedChanges = false;
+      }),
       catchError((error) => {
-        console.log("Error saving notifications");        
         throw new Error("Error saving notifications");
       })
     )
-    .subscribe(() => {});
-    this.unsavedChanges = false;
+
+    return request;
   }
 
 }
