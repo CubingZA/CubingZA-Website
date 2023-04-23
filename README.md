@@ -13,11 +13,11 @@ This is the source code for the CubingZA website which can be found at https://c
 
 ### Running locally
 
-There are several independent components that need to be set up and run: the database (MongoDB), the API (Express server), and the website (Angular). In addition to these, the production version runs a MySQL database for WCA results, and Python scripts which update the MySQL database, and load data from MySQL to MongoDB. The MySQL database and Python scripts are not needed for local development.
+There are several independent components that need to be set up and run: the database (MongoDB), the API (Express server), and the website (Angular). In addition to these, the production version runs a MySQL database for WCA results, and includes Python scripts which update the MySQL database and load data from MySQL to MongoDB. The MySQL database and Python scripts are not needed for local development.
 
 1. **MongoDB**. There are two options.
     1. *(Recommended)* Run MongoDB in a docker container: `docker run -p 27017:27017 mongo`. Since the development server wipes and seeds the database from scratch, there is no need to persist a volume.
-    2. *Or*, you can use an install and run [MongoDB Community Server](https://www.mongodb.com/try/download/community).
+    2. *Or*, you can install and run [MongoDB Community Server](https://www.mongodb.com/try/download/community).
 
 2. **CubingZA API**:
     1. Change to the `server` directory and the run `npm install` to install server dependencies.
