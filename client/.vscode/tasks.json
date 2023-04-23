@@ -39,6 +39,20 @@
         "revealProblems": "onProblem"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "Run database",
+      "type": "shell",
+      "command": "sudo docker run -p 27017:27017 mongo",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "silent",
+        "panel": "new",
+        "focus": false,
+        "echo": false,
+        "revealProblems": "onProblem"
+      },
+      "problemMatcher": []
     }
   ]
 }

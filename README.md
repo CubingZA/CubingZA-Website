@@ -9,20 +9,24 @@ This is the source code for the CubingZA website which can be found at https://c
 - [Git](https://git-scm.com/)
 - [Node.js and npm](nodejs.org) Node >= 18.x.x, npm >= 8.x.x
 - (Optional) [Angular CLI](https://github.com/angular/angular-cli)
+- (Optional) [Docker](https://www.docker.com/)
 
 ### Running locally
 
 There are several independent components that need to be set up and run: the database (MongoDB), the API (Express server), and the website (Angular). In addition to these, the production version runs a MySQL database for WCA results, and Python scripts which update the MySQL database, and load data from MySQL to MongoDB. The MySQL database and Python scripts are not needed for local development.
 
-1. If you don't already have an instance of MongoDB running, run `mongod` in a separate shell. You'll probably want to create a new folder for the database files and specify this as an argument when running the database. The default in runDB.sh is `../Data/db`.
+1. **MongoDB**. There are two options.
+    1. *(Recommended)* Run MongoDB in a docker container: `docker run -p 27017:27017 mongo`. Since the development server wipes and seeds the database from scratch, there is no need to persist a volume.
+    2. *Or*, you can use an install and run [MongoDB Community Server](https://www.mongodb.com/try/download/community).
 
-2. Change to the `server` directory and the run `npm install` to install server dependencies.
+2. **CubingZA API**:
+    1. Change to the `server` directory and the run `npm install` to install server dependencies.
+    2. Create the file `server/config/local.env.js` with app secrets. For local development, you can simply copy the sample file `server/config/local.env.sample.js`, but you will need to set the Mailgun details to your own. It is recommended to use a sandbox domain. Note that verifications are still charged on a sandbox domain.
+    3. Start the API server by running `npm start` while in the `server` directory. You can also run the API server from within the `client` directory by running `npm --prefix ../server start`, or you can run the "Run backend" task from within VS Code with the `client` directory open. The API server can be accessed at `http://localhost:9000`.
 
-3. Create the file `server/config/local.env.js` with app secrets. For local development, you can simply copy the sample file `server/config/local.env.sample.js`, but you will need to set the Mailgun details to your own. It is recommended to use a sandbox domain. Note that verifications are still charged on a sandbox domain.
-
-4. Start the API server by running `npm start` while in the `server` directory. You can also run the API server from within the `client` directory by running `npm --prefix ../server start`, or you can run the "Run backend" task from within VS Code with the `client` directory open. The API server can be accessed at `http://localhost:9000`.
-
-5. Start the web server by running `ng serve` from within the `client` directory. Navigate to `http://localhost:4200`. The front end proxies the API, so all API endpoints can be accessed from both `http://localhost:9000` and `http://localhost:4200` The application will automatically reload if you change any of the source files.
+3. **CubingZA Website**:
+    1. Change to the `client` directory and install dependancies by running `npm install`.
+    2. Start the web server by running `ng serve` from within the `client` directory. Navigate to `http://localhost:4200` to view he site. The front end proxies the API, so all API endpoints can be accessed from both `http://localhost:9000` and `http://localhost:4200` The application will automatically reload if you change any of the source files.
 
 ### Code scaffolding
 
