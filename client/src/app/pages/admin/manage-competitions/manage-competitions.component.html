@@ -4,7 +4,7 @@
   <div class="row">
     <div class="comp-manage-controls">
       <div>
-        <button (click)="startAddCompetition()" class="btn btn-primary">
+        <button (click)="startAddCompetition()" id="comp-add-button" class="btn btn-primary">
           <span class="icon"><fa-icon [icon]="faPlus"/></span>
           <span class="add-button-label">Add Competition</span>
           <span class="small-screen-label"><fa-icon [icon]="faPlus"/></span>
@@ -31,13 +31,13 @@
           </h4>
 
           <div class="comp-info-controls">
-            <button *ngIf="!isOld(comp)" (click)="startEditCompetition(comp)" class="info-control btn-primary">
+            <button *ngIf="!isOld(comp)" (click)="startEditCompetition(comp)" class="info-control btn-primary comp-edit-control">
               <fa-icon [icon]="faEdit"></fa-icon>
             </button>
-            <button *ngIf="!isOld(comp) && !comp.notificationsSent" (click)="startSendNotifications(comp)" class="info-control btn-warning">
+            <button *ngIf="!isOld(comp) && !comp.notificationsSent" (click)="startSendNotifications(comp)" class="info-control btn-warning comp-send-notifications-control">
               <fa-icon [icon]="faPaperPlane"></fa-icon>
             </button>
-            <button (click)="startDeleteCompetition(comp)" class="info-control btn-danger">
+            <button (click)="startDeleteCompetition(comp)" class="info-control btn-danger comp-delete-control">
               <fa-icon [icon]="faTrash"></fa-icon>
             </button>
           </div>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { AlertsService } from '../alerts/alerts.service';
 
 @Component({
   selector: 'app-unverified-warning',
@@ -14,27 +15,24 @@ export class UnverifiedWarningComponent {
 
   emailSent: boolean = false;
   emailSending: boolean = false;
-  errors: string[] = [];
 
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private alerts: AlertsService
   ) { }
 
   getEmail(): string | undefined {
     const user = this.authService.getCurrentUser()
-    if (user) {
-      return user.email;
-    }
-    return undefined;
+    return user?.email;
   }
-  
+
   isUnverified(): boolean {
     return !this.authService.hasVerifiedEmail();
   }
 
   sendVerification() {
-    this.errors = [];
+    this.alerts.clear();
     this.emailSending = true;
     console.log("Sending verification email to user");
     this.userService.sendVerification()
@@ -46,7 +44,7 @@ export class UnverifiedWarningComponent {
       error: (err) => {
         this.emailSending = false;
         this.emailSent = false;
-        this.errors.push(err.error.message);
+        this.alerts.addAlert("danger", err.error.message);
       }
     });
   }
