@@ -51,17 +51,6 @@ export class SignupComponent {
     this.showManualSignup = true;
   }
 
-  checkPasswords() {
-    console.log(this.email);
-
-    if (this.password.value != this.confirmPassword.value) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
   hasDidYouMean() {
     return this.emailCheckService.hasDidYouMean();
   }
