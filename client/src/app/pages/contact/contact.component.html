@@ -2,17 +2,6 @@
 
   <h1>Contact Us</h1>
 
-  <div *ngFor="let error of errors" class="alert alert-danger">
-    <p>
-      {{error}}
-    </p>
-  </div>
-  <div *ngFor="let message of messages" class="alert alert-success">
-    <p>
-      {{message}}
-    </p>
-  </div>
-
   <div class="row">
     <form class="form" name="form" (submit)="submit()" [formGroup]="form">
 
@@ -61,7 +50,7 @@
       </div>
 
       <div class="form-group">
-        <button class="btn btn-primary btn-lg btn-submit" type="submit" [disabled]="!form.valid">
+        <button class="btn btn-primary btn-lg btn-submit" id="submit-button" type="submit" [disabled]="!form.valid">
           Send<span *ngIf="sending">ing&nbsp;</span> Message<span *ngIf="sending">...</span>
         </button>
       </div>

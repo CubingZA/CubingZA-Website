@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AlertsService } from 'src/app/components/alerts/alerts.service';
 import { EmailMessage, EmailService } from 'src/app/services/email/email.service';
 
 @Component({
@@ -9,8 +10,6 @@ import { EmailMessage, EmailService } from 'src/app/services/email/email.service
 })
 export class ContactComponent {
 
-  errors: string[] = [];
-  messages: string[] = [];
   sending: boolean = false;
 
   form: FormGroup = new FormGroup({
@@ -21,7 +20,8 @@ export class ContactComponent {
   });
 
   constructor(
-    private emailService: EmailService
+    private emailService: EmailService,
+    private alerts: AlertsService
   ) { }
 
   get name(): FormControl { return this.form.get('name') as FormControl; }
@@ -30,27 +30,23 @@ export class ContactComponent {
   get message(): FormControl { return this.form.get('message') as FormControl; }
 
   submit() {
-    console.log(this.form);
-
     const message: EmailMessage = {
       name: this.name.value,
       email: this.email.value,
       subject: this.subject.value,
       message: this.message.value
-    }
+    };
 
     this.sending = true;
-    this.errors = [];
-    this.messages = [];
+    this.alerts.clear();
 
     this.emailService.sendEmail(message).subscribe({
       next: () => {
-        this.messages.push("Message sent!");
+        this.alerts.addAlert("success", "Message sent!");
         this.sending = false;
       },
       error: (err) => {
-        console.log(err);
-        this.errors.push("Error sending message. Please try again later.");
+        this.alerts.addAlert("danger", "Error sending message. Please try again later.");
         this.sending = false;
       }
     });
