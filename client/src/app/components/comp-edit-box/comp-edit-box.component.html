@@ -43,23 +43,23 @@
     <div class="form-group">
       <div class="checkbox">
         <label>
-          <input type="checkbox" formControlName="multiDay" />
+          <input type="checkbox" id="comp-edit-multi-day" formControlName="multiDay" />
           Multi-day competition
         </label>
       </div>
     </div>
     <div class="form-group" *ngIf="multiDay.value">
       <label for="compname">End Date</label>
-      <input type="date" class="form-control"
+      <input type="date" class="form-control" id="comp-edit-end-date"
         placeholder="End Date" formControlName="endDate" />
     </div>
 
     <div class="btn-group-horizontal">
-      <button class="btn btn-primary" (click)="handleOK()" type="button" [disabled]="!form.valid">
+      <button class="btn btn-primary" id="comp-edit-save-button" (click)="handleOK()" type="button" [disabled]="!form.valid">
         <span class="icon"><fa-icon [icon]="faCloudArrowUp"/></span>
         Save
       </button>
-      <button class="btn btn-default" (click)="close()" type="button">
+      <button class="btn btn-default" id="comp-edit-close-button" (click)="close()" type="button">
         <span class="icon"><fa-icon [icon]="faBan"/></span>
         Cancel
       </button>

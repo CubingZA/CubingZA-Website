@@ -4,6 +4,7 @@ import { faMap } from '@fortawesome/free-regular-svg-icons';
 
 import { ModalService } from 'src/app/components/modal/modal.service';
 import { Competition, CompetitionService } from 'src/app/services/competition/competition.service';
+import { AlertsService } from 'src/app/components/alerts/alerts.service';
 
 @Component({
   selector: 'app-competitions',
@@ -30,14 +31,19 @@ export class ManageCompetitionsComponent {
 
   constructor(
     private compService: CompetitionService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private alerts: AlertsService
   ) {
     this.selectedCompetition = this.compService.getBlankCompetition();
-    this.fetchCompetitions();
     this.today = new Date();
   }
 
+  ngOnInit(): void {
+    this.fetchCompetitions();
+  }
+
   fetchCompetitions() {
+    this.alerts.clear();
     this.compService.getAllCompetitions()
     .subscribe({
       next: (competitions) => {
@@ -45,6 +51,7 @@ export class ManageCompetitionsComponent {
       },
       error: (err) => {
         console.log(err);
+        this.alerts.addAlert("danger", "Failed to fetch competitions");
       }
     });
   }
@@ -98,11 +105,14 @@ export class ManageCompetitionsComponent {
   }
 
   sendNotifications() {
-
+    this.alerts.clear();
     this.compService.sendNotifications(this.selectedCompetition)
     .subscribe({
       next: () => {
         console.log("Notifications sent");
+      },
+      error: (err) => {
+        this.alerts.addAlert("danger", "Error while sending notifications");
       }
     });
 
@@ -119,6 +129,7 @@ export class ManageCompetitionsComponent {
   }
 
   deleteSelectedCompetition() {
+    this.alerts.clear();
     if (this.selectedCompetition) {
       this.compService.deleteCompetition(this.selectedCompetition._id)
       .subscribe({
@@ -126,7 +137,7 @@ export class ManageCompetitionsComponent {
           this.fetchCompetitions();
         },
         error: (err) => {
-          console.log(err);
+          this.alerts.addAlert("danger", "Error while deleting competition");
         }
       });
     }
@@ -134,7 +145,7 @@ export class ManageCompetitionsComponent {
   }
 
   saveCompetition(comp: Competition) {
-    console.log("Save selected competition", comp);
+    this.alerts.clear();
     let request;
     if (comp._id === "") {
       // New competition
@@ -146,6 +157,9 @@ export class ManageCompetitionsComponent {
     request.subscribe({
       next: () => {
         this.fetchCompetitions();
+      },
+      error: (err) => {
+        this.alerts.addAlert("danger", "Error while saving competition");
       }
     });
   }

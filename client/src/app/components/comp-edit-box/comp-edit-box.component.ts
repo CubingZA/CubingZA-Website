@@ -29,7 +29,7 @@ export class CompEditBoxComponent {
 
     const startDate = comp.startDate.toISOString().substring(0, 10);
     const endDate = comp.endDate.toISOString().substring(0, 10);
-    
+
     this.startDate.setValue(startDate);
     this.endDate.setValue(endDate);
     this.multiDay.setValue(startDate !== endDate);
@@ -42,7 +42,7 @@ export class CompEditBoxComponent {
   @Input() closeFn: ()=>void = ()=>{};
 
   @Input() title: string = 'Edit Competition';
-  
+
   form: FormGroup = new FormGroup({
     compName: new FormControl('', [Validators.required]),
     registrationName: new FormControl('', [Validators.required]),
@@ -61,7 +61,7 @@ export class CompEditBoxComponent {
   ) {
     this._competition = this.compService.getBlankCompetition();
   }
-  
+
   get compName(): FormControl { return this.form.get('compName') as FormControl; }
   get registrationName(): FormControl { return this.form.get('registrationName') as FormControl; }
   get venue(): FormControl { return this.form.get('venue') as FormControl; }
@@ -78,7 +78,7 @@ export class CompEditBoxComponent {
 
   close() {
     this.form.reset();
-    this.competition = this.compService.getBlankCompetition();
+    this._competition = this.compService.getBlankCompetition();
     this.closeFn();
   }
 
