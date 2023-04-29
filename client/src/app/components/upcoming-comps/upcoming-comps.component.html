@@ -19,6 +19,13 @@
     </div>
   </div>
 
+  <div *ngIf="upcomingCompetitions.length===0">
+    <div class="alert alert-info" role="alert">
+      <p>
+        No upcoming competitions.
+      </p>
+    </div>
+  </div>
   <div *ngFor="let comp of upcomingCompetitions" class="comp-list-card">
     <div class="comp-list-card-header">
       <h3 class="comp-list-card-title" (click)="toggleShowComp(comp, $event)">

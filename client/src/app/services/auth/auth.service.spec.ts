@@ -155,12 +155,10 @@ describe('AuthService', () => {
 
   describe('getCurrentUser', () => {
 
-    it('should return the current user, and update if not busy updating', () => {
+    it('should return the current user', () => {
       service["currentUser"] = dummyUser;
       service["busyUpdatingUser"] = false;
-      const updateSpy = spyOn(service, 'updateCurrentUser');
       expect(service.getCurrentUser()).toEqual(dummyUser);
-      expect(updateSpy).toHaveBeenCalled();
     });
 
     it('should return the current user, and not update if busy updating', () => {

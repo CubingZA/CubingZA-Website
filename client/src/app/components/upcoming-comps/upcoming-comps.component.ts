@@ -30,6 +30,9 @@ export class UpcomingCompsComponent {
     private compService: CompetitionService
   ) {
     this.upcomingCompetitions = [];
+  }
+
+  ngOnInit(): void {
     this.updateUpcomingCompetitions();
   }
 
@@ -41,13 +44,14 @@ export class UpcomingCompsComponent {
         this.expandAll();
       },
       error: (err) => {
+        this.upcomingCompetitions = [];
         switch (err.status) {
           case 504:
             this.error = "Could not fetch upcoming competitions. The server is not responding.";
             break;
           default:
             this.error = "Could not fetch upcoming competitions. Please try again later.";
-            throw err;
+            break;
         }
       }
     });

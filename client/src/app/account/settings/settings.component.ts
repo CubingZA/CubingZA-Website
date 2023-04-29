@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faKey } from '@fortawesome/free-solid-svg-icons';
 
-import { UserService, User, Alerts } from 'src/app/services/user/user.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { PasswordMatchValidator } from '../password.validator';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';

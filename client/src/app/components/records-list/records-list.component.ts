@@ -11,7 +11,9 @@ export class RecordsListComponent {
   error: string = "";
   records: Record[] = [];
 
-  constructor(private recordService: RecordService) {
+  constructor(private recordService: RecordService) { }
+
+  ngOnInit(): void {
     this.recordService.getRecords().subscribe({
       next: (records) => {
         records.sort((a, b) => a.eventRank - b.eventRank);
@@ -24,7 +26,7 @@ export class RecordsListComponent {
             break;
           default:
             this.error = "Could not fetch records. Please try again later.";
-            throw err;
+            break;
         }
       }
     });

@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UpcomingCompsComponent } from './upcoming-comps.component';
 import { CompetitionService } from 'src/app/services/competition/competition.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const mockCompetitions = [
@@ -70,7 +70,39 @@ describe('UpcomingCompsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create and show a list of competitions', () => {
     expect(component).toBeTruthy();
+    expect(fixture.nativeElement.querySelectorAll('.comp-list-card').length).toEqual(2);
+  });
+
+  it('should show a message if there are no upcoming competitions', () => {
+    compService.getUpcomingCompetitions.and.returnValue(of([]));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.upcoming-comps-box').textContent)
+    .toContain('No upcoming competitions');
+    expect(fixture.nativeElement.querySelectorAll('.comp-list-card').length).toEqual(0);
+  });
+
+  it('should handle an server timeout when fetching competitions', () => {
+    compService.getUpcomingCompetitions.and.returnValue(throwError(()=>{return {status: 504}}));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('p').textContent)
+    .toContain('Could not fetch upcoming competitions. The server is not responding.');
+    expect(fixture.nativeElement.querySelectorAll('.comp-list-card').length).toEqual(0);
+
+  });
+
+  it('should handle other errors when fetching competitions', () => {
+    compService.getUpcomingCompetitions.and.returnValue(throwError(()=>{return {status: 500}}));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('p').textContent)
+    .toContain('Could not fetch upcoming competitions. Please try again later.');
+    expect(fixture.nativeElement.querySelectorAll('.comp-list-card').length).toEqual(0);
   });
 });
