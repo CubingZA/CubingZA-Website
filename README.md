@@ -41,9 +41,10 @@ To test the API, run `npm test` from within the `server` directory to execute te
 ### Deploying to production
 
 1. Clone this repository.
-2. Start all of the necessary services with `docker compose up --build`.
-3. If necessary, restore the database from a backup.
-4. Create cron jobs to run `scripts/getWCAdb.sh` and `scripts/RecordUpdator.py` once a day. Ideally the record update should run about 2 hours after the WCA database update.
+2. Create the file `server/config/production.env` and set environment variables and secrets. You can start by copying the sample file `server/config/local.env.sample`.
+3. Start all of the necessary services with `docker compose up --build`.
+4. If necessary, restore the database from a backup.
+5. Create cron jobs to run `scripts/getWCAdb.sh` and `scripts/RecordUpdator.py` once a day. Ideally the record update should run about 2 hours after the WCA database update.
 
 ## Contributing
 
