@@ -32,7 +32,7 @@ const all = {
   },
 
   // MongoDB connection options
-  mongoUrl: "mongodb://127.0.0.1:27017",
+  mongoUrl: process.env.MONGO_URL || "mongodb://127.0.0.1:27017",
   mongo: {
     options: {
       useUnifiedTopology: true,

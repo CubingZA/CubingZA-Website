@@ -13,7 +13,7 @@ const require = createRequire(import.meta.url);
 export default function() {
 Record.find({}).deleteMany({})
  .then(() => {
-   Record.create(require('../../data/cuberecords.json'))
+   Record.create(require('../seed-data/cuberecords.json'))
    .then(() => {
      console.log('finished loading records');
    })
@@ -21,7 +21,7 @@ Record.find({}).deleteMany({})
 
 Event.find({}).deleteMany({})
   .then(() => {
-    Event.create(require('../../data/cubecompetitions.json'))
+    Event.create(require('../seed-data/cubecompetitions.json'))
     .then(() => {
       console.log('finished loading events');
     })

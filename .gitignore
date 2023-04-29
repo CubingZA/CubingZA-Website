@@ -1,16 +1,14 @@
 #Environment files
 local.env
+production.env
 
 # Compiled output
-/dist
+/client/dist/
 /tmp
-/out-tsc
-/bazel-out
 
 # Node
 node_modules
 npm-debug.log
-yarn-error.log
 
 # IDEs and editors
 .idea/
@@ -34,12 +32,8 @@ client/.angular/cache
 coverage/
 .tmp
 
-
 # System files
 .DS_Store
 Thumbs.db
 *~
 .directory
-
-# Scripts
-/deploy.sh
