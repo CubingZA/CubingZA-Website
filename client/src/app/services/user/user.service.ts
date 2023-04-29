@@ -80,8 +80,3 @@ export type User = {
   notificationSettings: ProvinceSelection;
   eventLog?: any[];
 }
-
-export type Alerts = {
-  errors: string[];
-  messages: string[];
-}

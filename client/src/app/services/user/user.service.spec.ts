@@ -1,6 +1,6 @@
-import { TestBed, fakeAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Alerts, User, UserService } from './user.service';
+import { User, UserService } from './user.service';
 import { of, throwError } from 'rxjs';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
 
