@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RecordsListComponent } from './records-list.component';
 import { RecordService } from 'src/app/services/record/record.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 const mockRecordData = [
   {
@@ -57,7 +57,29 @@ describe('RecordsListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create and show a table of records', () => {
     expect(component).toBeTruthy();
+    const rows = fixture.nativeElement.querySelectorAll('.record-table-row');
+    expect(rows.length).toEqual(2);
+  });
+
+  it('should handle an server timeout when fetching records', () => {
+    recordService.getRecords.and.returnValue(throwError(()=>{return {status: 504}}));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.record-list-container').textContent)
+    .toContain('Could not fetch records. The server is not responding.');
+    expect(fixture.nativeElement.querySelectorAll('.record-table-row').length).toEqual(0);
+  });
+
+  it('should handle any other error when fetching records', () => {
+    recordService.getRecords.and.returnValue(throwError(()=>{return {status: 500}}));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.record-list-container').textContent)
+    .toContain('Could not fetch records. Please try again later.');
+    expect(fixture.nativeElement.querySelectorAll('.record-table-row').length).toEqual(0);
   });
 });
