@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { faTrash, faBan } from '@fortawesome/free-solid-svg-icons';
+import { AlertsService } from 'src/app/components/alerts/alerts.service';
 
 import { ModalService } from 'src/app/components/modal/modal.service';
 import { ProvinceSelection, ProvinceService } from 'src/app/services/province/province.service';
@@ -18,18 +19,21 @@ export class ManageUsersComponent {
   users: User[] = [];
   searchFilter: string = "";
 
-  confirmDeletingUser: User | null = null;
+  userToDelete: User | null = null;
 
   constructor(
     private userService: UserService,
     private modalService: ModalService,
-    private provinceService: ProvinceService
+    private provinceService: ProvinceService,
+    private alerts: AlertsService
+  ) { }
 
-  ) {
+  ngOnInit(): void {
     this.fetchUsers();
   }
 
   fetchUsers() {
+    this.alerts.clear();
     this.userService.getAllUsers()
     .subscribe({
       next: (users) => {
@@ -37,6 +41,7 @@ export class ManageUsersComponent {
       },
       error: (err) => {
         console.log(err);
+        this.alerts.addAlert("danger", "Failed to fetch users");
       }
     });
   }
@@ -46,6 +51,7 @@ export class ManageUsersComponent {
       (key) => user.notificationSettings[key as keyof ProvinceSelection]
     );
     const names = keys.map((key) => this.provinceService.getProvinceName(key as keyof ProvinceSelection));
+    names.sort();
     return names.join(", ");
   }
 
@@ -64,8 +70,7 @@ export class ManageUsersComponent {
       }
     });
     users.sort((a,b) => {
-      // Need to handle the case of a missing name
-      if (!a.name || !b.name) { return 0; }
+      if (!a.name || !b.name) { return 0; }  // Need to handle the case of a missing name
       return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
     });
     return users;
@@ -77,18 +82,19 @@ export class ManageUsersComponent {
     );
   }
 
-
-  closeConfirmDeleteModal() {
-    this.confirmDeletingUser = null;
-    this.modalService.close('confirm-delete-modal');
-  }
-
   openConfirmDeleteModal(user: User) {
-    this.confirmDeletingUser = user;
+    this.userToDelete = user;
     this.modalService.open('confirm-delete-modal');
   }
 
-  deleteUser(user: User | null) {
+  closeConfirmDeleteModal() {
+    this.userToDelete = null;
+    this.modalService.close('confirm-delete-modal');
+  }
+
+  confirmDeleteUser() {
+    this.alerts.clear();
+    const user = this.userToDelete;
     if (user) {
       this.userService.deleteUser(user._id)
       .subscribe({
@@ -96,7 +102,7 @@ export class ManageUsersComponent {
           this.fetchUsers();
         },
         error: (err) => {
-          console.log(err);
+          this.alerts.addAlert("danger", "Error deleting user");
         }
       });
     }

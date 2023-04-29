@@ -55,7 +55,6 @@ describe('ManageCompetitionsComponent', () => {
   let fixture: ComponentFixture<ManageCompetitionsComponent>;
 
   let competitionService: jasmine.SpyObj<CompetitionService>;
-  let provinceService: jasmine.SpyObj<ProvinceService>;
   let alerts: jasmine.SpyObj<AlertsService>;
   let modalService: jasmine.SpyObj<ModalService>;
 
@@ -96,7 +95,6 @@ describe('ManageCompetitionsComponent', () => {
     component = fixture.componentInstance;
 
     competitionService = TestBed.inject(CompetitionService) as jasmine.SpyObj<CompetitionService>;
-    provinceService = TestBed.inject(ProvinceService) as jasmine.SpyObj<ProvinceService>;
     alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     modalService = TestBed.inject(ModalService) as jasmine.SpyObj<ModalService>;
 

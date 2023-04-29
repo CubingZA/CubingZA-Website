@@ -30,7 +30,7 @@
       <tr *ngFor="let user of getFilteredUsers()" class="user-list-row">
 
         <td class="user-info-control-cell"><div class="user-info-controls">
-          <button (click)="openConfirmDeleteModal(user)" class="btn-danger">
+          <button (click)="openConfirmDeleteModal(user)" class="btn-danger delete-user-control">
             <fa-icon [icon]="faTrash"/>
           </button>
         </div></td>
@@ -56,7 +56,7 @@
   <div class="modal-body">
     <div>
       Are you sure you want to delete
-      <strong>{{confirmDeletingUser?.name}}</strong>
+      <strong>{{userToDelete?.name}}</strong>
       permanently?
     </div>
     <div>
@@ -64,11 +64,11 @@
     </div>
     <br/>
     <div class="btn-group-horizontal center-block">
-      <button class="btn btn-danger" (click)="deleteUser(confirmDeletingUser)">
+      <button class="btn btn-danger" (click)="confirmDeleteUser()" id="confirm-delete-user">
         <span class="icon"><fa-icon [icon]="faTrash"></fa-icon></span>
         Delete
       </button>
-      <button class="btn btn-default" (click)="closeConfirmDeleteModal()">
+      <button class="btn btn-default" (click)="closeConfirmDeleteModal()" id="cancel-delete-user">
         <span class="icon"><fa-icon [icon]="faBan"></fa-icon></span>
         Close
       </button>
