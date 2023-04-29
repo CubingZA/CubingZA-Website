@@ -29,9 +29,9 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    if (!this.busyUpdatingUser) {
-      this.updateCurrentUser();
-    }
+    // if (!this.busyUpdatingUser) {
+    //   this.updateCurrentUser();
+    // }
     return this.currentUser;
   }
 
