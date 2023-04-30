@@ -3,6 +3,7 @@ services:
   wca-database:
     image: mysql
     restart: always
+    command: --sql_mode=''
     volumes:
       - ../databases/wca:/var/lib/mysql
     ports:
