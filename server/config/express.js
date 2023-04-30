@@ -26,19 +26,17 @@ export default function(app) {
   app.use(passport.initialize());
 
   // Persist sessions with MongoStore / sequelizeStore
-  // We need to enable sessions for passport-twitter because it's an
-  // oauth 1.0 strategy, and Lusca depends on sessions
   app.use(session({
     secret: config.secrets.session,
     saveUninitialized: true,
     resave: false,
     cookie: {
-      secure: env !== 'development' && env !== 'test',
-      sameSite: 'lax'
+      secure: false, // In production this should be overridden at at the nginx layer using, for example, "proxy_cookie_flags ~ secure;"
+      sameSite: 'lax', // Needed for OAuth to work
     },
     store: MongoStore.create({
       mongoUrl: config.mongoUrl,
-      db: 'project'
+      db: 'cubingza'
     })
   }));
 
@@ -60,7 +58,7 @@ export default function(app) {
       referrerPolicy: 'same-origin'
     }));
   }
-  
+
   if(env === 'development' || env === 'test') {
     app.use(errorHandler()); // Error handler - has to be last
   }
