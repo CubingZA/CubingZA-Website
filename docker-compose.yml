@@ -15,7 +15,7 @@ services:
 
   cubingza-database:
     image: mongo
-    # restart: always
+    restart: always
     volumes:
       - ../databases/cubingza:/data/db
     ports:
@@ -25,7 +25,7 @@ services:
 
   cubingza-api:
     build: ./server
-    restart: unless-stopped
+    restart: always
     ports:
       - 4202:9000
     networks:
@@ -41,7 +41,7 @@ services:
 
   cubingza-website:
     build: ./client
-    # restart: always
+    restart: always
     ports:
       - 4201:80
     networks:
