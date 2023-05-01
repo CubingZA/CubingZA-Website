@@ -7,6 +7,9 @@ from pymongo import MongoClient as MongoDB
 from mysql import connector as MySQL
 
 
+EXCLUDE_EVENTS = ["333mbo", "magic", "mmagic", "333ft"]
+
+
 def formatTime(result, includeZeroMinutes=False):
     seconds = result % 60
     minutes = math.floor(result/60)
@@ -181,6 +184,7 @@ if __name__ == "__main__":
 
     prepareTempTables(cursor)
     wcaRecords = getWCArecords(cursor)
+    wcaRecords = [record for record in wcaRecords if record['eventId'] not in EXCLUDE_EVENTS]
     updateCubingZARecords(wcaRecords)
 
     cursor.close()
