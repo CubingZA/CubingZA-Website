@@ -173,7 +173,7 @@ def updateCubingZARecords(newRecords):
     db = MongoDB(port=4203)['cubingza'];
     for newRecord in newRecords:
         print('Updating database for', newRecord['eventName'])
-        db.records.update({'eventId': newRecord['eventId']}, {"$set": newRecord})
+        db.records.update_one({'eventId': newRecord['eventId']}, {"$set": newRecord})
 
 
 if __name__ == "__main__":
