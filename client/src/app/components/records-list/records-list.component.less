@@ -1,5 +1,5 @@
-@import url('@cubing/icons/www/css/cubing-icons.css');
-@import url('../../styles/variables.less');
+@import '@cubing/icons/www/css/cubing-icons.css';
+@import '../../styles/variables.less';
 
 .record-list-container {
   box-sizing: border-box;
@@ -74,5 +74,17 @@
   }
   .table-middle {
     text-align: center;
+  }
+
+  .label {
+    font-size: 0.8em;
+    padding: 0.15em 0.4em 0.3em 0.4em;
+    margin: 0 0.3em;
+    border-radius: 0.3em;
+
+    &.label-info {
+      color: @info-text-color-highlight;
+      background-color: @info-color-light;
+    }
   }
 }

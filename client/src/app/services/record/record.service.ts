@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,16 @@ export class RecordService {
   constructor(private http: HttpClient) { }
 
   getRecords() {
-    return this.http.get<Record[]>('/api/records');
+    return this.http.get<Record[]>('/api/records')
+    .pipe(
+      tap(records => {
+        return records.map(record => {
+          record.singleDate = new Date(record.singleDate);
+          record.averageDate = new Date(record.averageDate);
+          return record;
+        });
+      })
+    );
   }
 }
 

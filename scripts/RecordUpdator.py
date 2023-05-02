@@ -7,15 +7,18 @@ from pymongo import MongoClient as MongoDB
 from mysql import connector as MySQL
 
 
+EXCLUDE_EVENTS = ["333mbo", "magic", "mmagic", "333ft"]
+
+
 def formatTime(result, includeZeroMinutes=False):
     seconds = result % 60
     minutes = math.floor(result/60)
-    
+
     if minutes>0 or includeZeroMinutes:
         return '{:.0f}:{:05.2f}'.format(minutes, seconds)
     else:
         return '{:.2f}'.format(seconds)
-    
+
 
 
 def formatResultStr(result, eventId, singleAverage):
@@ -37,36 +40,36 @@ def formatResultStr(result, eventId, singleAverage):
             solved = difference + missed
             total = solved + missed
             return('{:.0f}/{:.0f} '.format(solved, total) + time)
-            
+
     else:
         return formatTime(result/100)
-      
+
 
 def getDatabaseConnection():
-    conn = MySQL.connect(host="localhost", port=3333, user="wca", passwd="wca", db="wca")
+    conn = MySQL.connect(host="localhost", port=4204, user="wca", passwd="wca", db="wca")
     cursor = conn.cursor()
     return [conn, cursor]
-    
+
 
 # Fetch records from WCA database
 
 def prepareTempTables(cursor):
     print('Preparing temporary tables')
-    
-    print('Finding South Africans')    
+
+    print('Finding South Africans')
     cursor.execute("DROP TABLE IF EXISTS ZAPeople;")
     cursor.execute("""
         CREATE TABLE ZAPeople AS
-        SELECT 
+        SELECT
             id,
             name
         FROM
             Persons
-        WHERE 
+        WHERE
             countryId = "South Africa"
         ;
     """)
-    
+
     print('Extracting single records')
     cursor.execute("DROP TABLE IF EXISTS ZASingleRecords;")
     cursor.execute("""
@@ -79,9 +82,9 @@ def prepareTempTables(cursor):
                 ON Records.personId = ZAPeople.id
         ;
     """)
-        
+
     print('Extracting average records')
-    cursor.execute("DROP TABLE IF EXISTS ZAAverageRecords;")    
+    cursor.execute("DROP TABLE IF EXISTS ZAAverageRecords;")
     cursor.execute("""
         CREATE TABLE ZAAverageRecords AS
         SELECT
@@ -95,10 +98,10 @@ def prepareTempTables(cursor):
 
 
 def getWCArecords(cursor):
-    
-    print('Fetching Records...')    
+
+    print('Fetching Records...')
     cursor.execute("""
-        SELECT 
+        SELECT
             Events.id AS eventId,
             Events.name AS eventName,
             ZASingleRecords.personId AS singleId,
@@ -120,7 +123,7 @@ def getWCArecords(cursor):
             eventRank
         ;
         """)
-    
+
     records = [{'eventId': row[0],
                'eventName': row[1],
                'singleId':  row[2],
@@ -131,57 +134,58 @@ def getWCArecords(cursor):
                'averageName':  row[6],
                'averageResultRaw':  row[7],
                'averageResult':  formatResultStr(row[7],row[0],'average'),
-               'eventRank': row[8]} 
+               'eventRank': row[8]}
                for row in cursor.fetchall()]
-    
+
     # For each record, attach a date
     for record in records:
-         
+
         print('Establishing dates of records for', record['eventName'])
-         
+
         sqlQuery = '''
-            SELECT 
+            SELECT
                 year, month, day
-            FROM 
+            FROM
                 Results LEFT JOIN Competitions ON Results.competitionId = Competitions.id
-            WHERE 
+            WHERE
                 Results.singleaverage=%s AND Results.eventId=%s AND Results.personId=%s;
-            ''' 
+            '''
         cursor.execute(sqlQuery.replace('singleaverage','best'), (record['singleResultRaw'], record['eventId'], record['singleId']))
-                
-    
+
+
         date = list(cursor.fetchall()[0])
         record['singleDate'] = datetime.date(*date).isoformat()
- 
+
         cursor.execute(sqlQuery.replace('singleaverage','average'), (record['averageResultRaw'], record['eventId'], record['averageId']))
         date = cursor.fetchall()
         if len(date) > 0:
-            date = date[0]  
+            date = date[0]
             record['averageDate'] = datetime.date(*date).isoformat()
         else:
             record['averageDate'] = None
-            
-    
+
+
     conn.close()
-    
+
     return records
 
 
 
 def updateCubingZARecords(newRecords):
 
-    db = MongoDB()['cubingza'];
+    db = MongoDB(port=4203)['cubingza'];
     for newRecord in newRecords:
         print('Updating database for', newRecord['eventName'])
-        db.records.update({'eventId': newRecord['eventId']}, {"$set": newRecord})
-        
-    
+        db.records.update_one({'eventId': newRecord['eventId']}, {"$set": newRecord})
+
+
 if __name__ == "__main__":
     [conn, cursor] = getDatabaseConnection()
-    
+
     prepareTempTables(cursor)
     wcaRecords = getWCArecords(cursor)
+    wcaRecords = [record for record in wcaRecords if record['eventId'] not in EXCLUDE_EVENTS]
     updateCubingZARecords(wcaRecords)
-    
+
     cursor.close()
     conn.close();
