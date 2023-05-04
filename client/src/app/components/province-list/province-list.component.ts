@@ -11,7 +11,9 @@ export class ProvinceListComponent {
 
   faCircleMinus = faCircleMinus;
 
-  constructor(private provinceService: ProvinceService) { }
+  constructor(
+    private provinceService: ProvinceService
+  ) { }
 
   getSelectedProvinces(): string[] {
     const selection = this.provinceService.getProvinceSelection();
@@ -31,6 +33,4 @@ export class ProvinceListComponent {
   getProvinceName(key: string): string {
     return this.provinceService.getProvinceName(key as keyof ProvinceSelection);
   }
-  
-
 }

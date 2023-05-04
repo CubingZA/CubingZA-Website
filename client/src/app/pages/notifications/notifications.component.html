@@ -24,24 +24,21 @@
         <div class="alert alert-warning" *ngIf="isUnsaved()">
           Notifications have not been saved
         </div>
-        <div class="alert alert-danger" *ngIf="error">
-          {{error}}
-        </div>
 
         <div class="btn-group">
-          <button class="btn btn-warning" *ngIf="hasSelection()" (click)="clearSelection()">
+          <button class="btn btn-warning" id='notifications-clear-button' *ngIf="hasSelection()" (click)="clearSelection()">
             <span class="icon"><fa-icon [icon]="faXmark"/></span>
             Clear selection
           </button>
-          <button class="btn btn-primary" *ngIf="!hasSelection()" (click)="saveSelection()">
+          <button class="btn btn-primary" id='notifications-disable-button' *ngIf="!hasSelection()" (click)="saveSelection()" [disabled]="!isUnsaved()">
             <span class="icon"><fa-icon [icon]="faBellSlash"/></span>
             Disable Notifications
           </button>
-          <button class="btn btn-primary" *ngIf="hasSelection()" (click)="saveSelection()">
+          <button class="btn btn-primary" id='notifications-save-button' *ngIf="hasSelection()" (click)="saveSelection()" [disabled]="!isUnsaved()">
             <span class="icon"><fa-icon [icon]="faCloudArrowUp"/></span>
             Save Notifications
           </button>
-          <button class="btn btn-default" *ngIf="isUnsaved()" (click)="resetSelection()">
+          <button class="btn btn-default" id='notifications-reset-button' *ngIf="isUnsaved()" (click)="resetSelection()">
             <span class="icon"><fa-icon [icon]="faArrowsRotate"/></span>
             Reset Changes
           </button>
