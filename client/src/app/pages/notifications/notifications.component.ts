@@ -3,6 +3,7 @@ import { faXmark, faCloudArrowUp, faArrowsRotate, faBellSlash } from '@fortaweso
 
 import { ProvinceService } from '../../services/province/province.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { AlertsService } from 'src/app/components/alerts/alerts.service';
 
 @Component({
   selector: 'app-notifications',
@@ -16,11 +17,10 @@ export class NotificationsComponent {
   faArrowsRotate = faArrowsRotate;
   faBellSlash = faBellSlash;
 
-  error?: string;
-
   constructor(
     private provinceService: ProvinceService,
-    private authService: AuthService
+    private authService: AuthService,
+    private alerts: AlertsService
   ) {
     this.provinceService.resetProvinceSelection();
   }
@@ -29,18 +29,15 @@ export class NotificationsComponent {
     return this.authService.hasVerifiedEmail();
   }
 
-  getSelection() {
-    return this.provinceService.getProvinceSelection();
-  }
-
   clearSelection() {
     this.provinceService.unselectAll();
   }
 
   saveSelection() {
+    this.alerts.clear();
     this.provinceService.saveProvinceSelection().subscribe({
       error: (error) => {
-        this.error = error.message;
+        this.alerts.addAlert('danger', 'Error saving province selection');
       }
     });
   }
@@ -49,12 +46,8 @@ export class NotificationsComponent {
     this.provinceService.resetProvinceSelection();
   }
 
-  getSelectionString() {
-    return JSON.stringify(this.getSelection());
-  }
-
   isUnsaved() {
-    return this.provinceService.unsavedChanges;
+    return this.provinceService.hasUnsavedChanges();
   }
 
   hasSelection() {

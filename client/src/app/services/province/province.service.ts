@@ -51,6 +51,10 @@ export class ProvinceService {
     this.currentSelection = this.getBlankSelection();
   }
 
+  hasUnsavedChanges(): boolean {
+    return this.unsavedChanges;
+  }
+
   getProvinceSelection(): ProvinceSelection {
     return this.currentSelection;
   }
