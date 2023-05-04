@@ -48,7 +48,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: api-coverage
-        path: ./server/coverage/lcov.info
+        path: ./server/coverage
         retention-days: 1
         
         
@@ -95,7 +95,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: frontend-coverage
-        path: ./client/coverage/lcov.info
+        path: ./client/coverage
         retention-days: 1
         
 
@@ -114,24 +114,22 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: api-coverage
-        path: coverage/lcov.api.info
+        path: coverage/api
         
     - name: Download Frontend coverage results
       uses: actions/download-artifact@v3
       with:
         name: frontend-coverage
-        path: coverage/lcov.frontend.info
+        path: coverage/frontend
     
     - name: Setup LCOV
       run: sudo apt-get -y install lcov
       shell: bash
-
-    - run: cat coverage/lcov.api.info
       
     - name: Report code coverage
       uses: zgosalvez/github-actions-report-lcov@v3
       with:
-        coverage-files: coverage/lcov.*.info
+        coverage-files: coverage/**/lcov.info
         artifact-name: code-coverage-report
         github-token: ${{ secrets.GITHUB_TOKEN }}
         update-comment: true 
