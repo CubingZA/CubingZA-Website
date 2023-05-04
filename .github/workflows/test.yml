@@ -110,6 +110,8 @@ jobs:
         working-directory: ./
         
     steps: 
+    - uses: actions/checkout@v3
+
     - name: Download API coverage results
       uses: actions/download-artifact@v3
       with:
