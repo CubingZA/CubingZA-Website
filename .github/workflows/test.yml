@@ -44,13 +44,14 @@ jobs:
     - name: Test
       run: npm test
       
-    - run: coverage
+    - run: ls coverage
       
     - name: Upload coverage report
       uses: actions/upload-artifact@v3
       with:
         name: api-coverage
         path: coverage/lcov.info
+        retention-days: 1
         
         
   test-frontend:
@@ -99,4 +100,5 @@ jobs:
       with:
         name: frontend-coverage
         path: coverage/lcov.info
+        retention-days: 1
         
