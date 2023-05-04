@@ -2,6 +2,8 @@
 
 This is the source code for the CubingZA website which can be found at https://cubingza.org.
 
+[![Tests](https://github.com/AlphaSheep/CubingZA-Website/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/AlphaSheep/CubingZA-Website/actions/workflows/test.yml)
+
 ## Getting Started
 
 ### Prerequisites
