@@ -44,6 +44,10 @@ jobs:
     - name: Test
       run: npm test
       
+    - run: |
+        ls
+        ls coverage
+      
     - name: Upload coverage report
       uses: actions/upload-artifact@v3
       with:
@@ -90,6 +94,10 @@ jobs:
     - name: Test
       run: npm run test:ci
       
+    - run: |
+        ls
+        ls coverage
+        
     - name: Upload coverage report
       uses: actions/upload-artifact@v3
       with:
