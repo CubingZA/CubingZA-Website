@@ -50,7 +50,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: api-coverage
-        path: coverage/lcov.info
+        path: ./server/coverage/lcov.info
         retention-days: 1
         
         
@@ -99,6 +99,6 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: frontend-coverage
-        path: coverage/lcov.info
+        path: ./client/coverage/lcov.info
         retention-days: 1
         
