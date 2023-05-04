@@ -44,8 +44,6 @@ jobs:
     - name: Test
       run: npm test
       
-    - run: ls coverage
-      
     - name: Upload coverage report
       uses: actions/upload-artifact@v3
       with:
@@ -93,8 +91,6 @@ jobs:
     - name: Test
       run: npm run test:ci
       
-    - run: ls coverage
-        
     - name: Upload coverage report
       uses: actions/upload-artifact@v3
       with:
@@ -102,3 +98,38 @@ jobs:
         path: ./client/coverage/lcov.info
         retention-days: 1
         
+
+  coverage-report:
+  
+    name: Generate coverage report
+    needs: [test-api, test-frontend]
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' }}
+    defaults:
+      run:
+        working-directory: ./
+        
+    steps: 
+    - name: Download API coverage results
+      uses: actions/download-artifact@v3
+      with:
+        name: api-coverage
+        path: coverage/lcov.api.info
+        
+    - name: Download Frontend coverage results
+      uses: actions/download-artifact@v3
+      with:
+        name: frontend-coverage
+        path: coverage/lcov.frontend.info
+    
+    - name: Setup LCOV
+      run: sudo apt-get -y install lcov
+      shell: bash
+      
+    - name: Report code coverage
+      uses: zgosalvez/github-actions-report-lcov@v3
+      with:
+        coverage-files: coverage/lcov.*.info
+        artifact-name: code-coverage-report
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        update-comment: true 
