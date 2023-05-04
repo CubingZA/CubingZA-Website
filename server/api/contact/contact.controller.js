@@ -1,10 +1,6 @@
-'use strict';
-
-import Mailgun from 'mailgun-js';
-import mailgunConfig from './mailgunConfig'
+import * as emailService from '../../services/email/email.service';
 
 export function send(req, res) {  
-  let mailgun = new Mailgun(mailgunConfig.getOptions());
 
   let message = {
     from: `${req.body.name} <${req.body.email}>`,
@@ -13,18 +9,17 @@ export function send(req, res) {
     text: req.body.message || 'No message'
   };
 
-  mailgun.messages().send(message, (err, body) => {
-    if (err) {
-      res.status(500).json({
-        success: false,
-        error: 'Error sending message'
-      });
-    }
-    else {
+  return emailService.send(message)
+    .then((data) => {
       res.status(200).json({
         success: true,
         message: 'Message successfully sent'
       });
-    }
-  });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        error: 'Error sending message'
+      });
+    })
 }

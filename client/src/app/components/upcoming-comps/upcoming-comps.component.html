@@ -1,0 +1,87 @@
+<div class="home-block upcoming-comps-box">
+  <h2 class="has-buttons">
+    <span>Upcoming Competitions</span>
+    <div *ngIf="upcomingCompetitions.length > 0" class="expand-collapse-buttons">
+      <div class="expand-collapse-button"><fa-icon [icon]="faAngleDoubleDown" (click)="expandAll()"/>
+        <div class="tooltip">Expand all</div>
+      </div>
+      <div class="expand-collapse-button"><fa-icon [icon]="faAngleDoubleUp" (click)="collapseAll()"/>
+        <div class="tooltip">Collapse all</div>
+      </div>
+    </div>
+  </h2>
+
+  <div *ngIf="error">
+    <div class="alert alert-danger" role="alert">
+      <p>
+        {{error}}
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="upcomingCompetitions.length===0">
+    <div class="alert alert-info" role="alert">
+      <p>
+        No upcoming competitions.
+      </p>
+    </div>
+  </div>
+  <div *ngFor="let comp of upcomingCompetitions" class="comp-list-card">
+    <div class="comp-list-card-header">
+      <h3 class="comp-list-card-title" (click)="toggleShowComp(comp, $event)">
+        <strong>{{comp.name}}</strong>
+
+        <fa-icon [icon]="faCaretUp" *ngIf="comp.showDetails" class="comp-list-show-details"/>
+        <fa-icon [icon]="faCaretDown" *ngIf="!comp.showDetails" class="comp-list-show-details"/>
+
+      </h3>
+    </div>
+    <div class="comp-list-card-body" *ngIf="comp.showDetails">
+      <ul class="list-group">
+
+        <li class="list-group-item">
+          <span class="comp-list-icon"><fa-icon [icon]="faLocationDot" /></span>
+          <div>{{comp.venue}}</div>
+          <div class="text-muted text-small">{{comp.address}}</div>
+        </li>
+
+        <li class="list-group-item">
+          <span class="comp-list-icon"><fa-icon [icon]="faMap" /></span>
+          {{comp.city}}, <strong>{{comp.province}}</strong>
+        </li>
+
+        <li class="list-group-item">
+          <span class="comp-list-icon"><fa-icon [icon]="faCalendar" /></span>
+          {{comp.startDate | date : 'EEE, d MMM yyyy'}}
+          <span *ngIf="comp.endDate > comp.startDate">
+            - {{comp.endDate | date : 'EEE, d MMM yyyy'}}
+          </span>
+        </li>
+
+        <li class="list-group-item">
+          <a href="https://www.worldcubeassociation.org/competitions/{{comp.registrationName}}"
+              class="btn btn-default" target="_blank">
+            <span class="icon"><fa-icon [icon]="faInfoCircle" /></span>
+            More Details
+          </a>
+          <a href="https://www.worldcubeassociation.org/competitions/{{comp.registrationName}}/register"
+              class="btn btn-success" target="_blank">
+            <span class="icon"><fa-icon [icon]="faCircleArrowRight" /></span>
+            Register
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="home-block-follower">
+    <div *ngIf="showNotificationSetup()">
+      <a routerLink="/notifications">Set up</a> your personalised notifications for nearby competitions.
+    </div>
+    <div *ngIf="showLoginMessage()">
+      <a routerLink="/login">Login</a> or <a routerLink="/signup">Sign Up</a> to set up your personalised notifications for nearby competitions.
+    </div>
+  </div>
+</div>

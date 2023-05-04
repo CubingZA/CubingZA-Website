@@ -1,0 +1,50 @@
+<div class="container">
+  <h1>Log in</h1>
+
+  <div class="row">
+    <div class="col-full">
+      <button class="btn btn-default btn-large center-block" id="wca-login" (click)="wcaLogin();">
+        <img src="assets/images/WCAlogo_notext.svg" class="btn-icon-image">
+        <span>Log in using your WCA account</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="strike"><span>OR</span></div>
+
+  <div class="row">
+    <div class="col-full">
+      <form class="form" name="form" [formGroup]="form" (submit)="login()" novalidate>
+
+        <div class="form-group" [ngClass]="{
+          'has-success': email.valid && email.touched,
+          'has-error': email.invalid && email.touched
+        }">
+          <label>Email</label>
+          <input type="email" name="email" id="email" class="form-control" formControlName="email">
+          <div class="alert alert-danger" *ngIf="email.touched && email.invalid">Email is required.</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{
+          'has-success': password.valid && password.touched,
+          'has-error': password.invalid && password.touched
+        }">
+          <label>Password</label>
+          <input type="password" name="password" id="password" class="form-control" formControlName="password">
+          <div class="alert alert-danger" *ngIf="password.touched && password.invalid">Password is required.</div>
+        </div>
+
+        <div class="btn-group-horizontal">
+          <button class="btn btn-primary btn-lg" type="submit" id="login" [disabled]="!form.valid">
+            <span class="icon"><fa-icon [icon]="faRightToBracket"/> </span>
+            Log in
+          </button>
+          <a class="btn btn-default btn-lg" routerLink="/signup" id="signup" href>
+            <span class="icon"><fa-icon [icon]="faUserPlus"/> </span>
+            Go to sign up
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

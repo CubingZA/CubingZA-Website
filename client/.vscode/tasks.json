@@ -1,0 +1,58 @@
+{
+  // For more information, visit: https://go.microsoft.com/fwlink/?LinkId=733558
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "start",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "(.*?)"
+          },
+          "endsPattern": {
+            "regexp": "bundle generation complete"
+          }
+        }
+      }
+    },
+    {
+      "type": "npm",
+      "script": "test",
+      "isBackground": true,
+      "problemMatcher": "$karma-jasmine2"
+    },
+    {
+      "label": "Run backend",
+      "type": "shell",
+      "command": "npm --prefix ../server start",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "silent",
+        "panel": "new",
+        "focus": false,
+        "echo": false,
+        "revealProblems": "onProblem"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run database",
+      "type": "shell",
+      "command": "sudo docker run -p 27017:27017 mongo",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "silent",
+        "panel": "new",
+        "focus": false,
+        "echo": false,
+        "revealProblems": "onProblem"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+@import url('src/app/styles/variables.less');
+
+.province-map-container {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.province-map {
+  width: 100%;
+  max-width: 720px;
+}
+
+.province {
+  fill: @default-color-dark;
+  stroke: white;
+  stroke-linejoin: bevel;
+}
+
+.province:hover {
+  fill: @info-color-soft;
+}
+
+.province.active {
+  fill: @primary-color-dark;
+}
+
+.province.active:hover {
+  fill: @primary-color-bright;
+}

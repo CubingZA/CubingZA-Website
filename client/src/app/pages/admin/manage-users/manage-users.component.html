@@ -1,0 +1,77 @@
+<div class="container">
+  <h1>Manage Users</h1>
+
+  <div class="row">
+    <div class="col-full">
+
+      <div class="form">
+        <div class="form-group">
+          <label class="sr-only control-label" for="usersearch">Search</label>
+          <input type="text" class="form-control" id="usersearch" placeholder="Search users" [(ngModel)]="searchFilter">
+          <i class="glyphicon glyphicon-search form-control-feedback"></i>
+          <div class="user-count-box text-muted">
+            Showing {{getFilteredUsers().length}} of {{users.length}} users
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="user-list-container">
+    <table class="user-list-table">
+      <tr>
+        <th></th>
+        <th><span>Name</span></th>
+        <th><span>Email</span></th>
+        <th><span>Provinces</span></th>
+      </tr>
+
+      <tr *ngFor="let user of getFilteredUsers()" class="user-list-row">
+
+        <td class="user-info-control-cell"><div class="user-info-controls">
+          <button (click)="openConfirmDeleteModal(user)" class="btn-danger delete-user-control">
+            <fa-icon [icon]="faTrash"/>
+          </button>
+        </div></td>
+        <td><div class="user-info-element">
+          <span><strong>{{user.name}}</strong></span>
+          <span class="additional-info" *ngIf="user.role !=='user'">({{user.role}})</span>
+        </div></td>
+        <td><div class="user-info-element">
+          <span>{{user.email}}</span>
+          <span class="additional-info">[{{user.provider}}]</span>
+        </div></td>
+        <td class="long-text-cell"><div class="user-info-element text-muted">
+          <span *ngIf="hasProvinces(user)">{{getProvinceString(user)}}</span>
+          <span *ngIf="!hasProvinces(user)">-</span>
+        </div></td>
+
+      </tr>
+    </table>
+
+
+<app-modal id="confirm-delete-modal">
+  <h4 class="modal-header modal-danger">Delete User</h4>
+  <div class="modal-body">
+    <div>
+      Are you sure you want to delete
+      <strong>{{userToDelete?.name}}</strong>
+      permanently?
+    </div>
+    <div>
+      <br/>This action cannot be undone.
+    </div>
+    <br/>
+    <div class="btn-group-horizontal center-block">
+      <button class="btn btn-danger" (click)="confirmDeleteUser()" id="confirm-delete-user">
+        <span class="icon"><fa-icon [icon]="faTrash"></fa-icon></span>
+        Delete
+      </button>
+      <button class="btn btn-default" (click)="closeConfirmDeleteModal()" id="cancel-delete-user">
+        <span class="icon"><fa-icon [icon]="faBan"></fa-icon></span>
+        Close
+      </button>
+    </div>
+  </div>
+</app-modal>

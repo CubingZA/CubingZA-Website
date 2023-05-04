@@ -1,0 +1,142 @@
+@import '../../styles/variables.less';
+
+.upcoming-comps-box {
+  * {
+    box-sizing: border-box;
+  }
+
+  padding-bottom: 2em;
+  border-bottom: 1px solid @border-color-soft;
+
+  .has-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .expand-collapse-buttons {
+      margin: 0.5em 0;
+      float: right;
+      font-size: 0.8rem;
+      display: inline-flex;
+      flex-direction: row;
+      justify-content: end;
+      align-items: last baseline;
+
+      .expand-collapse-button {
+
+        .tooltip {
+          display: none;
+        }
+
+        &:hover {
+          .tooltip {
+            display: block;
+            position: absolute;
+            z-index: 1000;
+
+            color: @text-color-inverted;
+            background-color: @background-color-inverted;
+            border: 1px solid @border-color-soft;
+            border-radius: 0.5em;
+
+            padding: 0.4em 0.8em;
+            width: max-content;
+            top: 0.3em;
+          }
+        }
+      }
+
+      fa-icon {
+        margin: 0 0.1em;
+        padding: 0.1em 0.3em;
+        cursor: pointer;
+        border: 1px solid @border-color-soft;
+        border-radius: 0.5em;
+        background-color: @background-color-highlight;
+
+        &:hover {
+          color: @link-color-hover;
+        }
+      }
+    }
+  }
+
+  .comp-list-card {
+
+    padding: 0;
+    margin: 0 auto 1em auto;
+
+    border: 1px solid @border-color-soft;
+    border-radius: 0.5em;
+    // box-shadow: 1px 0 rgba(0,0,0,0.3);
+
+    overflow: hidden;
+
+    .comp-list-card-header {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background-color: @background-color-highlight;
+      border-bottom: 1px solid @border-color-soft;
+
+      cursor: pointer;
+
+      h3 {
+        font-weight: bold;
+        margin: 0;
+        padding: 0.5em;
+      }
+
+      .comp-list-show-details {
+        float: right;
+        margin: 0;
+      }
+
+      &:hover {
+        color: @link-color;
+        .comp-list-show-details {
+          color: @link-color-hover;
+        }
+      }
+    }
+
+    .comp-list-card-body {
+      background-color: @background-color;
+      width: 100%;
+
+      .list-group {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+
+        .list-group-item {
+          width: 100%;
+          min-height: 2em;
+
+          padding: 0.5em;
+
+          margin: 0;
+          list-style: none;
+          border-bottom: 1px solid @border-color-soft;
+
+          .comp-list-icon {
+            float: left;
+            height: 100%;
+            text-align: center;
+            font-size: 120%;
+            width: 2em;
+            margin-right: 0.5em;
+          }
+
+          .btn {
+            margin: 0.2em 0;
+            width: 100%;
+          }
+
+        }
+      }
+    }
+  }
+}

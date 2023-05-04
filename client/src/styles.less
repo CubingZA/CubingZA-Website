@@ -1,0 +1,79 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('app/styles/variables.less');
+
+@import url('app/styles/layout.less');
+@import url('app/styles/alerts.less');
+@import url('app/styles/forms.less');
+@import url('app/styles/buttons.less');
+
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 11pt;
+  color: @text-color;
+  background-color: @background-color;
+  line-height: 1.4;
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  font-size: 2.5em;
+  font-weight: 200;
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: 200;
+}
+
+a {
+  color: @link-color;
+  text-decoration: none;
+  &:hover {
+    color: @link-color-hover;
+  }
+}
+
+.text-muted {
+  color: @text-color-muted;
+}
+
+.text-small {
+  font-size: 0.8em;
+}
+
+.strike {
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap; 
+  margin: 40px 0;
+
+  span {
+    position: relative;
+    display: inline-block;
+  }
+  span:before, span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background: lightgray;
+  }
+  span:before {
+    right: 100%;
+    margin-right: 15px;
+  }
+  span:after {
+    left: 100%;
+    margin-left: 15px;
+  }
+}
+
+.center-block{
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+}

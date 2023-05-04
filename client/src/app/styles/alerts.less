@@ -1,0 +1,73 @@
+@hover-lighten-percentage: 20%;
+
+.alert {
+  padding: 0.5em 1em;
+  margin: 1em auto;
+  border-radius: 0.6em;
+  background-color: #f8f8f8;
+  color: @text-color;
+  position: relative;
+  border: 1px solid transparent;
+
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5em;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: large;
+    font-weight: bold;
+  }
+
+  &.alert-success {
+    background-color: @success-color-soft;
+    color: @success-text-color;
+    border-color: @success-color-soft;
+    .close {
+      color: @success-text-color;
+      &:hover {
+        color: lighten(@success-text-color, @hover-lighten-percentage);
+      }
+    }
+  }
+
+  &.alert-warning {
+    background-color: @warning-color-soft;
+    color: @warning-text-color;
+    border-color: @warning-color-soft;
+    .close {
+      color: @warning-text-color;
+      &:hover {
+        color: lighten(@warning-text-color, @hover-lighten-percentage);
+      }
+    }
+  }
+
+  &.alert-danger {
+    background-color: @danger-color-soft;
+    color: @danger-text-color;
+    border-color: @danger-color-soft;
+    .close {
+      color: @danger-text-color;
+      &:hover {
+        color: lighten(@danger-text-color, @hover-lighten-percentage);
+      }
+    }
+  }
+
+  &.alert-info {
+    background-color: @info-color-soft;
+    color: @info-text-color;
+    border-color: @info-color-soft;
+    .close {
+      color: @info-text-color;
+      &:hover {
+        color: lighten(@info-text-color, @hover-lighten-percentage);
+      }
+    }
+  }
+
+
+}

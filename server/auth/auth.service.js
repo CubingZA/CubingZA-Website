@@ -1,11 +1,10 @@
-'use strict';
 import config from '../config/environment';
 import jwt from 'jsonwebtoken';
-import expressJwt from 'express-jwt';
+import {expressjwt} from 'express-jwt';
 import compose from 'composable-middleware';
-import User from '../api/user/user.model';
+import User from '../api/users/user.model';
 
-var validateJwt = expressJwt({
+var validateJwt = expressjwt({
   secret: config.secrets.session,
   algorithms: ['HS256']
 });
@@ -30,12 +29,12 @@ export function isAuthenticated() {
     })
     // Attach user to request
     .use(function(req, res, next) {
-      return User.findById(req.user._id).exec()
+      return User.findById(req.auth._id).exec()
         .then(user => {
           if(!user) {
             return res.status(401).end();
           }
-          req.user = user;
+          req.auth = user;
           next();
         })
         .catch(err => next(err));
@@ -53,7 +52,7 @@ export function hasRole(roleRequired) {
   return compose()
     .use(isAuthenticated())
     .use(function meetsRequirements(req, res, next) {
-      if(config.userRoles.indexOf(req.user.role) >= config.userRoles.indexOf(roleRequired)) {
+      if(config.userRoles.indexOf(req.auth.role) >= config.userRoles.indexOf(roleRequired)) {
         return next();
       } else {
         return res.status(403).send('Forbidden');
@@ -65,7 +64,7 @@ export function hasRole(roleRequired) {
  * Returns a jwt token signed by the app secret
  */
 export function signToken(id, role) {
-  return jwt.sign({ _id: id, role }, config.secrets.session, {
+  return jwt.sign({ _id: id, role: role }, config.secrets.session, {
     expiresIn: 60 * 60 * 5
   });
 }
@@ -74,10 +73,10 @@ export function signToken(id, role) {
  * Set token cookie directly for oAuth strategies
  */
 export function setTokenCookie(req, res) {
-  if(!req.user) {
-    return res.status(404).send('It looks like you aren\'t logged in, please try again.');
+  if(!req.auth) {
+    return res.status(403).send('It looks like you aren\'t logged in, please try again.');
   }
-  var token = signToken(req.user._id, req.user.role);
+  var token = signToken(req.auth._id, req.auth.role);
   res.cookie('token', token);
   res.redirect('/');
 }
