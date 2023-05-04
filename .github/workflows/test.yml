@@ -52,7 +52,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: api-coverage
-        path: ./coverage/lcov.info
+        path: coverage/lcov.info
         
         
   test-frontend:
@@ -102,5 +102,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: frontend-coverage
-        path: ./coverage/lcov.info
+        path: coverage/lcov.info
         
