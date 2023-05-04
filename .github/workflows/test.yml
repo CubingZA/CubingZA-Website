@@ -128,12 +128,22 @@ jobs:
       run: sudo apt-get -y install lcov
       shell: bash
       
-    - name: Report code coverage
+    - name: Report API code coverage
       uses: zgosalvez/github-actions-report-lcov@v3
       with:
         coverage-files: coverage/api/lcov.info
         artifact-name: api-code-coverage-report
         github-token: ${{ secrets.GITHUB_TOKEN }}
         update-comment: true 
-        title-prefix: Api Coverage
+        title-prefix: API Coverage
         working-directory: ./server
+
+    - name: Report website code coverage
+      uses: zgosalvez/github-actions-report-lcov@v3
+      with:
+        coverage-files: coverage/frontend/lcov.info
+        artifact-name: frontend-code-coverage-report
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        update-comment: true 
+        title-prefix: Website Coverage
+        working-directory: ./client
