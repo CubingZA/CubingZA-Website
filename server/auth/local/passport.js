@@ -16,7 +16,7 @@ function localAuthenticate(User, email, password, done) {
           message: 'This account requires logging in using a WCA account.'
         });
       }
-    
+
       user.authenticate(password, function(authError, authenticated) {
         if(authError) {
           return done(authError);
@@ -29,8 +29,6 @@ function localAuthenticate(User, email, password, done) {
       });
     })
     .catch(err => {
-      console.log('Log in error');
-      console.log(err)
       done(err)
   });
 }

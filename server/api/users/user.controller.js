@@ -169,7 +169,6 @@ export function verify(req, res) {
         return res.status(401).end();
       }
       if (user.role === 'unverified' && verificationToken === user.verificationToken) {
-        console.log('Success')
         user.role = 'user';
         return user.save()
         .then(() => {
@@ -179,16 +178,13 @@ export function verify(req, res) {
           });
         })
         .catch(err => {
-          console.log('Error saving user', err);
           handleError(err)
         });
       } else {
-        console.log('Incorrect token for user', userId)
         return res.status(401).end();
       }
     })
     .catch(err => {
-      console.log('Error finding user', err);
       return res.status(500).json({
         success: false,
         message: 'Could not verify user'
@@ -227,7 +223,6 @@ export function sendVerificationEmail(req, res) {
 
 function sendVerificationEmailHelper(user) {
   var emailLink = `${process.env.DOMAIN}/verify/${user._id}#${user.verificationToken}`
-  console.log(emailLink);
 
   let message = {
     from: `CubingZA <info@m.cubingza.org>` ,
