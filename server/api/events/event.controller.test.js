@@ -212,6 +212,8 @@ describe ("Event controller:", function() {
         sendEvent = new Event(mockEventData[0]);
         mockingoose(Event).toReturn(sendEvent, 'findById');
         mockingoose(Event).toReturn(sendEvent, 'findOne');
+        // We don't want to use mockingoose for this because it is still async and won't resolve before jest tears down
+        sendEvent.save = jest.fn();
         expect(sendEvent.notificationsSent).toBe(false);
         await controller.sendNotifications(req, res)
       });
@@ -227,6 +229,7 @@ describe ("Event controller:", function() {
 
       it("should set the notificationsSent flag to true", async function() {
         expect(sendEvent.notificationsSent).toBe(true);
+        expect(sendEvent.save).toHaveBeenCalled();
       });
     });
 

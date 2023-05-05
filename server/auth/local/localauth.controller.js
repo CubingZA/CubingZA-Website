@@ -5,7 +5,6 @@ export function authenticate(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     var error = err || info;
     if(error) {
-      console.log(info);
       return res.status(401).json(error);
     }
     if(!user) {

@@ -24,13 +24,10 @@ function getProvinceCode(province) {
 
 export default function sendNotificationEmails(comp) {
 
-  console.log('\n\n======================\nSend Notifications\n======================\n\n');
-
   let province = getProvinceCode(comp.province);
 
   return User.find({}, '-salt -password').exec()
   .then(users => {
-    console.log('Loaded users\n\n');
 
     let sendRequests = [];
 
@@ -38,7 +35,6 @@ export default function sendNotificationEmails(comp) {
       let user = users[u];
       if (user.notificationSettings[province] && user.role !== 'unverified') {
         // User has notification settings turned on for this province
-        console.log('Sending email for',user.name, user.email);
 
         let message = {
           from: 'CubingZA Notifications <compnotifications@m.cubingza.org>',
