@@ -37,3 +37,4 @@ coverage/
 Thumbs.db
 *~
 .directory
+/client/analytics-tag.txt
