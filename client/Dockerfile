@@ -7,6 +7,7 @@ COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 RUN ng build --configuration production
+RUN ./analytics.sh
 
 
 # Stage 2: Serve via nginx
