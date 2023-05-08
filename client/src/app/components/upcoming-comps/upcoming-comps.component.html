@@ -29,7 +29,7 @@
   <div *ngFor="let comp of upcomingCompetitions" class="comp-list-card">
     <div class="comp-list-card-header">
       <h3 class="comp-list-card-title" (click)="toggleShowComp(comp, $event)">
-        <strong>{{comp.name}}</strong>
+        {{comp.name}}
 
         <fa-icon [icon]="faCaretUp" *ngIf="comp.showDetails" class="comp-list-show-details"/>
         <fa-icon [icon]="faCaretDown" *ngIf="!comp.showDetails" class="comp-list-show-details"/>
