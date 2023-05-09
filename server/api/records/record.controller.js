@@ -48,7 +48,11 @@ export function upsert(req, res) {
   if(req.body._id) {
     delete req.body._id;
   }
-  return Record.findOneAndUpdate({eventId: sanitize(req.params.id)}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()
+  return Record.findOneAndUpdate(
+      {eventId: sanitize(req.params.id)},
+      sanitize(req.body),
+      {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}
+    ).exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));

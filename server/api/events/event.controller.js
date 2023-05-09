@@ -69,7 +69,7 @@ export function create(req, res) {
   if (req.body._id !== undefined) {
     delete req.body._id;
   }
-  return Event.create(req.body)
+  return Event.create(sanitize(req.body))
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
