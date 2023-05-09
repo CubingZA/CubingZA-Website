@@ -83,7 +83,7 @@ describe('WCA Auth Controller', () => {
 
       expect(res.statusCode).toEqual(302);
       expect(res.headers['Location']).toMatch(
-        /^https:\/\/staging.worldcubeassociation.org\/oauth\/authorize\?/
+        /^https:\/\/staging\.worldcubeassociation\.org\/oauth\/authorize\?/
       );
     });
 
