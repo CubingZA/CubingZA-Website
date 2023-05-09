@@ -1,3 +1,4 @@
+import sanitize from 'mongo-sanitize';
 import Event from './event.model';
 import sendNotificationEmails from '../../components/notificationEmailer/notificationEmailer';
 
@@ -57,7 +58,7 @@ export function upcoming(req, res) {
 
 // Gets a single Event from the DB
 export function show(req, res) {
-  return Event.findById(req.params.id).exec()
+  return Event.findById(sanitize(req.params.id)).exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -85,7 +86,7 @@ export function upsert(req, res) {
 
 // Deletes a Event from the DB
 export function destroy(req, res) {
-  return Event.findById(req.params.id).exec()
+  return Event.findById(sanitize(req.params.id)).exec()
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));
@@ -93,7 +94,7 @@ export function destroy(req, res) {
 
 // Send notifications for an event
 export function sendNotifications(req, res) {
-  return Event.findById(req.params.id).exec()
+  return Event.findById(sanitize(req.params.id)).exec()
     .then(handleEntityNotFound(res))
     .then(comp => {
       sendNotificationEmails(comp);

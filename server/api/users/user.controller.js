@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import sanitize from 'mongo-sanitize';
 import User from './user.model';
 import config from '../../config/environment';
 
@@ -55,7 +56,7 @@ export function create(req, res) {
  * Get a single user
  */
 export function show(req, res, next) {
-  var userId = req.params.id;
+  let userId = sanitize(req.params.id);
 
   return User.findById(userId).exec()
     .then(user => {
@@ -72,7 +73,8 @@ export function show(req, res, next) {
  * restriction: 'admin'
  */
 export function destroy(req, res) {
-  return User.findByIdAndRemove(req.params.id).exec()
+  let userId = sanitize(req.params.id);
+  return User.findByIdAndRemove(userId).exec()
     .then(function(user) {
       if(!user) {
         return res.status(404).end();
@@ -87,7 +89,7 @@ export function destroy(req, res) {
  * Change a users password
  */
 export function changePassword(req, res) {
-  var userId = req.auth._id;
+  var userId = sanitize(req.auth._id);
   var oldPass = String(req.body.oldPassword);
   var newPass = String(req.body.newPassword);
 
@@ -110,7 +112,7 @@ export function changePassword(req, res) {
  * Get my info
  */
 export function me(req, res, next) {
-  var userId = req.auth._id;
+  var userId = sanitize(req.auth._id);
 
   return User.findOne({ _id: userId }, '-salt -password').exec()
     .then(user => { // don't ever give out the password or salt
@@ -126,7 +128,7 @@ export function me(req, res, next) {
  * Get Notifications for current user
  */
 export function getNotifications(req, res, next) {
-  var userId = req.auth._id;
+  var userId = sanitize(req.auth._id);
 
   return User.findOne({ _id: userId }, '-salt -password').exec()
     .then(user => { // don't ever give out the password or salt
@@ -142,7 +144,7 @@ export function getNotifications(req, res, next) {
  * Save notifications for current user
  */
 export function saveNotifications(req, res) {
-  var userId = req.auth._id;
+  var userId = (req.auth._id);
   var notifications = req.body;
 
   return User.findById(userId).exec()
@@ -160,7 +162,7 @@ export function saveNotifications(req, res) {
 }
 
 export function verify(req, res) {
-  var userId = req.body.id;
+  var userId = sanitize(req.body.id);
   var verificationToken = req.body.verificationToken;
   return User.findById(userId).exec()
     .then(user => {
@@ -196,7 +198,7 @@ export function verify(req, res) {
  * Send verification email for current user
  */
 export function sendVerificationEmail(req, res) {
-  var userId = req.auth._id;
+  var userId = sanitize(req.auth._id);
 
   return User.findById(userId).exec()
     .then(user => {
