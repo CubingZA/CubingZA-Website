@@ -131,11 +131,12 @@ describe('Local Auth Controller', () => {
         });
       });
 
-      describe("with a WCA user", () => {
+      describe("with a WCA user without a password", () => {
         it("should respond 401 Unauthorised", async () => {
 
           let user = new User(mockUser);
           user.provider = ["wca"];
+          user.password = undefined;
           user.authenticate = jest.fn().mockImplementation((password, callback) => {
             callback(null, true);
           });

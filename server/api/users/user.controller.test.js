@@ -28,7 +28,7 @@ const mockUserData = [
     "name": "Test Person",
     "email": "test@example.com",
     "role": "user",
-    "provider": "local",
+    "provider": ["local"],
     "password": "Encrypted-password--!",
     "notificationSettings": {
       "GT": true,
@@ -46,7 +46,7 @@ const mockUserData = [
   {
     "name": "Another one",
     "role": "user",
-    "provider": "wca",
+    "provider": ["wca"],
     "notificationSettings": {
       "GT": false,
       "MP": false,
@@ -202,7 +202,7 @@ describe ("User controller:", function() {
       });
 
       it("should set the provider to local", async function() {
-        expect(newUser.provider).toBe(['local']);
+        expect(newUser.provider).toStrictEqual(expect.arrayContaining(['local']));
       });
 
       it("should set the role to unverified", async function() {

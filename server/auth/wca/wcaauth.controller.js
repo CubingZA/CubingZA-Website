@@ -5,7 +5,7 @@ import { inspect } from 'util' // TODO: Remove this
 
 
 export function authenticate(req, res, callback) {
-  const next = req.query.next || null;
+  const next = req.query.next || "";
   req.session.redirectUrl = next;
   req.session.isMerge = (req.auth ? true : false);
   req.session.mergeUser = req.auth;
@@ -16,13 +16,13 @@ export function callback(req, res, callback) {
   passport.authenticate('oauth2', function(err, user, info) {
     var error = err || info;
     if(error && Object.keys(error).length !== 0) {
-      return res.redirect(`${req.session.redirectUrl}/login?error=${error.message}`);
+      return res.redirect(`${req.session.redirectUrl}/login`);
     }
     if (user) {
       if (req.session.isMerge) {
         mergeWcaUser(user, req.session.mergeUser, function(err) {
           if (err) {
-            return res.redirect(`${req.session.redirectUrl}?error=${err.message}`);
+            return res.redirect(`${req.session.redirectUrl}/login`);
           } else {
             return res.redirect(req.session.redirectUrl);
           }
@@ -30,7 +30,7 @@ export function callback(req, res, callback) {
       } else {
         if (user.provider.indexOf('wca') === -1) {
           const message = "WCA login not enabled for this account."
-          return res.redirect(`${req.session.redirectUrl}/login?error=${message}`);
+          return res.redirect(`${req.session.redirectUrl}/login`);
         }
 
         var token = signToken(user._id, user.role);

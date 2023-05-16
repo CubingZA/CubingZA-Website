@@ -21,7 +21,7 @@ const mockUser = {
   name: "Test Person",
   email: "test@example.com",
   role: "user",
-  provider: "wca"
+  provider: ["wca"]
 };
 
 const mockValidWCAAuthCodeResponse = {
@@ -101,6 +101,7 @@ describe('WCA Auth Controller', () => {
   describe('calling controller.callback', () => {
 
     beforeEach(async () => {
+      delete req.auth
       controller.authenticate(req, res, next);
       await isBusyTesting;
       resetWait();
