@@ -27,51 +27,11 @@ Event.find({}).deleteMany({})
     })
   });
 
-  User.find({}).deleteMany({})
+User.find({}).deleteMany({})
+  .then(() => {
+    User.create(require('../seed-data/users.json'))
     .then(() => {
-      User.create({
-        provider: 'local',
-        role: 'user',
-        name: 'Test User',
-        email: 'test@m.cubingza.org',
-        password: 'test',
-        notificationSettings: {
-          GT: true,
-          MP: false,
-          LM: false,
-          NW: false,
-          FS: false,
-          KZ: false,
-          EC: false,
-          WC: false,
-          NC: false
-        }
-      }, {
-        provider: 'local',
-        role: 'admin',
-        name: 'Admin',
-        email: 'admin@m.cubingza.org',
-        password: 'admin'
-      }, {
-        provider: 'local',
-        name: 'Unver',
-        email: 'unver@m.cubingza.org',
-        password: 'unver',
-        verificationToken: '123abc',
-        notificationSettings: {
-          GT: true,
-          MP: false,
-          LM: false,
-          NW: false,
-          FS: false,
-          KZ: false,
-          EC: false,
-          WC: false,
-          NC: false
-        }
-      })
-      .then(() => {
-        console.log('finished populating users');
-      });
+      console.log('finished populating users');
     });
+  });
 }
