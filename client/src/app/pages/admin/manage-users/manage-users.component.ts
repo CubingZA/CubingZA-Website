@@ -60,7 +60,7 @@ export class ManageUsersComponent {
     let users = this.users.filter((user) => {
       if (this.getProvinceString(user).toLowerCase().includes(searchFilter) ||
           user.role.toLowerCase().includes(searchFilter) ||
-          user.provider.toLowerCase().includes(searchFilter) ||
+          user.provider.join().toLowerCase().includes(searchFilter) ||
           user.name.toLowerCase().includes(searchFilter) ||
           user.email.toLowerCase().includes(searchFilter)) {
         return true;

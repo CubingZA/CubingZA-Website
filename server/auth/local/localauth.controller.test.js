@@ -135,7 +135,7 @@ describe('Local Auth Controller', () => {
         it("should respond 401 Unauthorised", async () => {
 
           let user = new User(mockUser);
-          user.provider = "wca";
+          user.provider = ["wca"];
           user.authenticate = jest.fn().mockImplementation((password, callback) => {
             callback(null, true);
           });

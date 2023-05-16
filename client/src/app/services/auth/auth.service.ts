@@ -36,11 +36,11 @@ export class AuthService {
   }
 
   isLocalUser(): boolean {
-    return this.currentUser ? this.currentUser.provider === 'local' : false;
+    return this.currentUser ? this.currentUser.provider.indexOf('local') >= 0 : false;
   }
 
   isWCAUser(): boolean {
-    return this.currentUser ? this.currentUser.provider === 'wca' : false;
+    return this.currentUser ? this.currentUser.provider.indexOf('wca') >= 0 : false;
   }
 
   isLoggedIn(): boolean {

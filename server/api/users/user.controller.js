@@ -38,7 +38,7 @@ export function index(req, res) {
  */
 export function create(req, res) {
   const newUser = new User(req.body);
-  newUser.provider = 'local';
+  newUser.provider = ['local'];
   newUser.role = 'unverified';
   newUser.verificationToken = crypto.randomBytes(24).toString('hex');
   return newUser.save()

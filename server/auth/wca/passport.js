@@ -25,8 +25,7 @@ function wcaAuthenticate(User, accessToken, done) {
       }
       // Attempt to find the user in the database
       return User.findOne({
-        email: wcaProfile.email.toLowerCase(),
-        provider: 'wca'
+        email: wcaProfile.email.toLowerCase()
       }).exec()
       .then(user => {
         if(!user) {
@@ -34,8 +33,8 @@ function wcaAuthenticate(User, accessToken, done) {
           var user = new User({
             name: wcaProfile.name,
             email: wcaProfile.email.toLowerCase(),
-            provider: 'wca',
-            role: 'user'
+            provider: ['wca'],
+            role: 'user',
           });
 
           return user.save()

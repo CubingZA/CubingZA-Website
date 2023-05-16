@@ -202,7 +202,7 @@ describe ("User controller:", function() {
       });
 
       it("should set the provider to local", async function() {
-        expect(newUser.provider).toBe('local');
+        expect(newUser.provider).toBe(['local']);
       });
 
       it("should set the role to unverified", async function() {
