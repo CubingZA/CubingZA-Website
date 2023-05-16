@@ -21,6 +21,7 @@ import { SignupComponent } from './account/signup/signup.component';
 import { WcaLoginComponent } from './account/wcalogin/wcalogin.component';
 import { SettingsComponent } from './account/settings/settings.component';
 import { VerifyComponent } from './account/verify/verify.component';
+import { ChangePasswordComponent } from './account/settings/change-password/change-password.component';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -69,13 +70,14 @@ import { AlertsComponent } from './components/alerts/alerts.component';
     ModalComponent,
     CompEditBoxComponent,
     UnverifiedWarningComponent,
-    AlertsComponent
+    AlertsComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule, FontAwesomeModule
   ],
   providers: [],
