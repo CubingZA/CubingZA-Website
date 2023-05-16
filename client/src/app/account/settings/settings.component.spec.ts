@@ -8,6 +8,7 @@ import { UnverifiedWarningComponent } from 'src/app/components/unverified-warnin
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { LinkWcaAccountComponent } from './link-wca-account/link-wca-account.component';
 
 describe('SettingsComponent', () => {
   let component: SettingsComponent;
@@ -30,6 +31,7 @@ describe('SettingsComponent', () => {
         SettingsComponent,
         MockComponent(UnverifiedWarningComponent),
         MockComponent(ChangePasswordComponent),
+        MockComponent(LinkWcaAccountComponent)
       ],
       providers: [
         { provide: UserService, useValue: userServiceSpy },

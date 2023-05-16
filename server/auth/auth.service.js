@@ -11,22 +11,12 @@ var validateJwt = expressjwt({
 
 /**
  * Attaches the user object to the request if authenticated
- * Otherwise returns 403
+ * Otherwise returns 401
  */
 export function isAuthenticated() {
   return compose()
     // Validate jwt
-    .use(function(req, res, next) {
-      // allow access_token to be passed through query parameter as well
-      if(req.query && req.query.hasOwnProperty('access_token')) {
-        req.headers.authorization = `Bearer ${req.query.access_token}`;
-      }
-     // IE11 forgets to set Authorization header sometimes. Pull from cookie instead.
-      if(req.query && typeof req.headers.authorization === 'undefined') {
-        req.headers.authorization = `Bearer ${req.cookies.token}`;
-      }
-      validateJwt(req, res, next);
-    })
+    .use(checkAuthHeaderAndValidateJwt)
     // Attach user to request
     .use(function(req, res, next) {
       return User.findById(req.auth._id).exec()
@@ -79,4 +69,16 @@ export function setTokenCookie(req, res) {
   var token = signToken(req.auth._id, req.auth.role);
   res.cookie('token', token);
   res.redirect('/');
+}
+
+function checkAuthHeaderAndValidateJwt(req, res, next) {
+  // allow access_token to be passed through query parameter as well
+  if(req.query && req.query.hasOwnProperty('access_token')) {
+    req.headers.authorization = `Bearer ${req.query.access_token}`;
+  }
+ // IE11 forgets to set Authorization header sometimes. Pull from cookie instead.
+  if(req.query && typeof req.headers.authorization === 'undefined') {
+    req.headers.authorization = `Bearer ${req.cookies.token}`;
+  }
+  validateJwt(req, res, next);
 }

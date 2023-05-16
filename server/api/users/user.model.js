@@ -25,6 +25,9 @@ var UserSchema = new Schema({
     type: Schema.Types.Mixed,
     default: {GT:false,MP:false,LM:false,NW:false,FS:false,KZ:false,EC:false,WC:false,NC:false}
   },
+  wcaID: String,
+  wcaCountryID: String,
+  province: String,
   eventLog: [String],
   provider: [String],
   salt: String

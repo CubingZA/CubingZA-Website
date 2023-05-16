@@ -120,6 +120,11 @@ export class AuthService {
     window.location.href = "/auth/wca?" + params.toString();
   }
 
+  connectWcaAccount() {
+    const params = new URLSearchParams({next: window.location.origin + "/settings"});
+    window.location.href = "/auth/wca/merge?" + params.toString();
+  }
+
   finishLoginProcess(token: string) {
     this.cookies.set('token', token);
     this.updateCurrentUser(() => {

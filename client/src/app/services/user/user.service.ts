@@ -79,4 +79,7 @@ export type User = {
   provider: string[];
   notificationSettings: ProvinceSelection;
   eventLog?: any[];
+  wcaID?: string;
+  wcaCountryID: string;
+  province: string;
 }

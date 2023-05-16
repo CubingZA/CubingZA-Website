@@ -35,16 +35,20 @@ function wcaAuthenticate(User, accessToken, done) {
             email: wcaProfile.email.toLowerCase(),
             provider: ['wca'],
             role: 'user',
+            wcaID: wcaProfile.wca_id,
+            wcaCountryID: wcaProfile.country_iso2,
           });
 
           return user.save()
             .then((user) => {
               // Created new user.
+              user.wcaProfile = wcaProfile;
               return done(null, user);
             });
         }
         else {
           // User already exists.
+          user.wcaProfile = wcaProfile;
           return done(null, user);
         }
       })
@@ -53,7 +57,7 @@ function wcaAuthenticate(User, accessToken, done) {
       });
     })
     .catch(err => {
-      return done(err);
+      return done(err, null);
     });
 }
 
