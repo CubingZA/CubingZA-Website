@@ -16,7 +16,7 @@ const mockUserData: User[] = [
     "name": "Test Person",
     "email": "test@example.com",
     "role": "user",
-    "provider": "local",
+    "provider": ["local"],
     "notificationSettings": {
       "GT": true,
       "MP": false,
@@ -35,7 +35,7 @@ const mockUserData: User[] = [
     "name": "Another one",
     "email": "oauth@example.com",
     "role": "user",
-    "provider": "wca",
+    "provider": ["wca"],
     "notificationSettings": {
       "GT": false,
       "MP": false,
@@ -53,7 +53,7 @@ const mockUserData: User[] = [
     "name": "Unverified Person",
     "email": "unver@example.com",
     "role": "unverified",
-    "provider": "local",
+    "provider": ["local"],
     "notificationSettings": {
       "GT": false,
       "MP": true,
@@ -71,7 +71,7 @@ const mockUserData: User[] = [
     "name": "Someone Guy",
     "email": "somethingelse@example.com",
     "role": "admin",
-    "provider": "local",
+    "provider": ["local"],
     "notificationSettings": {
       "GT": true,
       "MP": true,

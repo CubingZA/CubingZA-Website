@@ -25,7 +25,7 @@ describe('UserService', () => {
           name: "Test Person",
           email: "test@example.com",
           role: "user",
-          provider: "local",
+          provider: ["local"],
           notificationSettings: {
             "GT": true,
             "MP": false,
@@ -43,7 +43,7 @@ describe('UserService', () => {
           name: "Test Person 2",
           email: "another@example.com",
           role: "admin",
-          provider: "wca",
+          provider: ["wca"],
           notificationSettings: {
             "GT": true,
             "MP": true,
@@ -78,7 +78,7 @@ describe('UserService', () => {
         name: "Test Person",
         email: "test@example.com",
         role: "user",
-        provider: "local",
+        provider: ["local"],
         notificationSettings: {
           "GT": true,
           "MP": false,
@@ -110,7 +110,7 @@ describe('UserService', () => {
         name: "Test Person",
         email: "test@example.com",
         role: "user",
-        provider: "local",
+        provider: ["local"],
         notificationSettings: {
           "GT": true,
           "MP": false,
@@ -157,7 +157,7 @@ describe('UserService', () => {
       name: "Test Person",
       email: "test@example.com",
       role: "user",
-      provider: "local",
+      provider: ["local"],
       notificationSettings: {
         "GT": true,
         "MP": false,

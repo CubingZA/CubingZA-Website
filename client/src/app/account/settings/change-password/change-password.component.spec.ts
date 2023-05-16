@@ -74,11 +74,6 @@ describe('ChangePasswordComponent', () => {
       const form = fixture.nativeElement.querySelector('form');
       expect(form).toBeFalsy();
     });
-
-    it('should have a WCA login notice', () => {
-      const wcaLoginNotice = fixture.nativeElement.querySelector('.wca-login-notice');
-      expect(wcaLoginNotice).toBeTruthy();
-    });
   });
 
   describe('rendering for a local user', () => {

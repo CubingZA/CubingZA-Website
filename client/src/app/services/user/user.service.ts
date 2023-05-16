@@ -80,6 +80,6 @@ export type User = {
   notificationSettings: ProvinceSelection;
   eventLog?: any[];
   wcaID?: string;
-  wcaCountryID: string;
-  province: string;
+  wcaCountryID?: string;
+  province?: string;
 }
