@@ -63,7 +63,9 @@ function mergeWcaUser(user, authUser, callback) {
   // Merge the WCA user into the local user
   const wcaProfile = user.wcaProfile;
   delete user.wcaProfile;
-  user.provider = 'wca';
+  if (!user.provider.includes('wca')) {
+    user.provider.push('wca');
+  }
   user.name = wcaProfile.name;
   user.wcaID = wcaProfile.wca_id;
   user.wcaCountryID = wcaProfile.country_iso2;
