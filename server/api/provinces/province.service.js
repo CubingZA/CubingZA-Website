@@ -1,5 +1,5 @@
 export default function getProvinceCode(province) {
-  let provinceNames = {
+  let provinceNameMap = {
       GT:'Gauteng',
       MP:'Mpumalanga',
       LM:'Limpopo',
@@ -8,11 +8,13 @@ export default function getProvinceCode(province) {
       KZ:'KwaZulu Natal',
       EC:'Eastern Cape',
       WC:'Western Cape',
-      NC:'Northern Cape'
+      NC:'Northern Cape',
+      other:'Other country',
+      none:'No province'
     };
 
-  for (let p in provinceNames) {
-    if (provinceNames[p] === province) {
+  for (let p in provinceNameMap) {
+    if (provinceNameMap[p] === province) {
       return p;
     }
   }
