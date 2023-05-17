@@ -1,26 +1,7 @@
 import User from '../../api/users/user.model';
 import * as emailService from '../../services/email/email.service';
+import getProvinceCode from '../../api/provinces/province.service';
 
-function getProvinceCode(province) {
-  let provinceNames = {
-      GT:'Gauteng',
-      MP:'Mpumalanga',
-      LM:'Limpopo',
-      NW:'North West',
-      FS:'Free State',
-      KZ:'KwaZulu Natal',
-      EC:'Eastern Cape',
-      WC:'Western Cape',
-      NC:'Northern Cape'
-    };
-
-  for (let p in provinceNames) {
-    if (provinceNames[p] === province) {
-      return p;
-    }
-  }
-  return null;
-}
 
 export default function sendNotificationEmails(comp) {
 
