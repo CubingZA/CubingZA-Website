@@ -8,6 +8,7 @@ import { UnverifiedWarningComponent } from 'src/app/components/unverified-warnin
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ChangeProvinceComponent } from './change-province/change-province.component';
 import { LinkWcaAccountComponent } from './link-wca-account/link-wca-account.component';
 
 describe('SettingsComponent', () => {
@@ -31,6 +32,7 @@ describe('SettingsComponent', () => {
         SettingsComponent,
         MockComponent(UnverifiedWarningComponent),
         MockComponent(ChangePasswordComponent),
+        MockComponent(ChangeProvinceComponent),
         MockComponent(LinkWcaAccountComponent)
       ],
       providers: [

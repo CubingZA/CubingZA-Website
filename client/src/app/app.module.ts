@@ -22,6 +22,7 @@ import { WcaLoginComponent } from './account/wcalogin/wcalogin.component';
 import { SettingsComponent } from './account/settings/settings.component';
 import { VerifyComponent } from './account/verify/verify.component';
 import { ChangePasswordComponent } from './account/settings/change-password/change-password.component';
+import { ChangeProvinceComponent } from './account/settings/change-province/change-province.component';
 import { LinkWcaAccountComponent } from './account/settings/link-wca-account/link-wca-account.component';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -73,6 +74,7 @@ import { AlertsComponent } from './components/alerts/alerts.component';
     UnverifiedWarningComponent,
     AlertsComponent,
     ChangePasswordComponent,
+    ChangeProvinceComponent,
     LinkWcaAccountComponent
   ],
   imports: [

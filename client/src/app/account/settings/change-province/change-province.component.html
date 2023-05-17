@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-full">
+    <h3>
+      Profile Settings
+    </h3>
+
+    <div *ngIf="!isWCAUser()">
+      <div class="alert alert-info">
+        Connect your WCA account to be able to set your province and appear in the rankings.
+      </div>
+    </div>
+
+    <div *ngIf="isWCAUser()">
+      <form class="form">
+
+        <div class="form-group">
+          <label for="homeProvince">Home province</label>
+          <select class="form-control" name="homeProvince" [(ngModel)]="province" (ngModelChange)="updateProvince()">
+            <option *ngFor="let province of getProvinces()" [value]="province">{{ province }}</option>
+          </select>
+          <p class="text-muted text-small">
+            <span *ngIf="provinceHasRankings()">
+              <span class="icon"><fa-icon [icon]="faInfoCircle"/></span>
+              You will appear in the rankings for {{ province }}.
+            </span>
+            <span *ngIf="!provinceHasRankings()">
+              <span class="icon"><fa-icon [icon]="faTriangleExclamation"/></span>
+              You will not appear in provincial rankings.
+            </span>
+          </p>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

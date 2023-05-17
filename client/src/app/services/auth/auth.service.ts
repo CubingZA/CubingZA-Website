@@ -132,13 +132,22 @@ export class AuthService {
     });
   }
 
-  async updateCurrentUser(callback?: () => void) {
+  updateCurrentUser(callback?: () => void): Observable<User> {
+    let sendResult: (user: User) => void = () => {};
+    let observable = new Observable<User>(observer => {
+      sendResult = (user: User) => {
+        observer.next(user);
+        observer.complete();
+      }
+    });
+
     this.busyUpdatingUser = true;
     this.userService.getCurrentUser()
     .subscribe({
       next: (data: User) => {
         this.busyUpdatingUser = false;
         this.currentUser = data;
+        sendResult(this.currentUser);
         if (callback) {
           callback();
         }
@@ -149,6 +158,8 @@ export class AuthService {
         this.logout();
       }
     });
+
+    return observable;
   }
 
   private checkJWT(): boolean {
