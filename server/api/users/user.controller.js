@@ -5,6 +5,7 @@ import User from './user.model';
 import config from '../../config/environment';
 
 import * as emailService from '../../services/email/email.service';
+import getProvinceCode from '../provinces/province.service';
 
 
 function validationError(res, statusCode) {
@@ -86,6 +87,30 @@ export function destroy(req, res) {
 }
 
 /**
+ * Change a user's home province
+ */
+export function updateHomeProvince(req, res) {
+  var userId = sanitize(req.auth._id);
+  var homeProvince = getProvinceCode(sanitize(req.body.homeProvince));
+  if (!homeProvince) {
+    return res.status(400).json({message: 'Invalid province name'});
+  }
+  return User.findById(userId).exec()
+    .then(user => {
+      if(!user) {
+        return res.status(401).end();
+      }
+      user.homeProvince = homeProvince;
+      return user.save()
+        .then(() => {
+          res.status(204).end();
+        })
+        .catch(validationError(res));
+    })
+    .catch(handleError(res));
+}
+
+/**
  * Change a users password
  */
 export function changePassword(req, res) {
@@ -157,7 +182,7 @@ export function saveNotifications(req, res) {
         .then(() => {
           return res.status(204).end();
         })
-        .catch(err => handleError(err));
+        .catch(handleError(res));
     });
 }
 

@@ -51,7 +51,7 @@
   "name": "Hybrid User",
   "email": "1304@worldcubeassociation.org",
   "wcaID": "2014GRAY03",
-  "province": "GT",
+  "homeProvince": "GT",
   "password": "test"
 }, {
   "provider": "wca",
@@ -65,25 +65,25 @@
   "name": "Cape User 1",
   "email": "104799@worldcubeassociation.org",
   "wcaID": "2018RUSH01",
-  "province": "WC"
+  "homeProvince": "WC"
 }, {
   "provider": "wca",
   "role": "user",
   "name": "Another Cape Person 2",
   "email": "78952@worldcubeassociation.org",
   "wcaID": "2017SWAR03",
-  "province": "WC"
+  "homeProvince": "WC"
 }, {
   "provider": "wca",
   "role": "user",
   "name": "Gauteng Person 1",
   "email": "19479@worldcubeassociation.org",
   "wcaID": "2015GROB02",
-  "province": "GT"
+  "homeProvince": "GT"
 }, {
   "provider": "wca",
   "role": "user",
   "name": "Gauteng But Missing WCAID",
   "email": "64330@worldcubeassociation.org",
-  "province": "GT"
+  "homeProvince": "GT"
 }]

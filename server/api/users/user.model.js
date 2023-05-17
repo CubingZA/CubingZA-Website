@@ -27,7 +27,7 @@ var UserSchema = new Schema({
   },
   wcaID: String,
   wcaCountryID: String,
-  province: String,
+  homeProvince: String,
   eventLog: [String],
   provider: [String],
   salt: String
