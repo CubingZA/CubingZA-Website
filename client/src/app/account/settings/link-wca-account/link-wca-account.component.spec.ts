@@ -14,7 +14,7 @@ describe('LinkWcaAccountComponent', () => {
 
   beforeEach(() => {
     const authServiceSpy = jasmine.createSpyObj('AuthService', [
-      'isLocalUser', 'hasVerifiedEmail', 'isWCAUser'
+      'getCurrentUser', 'isWCAUser', 'connectWcaAccount'
     ]);
     const alertsSpy = jasmine.createSpyObj('AlertsService', [
       'clear'
@@ -37,7 +37,46 @@ describe('LinkWcaAccountComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  describe('when the user is not a WCA user', () => {
+
+    beforeEach(() => {
+      authService.isWCAUser.and.returnValue(false);
+      fixture.detectChanges();
+    });
+
+    it('should show a button to link a WCA account', () => {
+      const button = fixture.nativeElement.querySelector('button');
+      expect(button.textContent).toContain('Connect your WCA profile');
+    });
+
+    describe('when the button is clicked', () => {
+
+      beforeEach(() => {
+        const button = fixture.nativeElement.querySelector('button');
+        button.click();
+        fixture.detectChanges();
+      });
+
+      it('should clear any alerts', () => {
+        expect(alerts.clear).toHaveBeenCalled();
+      });
+
+      it('should call the connectWcaAccount method on the auth service', () => {
+        expect(authService.connectWcaAccount).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('when the user is a WCA user', () => {
+
+    beforeEach(() => {
+      authService.isWCAUser.and.returnValue(true);
+      fixture.detectChanges();
+    });
+
+    it('should show "Your account is linked to WCA profile"', () => {
+      const element = fixture.nativeElement;
+      expect(element.textContent).toContain('Your account is linked to WCA profile');
+    });
   });
 });

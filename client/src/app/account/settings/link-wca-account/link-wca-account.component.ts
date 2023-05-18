@@ -18,10 +18,6 @@ export class LinkWcaAccountComponent {
     private alerts: AlertsService
   ) { }
 
-  isLocalUser() {
-    return this.authService.isLocalUser();
-  }
-
   isWCAUser() {
     return this.authService.isWCAUser();
   }

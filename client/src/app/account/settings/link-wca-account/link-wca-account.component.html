@@ -20,8 +20,6 @@
       <div *ngIf="isWCAUser()">
         Hello {{ getCurrentUserName() }}. Your account is linked to WCA profile
         <a [href]="getWCAProfileURL()" target="_blank">{{getWCAID()}}</a>.
-
-
         You can change your details on the <a [href]="getWCASettingsURL()">WCA website</a>.
       </div>
     </div>
