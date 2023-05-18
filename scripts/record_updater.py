@@ -54,6 +54,19 @@ def prepare_temp_tables(cursor):
         ;
     """)
 
+    print('Extracting results')
+    cursor.execute("DROP TABLE IF EXISTS ZAResults;")
+    cursor.execute("""
+        CREATE TABLE ZAResults AS
+        SELECT
+            competitionId, eventId, best, average, personId
+        FROM
+            Results
+        WHERE
+            personCountryId = "South Africa"
+        ;
+    """)
+
 
 def get_wca_records(cursor):
 
@@ -106,12 +119,11 @@ def get_wca_records(cursor):
             SELECT
                 year, month, day
             FROM
-                Results LEFT JOIN Competitions ON Results.competitionId = Competitions.id
+                ZAResults LEFT JOIN Competitions ON ZAResults.competitionId = Competitions.id
             WHERE
-                Results.singleaverage=%s AND Results.eventId=%s AND Results.personId=%s;
+                ZAResults.singleaverage=%s AND ZAResults.eventId=%s AND ZAResults.personId=%s;
             '''
         cursor.execute(sql_query.replace('singleaverage','best'), (record['singleResultRaw'], record['eventId'], record['singleId']))
-
 
         date = list(cursor.fetchall()[0])
         record['singleDate'] = datetime.date(*date).isoformat()
