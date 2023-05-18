@@ -35,10 +35,6 @@ export class ChangePasswordComponent {
     return this.authService.isLocalUser();
   }
 
-  isWCAUser(): boolean {
-    return this.authService.isWCAUser();
-  }
-
   changePassword() {
     this.alerts.clear()
     this.userService.changePassword(this.oldPassword.value, this.password.value);
