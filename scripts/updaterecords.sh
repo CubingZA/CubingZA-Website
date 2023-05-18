@@ -4,4 +4,4 @@
 source ./.venv/bin/activate
 
 # Run the Python script
-python ./RecordUpdator.py
+python ./record_updater.py

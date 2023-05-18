@@ -28,42 +28,42 @@ MONGO_DATABASE = getenv('CUBINGZA_MONGO_DATABASE', 'cubingza')
 EXCLUDE_EVENTS = ["333mbo", "magic", "mmagic", "333ft"]
 
 
-def formatTime(result, includeZeroMinutes=False):
+def format_time(result, include_zero_minutes=False):
     seconds = result % 60
     minutes = math.floor(result/60)
 
-    if minutes>0 or includeZeroMinutes:
+    if minutes>0 or include_zero_minutes:
         return '{:.0f}:{:05.2f}'.format(minutes, seconds)
     else:
         return '{:.2f}'.format(seconds)
 
 
 
-def formatResultStr(result, eventId, singleAverage):
+def format_result_str(result, event_id, single_or_average):
     if result is None or result=='':
         return ''
-    if eventId=='333fm':
-        if singleAverage=='single':
+    if event_id=='333fm':
+        if single_or_average=='single':
             return str(result)
         else:
             return str(result/100)
-    elif eventId=='333mbf':
+    elif event_id=='333mbf':
         if result > 999999999:
             raise Exception('Old style multiblind not supported')
         else:
             difference = 99-math.floor(result / 10000000)
             remainder = result % 10000000
-            time = formatTime(math.floor(remainder / 100), True)[:-3]
+            time = format_time(math.floor(remainder / 100), True)[:-3]
             missed = remainder % 100
             solved = difference + missed
             total = solved + missed
             return('{:.0f}/{:.0f} '.format(solved, total) + time)
 
     else:
-        return formatTime(result/100)
+        return format_time(result/100)
 
 
-def getDatabaseConnection():
+def get_wca_database_connection():
     conn = MySQL.connect(**MYSQL_CONNECTION_OPTIONS)
     cursor = conn.cursor()
     return [conn, cursor]
@@ -71,7 +71,7 @@ def getDatabaseConnection():
 
 # Fetch records from WCA database
 
-def prepareTempTables(cursor):
+def prepare_temp_tables(cursor):
     print('Preparing temporary tables')
 
     print('Finding South Africans')
@@ -115,7 +115,7 @@ def prepareTempTables(cursor):
     """)
 
 
-def getWCArecords(cursor):
+def get_wca_records(cursor):
 
     print('Fetching Records...')
     cursor.execute("""
@@ -147,11 +147,11 @@ def getWCArecords(cursor):
                'singleId':  row[2],
                'singleName':  row[3],
                'singleResultRaw':  row[4],
-               'singleResult':  formatResultStr(row[4],row[0],'single'),
+               'singleResult':  format_result_str(row[4],row[0],'single'),
                'averageId':  row[5],
                'averageName':  row[6],
                'averageResultRaw':  row[7],
-               'averageResult':  formatResultStr(row[7],row[0],'average'),
+               'averageResult':  format_result_str(row[7],row[0],'average'),
                'eventRank': row[8]}
                for row in cursor.fetchall()]
 
@@ -162,7 +162,7 @@ def getWCArecords(cursor):
 
         print('Establishing dates of records for', record['eventName'])
 
-        sqlQuery = '''
+        sql_query = '''
             SELECT
                 year, month, day
             FROM
@@ -170,13 +170,13 @@ def getWCArecords(cursor):
             WHERE
                 Results.singleaverage=%s AND Results.eventId=%s AND Results.personId=%s;
             '''
-        cursor.execute(sqlQuery.replace('singleaverage','best'), (record['singleResultRaw'], record['eventId'], record['singleId']))
+        cursor.execute(sql_query.replace('singleaverage','best'), (record['singleResultRaw'], record['eventId'], record['singleId']))
 
 
         date = list(cursor.fetchall()[0])
         record['singleDate'] = datetime.date(*date).isoformat()
 
-        cursor.execute(sqlQuery.replace('singleaverage','average'), (record['averageResultRaw'], record['eventId'], record['averageId']))
+        cursor.execute(sql_query.replace('singleaverage','average'), (record['averageResultRaw'], record['eventId'], record['averageId']))
         date = cursor.fetchall()
         if len(date) > 0:
             date = date[0]
@@ -191,22 +191,22 @@ def getWCArecords(cursor):
 
 
 
-def updateCubingZARecords(newRecords):
+def update_cubingza_records(new_records):
 
     db = MongoDB(**MONGO_CONNECTION_OPTIONS)[MONGO_DATABASE]
-    for newRecord in newRecords:
-        print('Updating database for', newRecord['eventName'])
-        print(newRecord)
-        db.records.update_one({'eventId': newRecord['eventId']}, {"$set": newRecord})
+    for record in new_records:
+        print('Updating database for', record['eventName'])
+        print(record)
+        db.records.update_one({'eventId': record['eventId']}, {"$set": record})
 
 
 if __name__ == "__main__":
-    [conn, cursor] = getDatabaseConnection()
+    [conn, cursor] = get_wca_database_connection()
 
-    prepareTempTables(cursor)
-    wcaRecords = getWCArecords(cursor)
-    wcaRecords = [record for record in wcaRecords if record['eventId'] not in EXCLUDE_EVENTS]
-    updateCubingZARecords(wcaRecords)
+    prepare_temp_tables(cursor)
+    wca_records = get_wca_records(cursor)
+    wca_records = [record for record in wca_records if record['eventId'] not in EXCLUDE_EVENTS]
+    update_cubingza_records(wca_records)
 
     cursor.close()
     conn.close()
