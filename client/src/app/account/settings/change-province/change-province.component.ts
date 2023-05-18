@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { faInfoCircle, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -15,9 +16,14 @@ export class ChangeProvinceComponent {
   faInfoCircle = faInfoCircle;
   faTriangleExclamation = faTriangleExclamation;
 
-  province: string = "No province";
+  selectedProvince: string = "No province";
 
   private originalProvince: string = "No province";
+
+  provinceForm: FormGroup = new FormGroup({
+    province: new FormControl('No province')
+  });
+  get provinceDropdown(): FormControl { return this.provinceForm.get('province') as FormControl; }
 
   constructor(
     private authService: AuthService,
@@ -27,13 +33,17 @@ export class ChangeProvinceComponent {
   ) { }
 
   ngOnInit(): void {
-    const user = this.authService.updateCurrentUser().subscribe({
+    this.provinceForm.valueChanges.subscribe({
+      next: this.updateProvince.bind(this)
+    });
+
+    this.authService.updateCurrentUser().subscribe({
       next: user => {
-        if (user) {
-          this.province = user.homeProvince ?
-          this.provinceService.getProvinceName(user.homeProvince as keyof ProvinceSelection) :
-          "No province";
-          this.originalProvince = this.province;
+        if (user && user.homeProvince) {
+          const selectedCode = user.homeProvince as keyof ProvinceSelection;
+          this.selectedProvince = this.provinceService.getProvinceName(selectedCode);
+          this.originalProvince = this.selectedProvince;
+          this.provinceDropdown.setValue(this.selectedProvince);
         }
       }
     });
@@ -49,25 +59,26 @@ export class ChangeProvinceComponent {
     ];
   }
 
-  updateProvince() {
+  updateProvince(): void {
+    this.selectedProvince = this.provinceDropdown.value;
+
     this.alerts.clear();
-    if (this.province !== this.originalProvince) {
-      this.userService.updateHomeProvince(this.province)
+    if (this.selectedProvince !== this.originalProvince) {
+      this.userService.updateHomeProvince(this.selectedProvince)
       .subscribe({
         next: res => {
-          this.alerts.addAlert("success", "Province updated successfully");
-          this.originalProvince = this.province;
+          this.alerts.addAlert("success", `Province updated to ${this.selectedProvince}.`);
+          this.originalProvince = this.selectedProvince;
         },
         error: err => {
           this.alerts.addAlert("danger", "Error updating province");
-          console.log(err);
         }
       });
     }
   }
 
   provinceHasRankings(): boolean {
-    return this.provinceService.getAvailableProvinces().includes(this.province);
+    return this.provinceService.getAvailableProvinces().includes(this.selectedProvince);
   }
 
 }
