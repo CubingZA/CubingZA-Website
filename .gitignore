@@ -38,3 +38,6 @@ Thumbs.db
 *~
 .directory
 /client/analytics-tag.txt
+scripts/.venv/
+scripts/__pycache__/
+scripts/.env

@@ -6,6 +6,24 @@ import datetime
 from pymongo import MongoClient as MongoDB
 from mysql import connector as MySQL
 
+from config import getenv
+
+
+MYSQL_CONNECTION_OPTIONS = {
+    "host": getenv('CUBINGZA_MYSQL_HOST', 'localhost'),
+    "port": int(getenv('CUBINGZA_MYSQL_PORT', 4204)),
+    "user": getenv('CUBINGZA_MYSQL_USER', 'wca'),
+    "passwd": getenv('CUBINGZA_MYSQL_PASSWORD', 'wca'),
+    "db": getenv('CUBINGZA_MYSQL_DATABASE', 'wca')
+}
+
+
+MONGO_CONNECTION_OPTIONS = {
+    "host": getenv('CUBINGZA_MONGO_HOST', 'localhost'),
+    "port": getenv('CUBINGZA_MONGO_PORT', 27017),
+}
+MONGO_DATABASE = getenv('CUBINGZA_MONGO_DATABASE', 'cubingza')
+
 
 EXCLUDE_EVENTS = ["333mbo", "magic", "mmagic", "333ft"]
 
@@ -31,7 +49,7 @@ def formatResultStr(result, eventId, singleAverage):
             return str(result/100)
     elif eventId=='333mbf':
         if result > 999999999:
-            raise Exception('Old style multiblind not supported');
+            raise Exception('Old style multiblind not supported')
         else:
             difference = 99-math.floor(result / 10000000)
             remainder = result % 10000000
@@ -46,7 +64,7 @@ def formatResultStr(result, eventId, singleAverage):
 
 
 def getDatabaseConnection():
-    conn = MySQL.connect(host="localhost", port=4204, user="wca", passwd="wca", db="wca")
+    conn = MySQL.connect(**MYSQL_CONNECTION_OPTIONS)
     cursor = conn.cursor()
     return [conn, cursor]
 
@@ -139,6 +157,8 @@ def getWCArecords(cursor):
 
     # For each record, attach a date
     for record in records:
+        if record['eventName'] in EXCLUDE_EVENTS:
+            continue
 
         print('Establishing dates of records for', record['eventName'])
 
@@ -173,9 +193,10 @@ def getWCArecords(cursor):
 
 def updateCubingZARecords(newRecords):
 
-    db = MongoDB(port=4203)['cubingza'];
+    db = MongoDB(**MONGO_CONNECTION_OPTIONS)[MONGO_DATABASE]
     for newRecord in newRecords:
         print('Updating database for', newRecord['eventName'])
+        print(newRecord)
         db.records.update_one({'eventId': newRecord['eventId']}, {"$set": newRecord})
 
 
@@ -188,4 +209,4 @@ if __name__ == "__main__":
     updateCubingZARecords(wcaRecords)
 
     cursor.close()
-    conn.close();
+    conn.close()
