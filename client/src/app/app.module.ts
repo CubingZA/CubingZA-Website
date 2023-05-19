@@ -41,6 +41,7 @@ import { ProvinceListComponent } from './components/province-list/province-list.
 import { CompEditBoxComponent } from './components/comp-edit-box/comp-edit-box.component';
 import { UnverifiedWarningComponent } from './components/unverified-warning/unverified-warning.component';
 import { AlertsComponent } from './components/alerts/alerts.component';
+import { TermsComponent } from './pages/terms/terms.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { AlertsComponent } from './components/alerts/alerts.component';
     AlertsComponent,
     ChangePasswordComponent,
     ChangeProvinceComponent,
-    LinkWcaAccountComponent
+    LinkWcaAccountComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,
