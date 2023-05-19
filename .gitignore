@@ -37,7 +37,9 @@ coverage/
 Thumbs.db
 *~
 .directory
+
+#Application files
 /client/analytics-tag.txt
-scripts/.venv/
-scripts/__pycache__/
-scripts/.env
+etl/.env
+etl/.venv/
+etl/__pycache__/

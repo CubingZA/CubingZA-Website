@@ -136,7 +136,6 @@ def get_wca_records(cursor):
         else:
             record['averageDate'] = None
 
-    conn.close()
     return records
 
 

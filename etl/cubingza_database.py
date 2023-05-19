@@ -3,10 +3,10 @@ from config import getenv
 
 
 _MONGO_CONNECTION_OPTIONS = {
-    "host": getenv('CUBINGZA_MONGO_HOST', 'localhost'),
-    "port": getenv('CUBINGZA_MONGO_PORT', 27017),
+    "host": getenv('CUBINGZA_MONGODB_HOST', 'localhost'),
+    "port": getenv('CUBINGZA_MONGODB_PORT', 27017),
 }
-_MONGO_DATABASE = getenv('CUBINGZA_MONGO_DATABASE', 'cubingza')
+_MONGO_DATABASE = getenv('CUBINGZA_MONGODB_DATABASE', 'cubingza')
 
 
 def get_cubingza_database_connection():
