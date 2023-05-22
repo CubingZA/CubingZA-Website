@@ -1,5 +1,5 @@
 import {jest} from '@jest/globals';
-import * as controller from "./record.controller"
+import * as controller from "./ranking.controller"
 
 jest.mock('express');
 const express = (await import('express')).default;
@@ -13,36 +13,42 @@ jest.unstable_mockModule('../../auth/auth.service', ()=>({
 const authService = (await import('../../auth/auth.service'));
 
 
-describe('Record API Router:', function() {
-  
-  let recordRouter;
+describe('Ranking API Router:', function() {
+
+  let rankingRouter;
   beforeEach(async function() {
-    recordRouter = (await import('./index')).default;
-  });  
+    rankingRouter = (await import('./index')).default;
+  });
 
   it('should return an express router instance', function() {
-    expect(recordRouter).toEqual(routerMock);
+    expect(rankingRouter).toEqual(routerMock);
   });
 
-  describe('GET /api/records', function() {
-    it('should route to record.controller.index', function() {
+  describe('GET /api/rankings/:province/:event/single', function() {
+    it('should route to ranking.controller.getSingleRankings', function() {
       expect(routerMock.get)
-        .toHaveBeenCalledWith('/', controller.index);
+        .toHaveBeenCalledWith('/:province/:event/single', controller.getSingleRankings);
     });
   });
 
-  describe('GET /api/records/:id', function() {
-    it('should route to record.controller.show', function() {
+  describe('GET /api/rankings/:province/:event/average', function() {
+    it('should route to ranking.controller.getAverageRankings', function() {
       expect(routerMock.get)
-        .toHaveBeenCalledWith('/:id', controller.show);
+        .toHaveBeenCalledWith('/:province/:event/average', controller.getAverageRankings);
     });
   });
 
-  describe('PUT /api/records', function() {
-    it('should verify admin role and route to record.controller.upsert', function() {
-      expect(routerMock.put)
-        .toHaveBeenCalledWith('/:id', "authService.hasRole.admin", controller.upsert);
+  describe('GET /api/rankings/:province/:event/single/count', function() {
+    it('should route to ranking.controller.getSingleCount', function() {
+      expect(routerMock.get)
+        .toHaveBeenCalledWith('/:province/:event/single/count', controller.getSingleCount);
     });
   });
 
+  describe('GET /api/rankings/:province/:event/average/count', function() {
+    it('should route to ranking.controller.getAverageCount', function() {
+      expect(routerMock.get)
+        .toHaveBeenCalledWith('/:province/:event/average/count', controller.getAverageCount);
+    });
+  });
 });
