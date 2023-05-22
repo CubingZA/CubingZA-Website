@@ -4,10 +4,10 @@ import Ranking from './ranking.model';
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
-    if (entity) {
+    if (entity !== undefined && entity !== null) {
       return res.status(statusCode).json(entity);
     }
-    return null;
+    return res.status(404).end();
   };
 }
 
@@ -39,11 +39,30 @@ function getRankings(req, res, Ranking) {
     .catch(handleError(res));
 }
 
-// Gets a list of Records
+function getCount(req, res, Ranking) {
+  const eventId = sanitize(req.params.event);
+  const province = sanitize(req.params.province);
+
+  return Ranking.countDocuments({
+    'eventId': eventId,
+    'province': province,
+  }).exec()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
 export function getSingleRankings(req, res) {
   return getRankings(req, res, Ranking.Single)
 }
 
 export function getAverageRankings(req, res) {
   return getRankings(req, res, Ranking.Average)
+}
+
+export function getSingleCount(req, res) {
+  return getCount(req, res, Ranking.Single)
+}
+
+export function getAverageCount(req, res) {
+  return getCount(req, res, Ranking.Average)
 }
