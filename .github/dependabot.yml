@@ -6,6 +6,9 @@ updates:
     directory: "/client"
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: "@angular/*"
+        update-types: ["version-update:semver-patch"]
 
   # API
   - package-ecosystem: "npm"
