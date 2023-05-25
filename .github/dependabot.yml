@@ -7,7 +7,7 @@ updates:
     schedule:
       interval: "weekly"
     ignore:
-      - dependency-name: "@angular*"
+      - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
 
   # API
@@ -15,3 +15,6 @@ updates:
     directory: "/server"
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
