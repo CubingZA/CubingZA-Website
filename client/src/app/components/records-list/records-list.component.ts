@@ -12,7 +12,14 @@ export class RecordsListComponent {
   error: string = "";
   records: Record[] = [];
 
-  constructor(private recordService: RecordService) { }
+  link: WcaLinkService;
+
+  constructor(
+    private recordService: RecordService,
+    private _wcaLinkService: WcaLinkService
+  ) {
+    this.link = _wcaLinkService;
+  }
 
   ngOnInit(): void {
     this.recordService.getRecords().subscribe({
