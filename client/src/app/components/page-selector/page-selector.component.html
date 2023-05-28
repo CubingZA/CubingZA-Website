@@ -1,0 +1,13 @@
+<div class="page-selector" *ngIf="getPageCount() > 1">
+  <button (click)="setPage(page-1)" [disabled]="isFirst()">&lt;</button>
+
+  <button *ngIf="shouldShowFirst()" (click)="setPage(1)">1</button>
+  <span *ngIf="shouldShowFirst()">&hellip;</span>
+
+  <button *ngFor="let p of getPagesToShow()" (click)="setPage(p)" [class.active]="p==page">{{p}}</button>
+
+  <span *ngIf="shouldShowLast()">&hellip;</span>
+  <button *ngIf="shouldShowLast()" (click)="setPage(getPageCount())">{{getPageCount()}}</button>
+
+  <button (click)="setPage(page+1)" [disabled]="isLast()">&gt;</button>
+</div>

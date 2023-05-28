@@ -1,0 +1,33 @@
+@import "../../styles/variables.less";
+
+.page-selector{
+
+  text-align: center;
+
+  span {
+    color: @text-color-muted;
+    margin: 0 0.3em;
+  }
+
+  button {
+    border: 1px solid @border-color-soft;
+    background-color: @background-color;
+    border-radius: 0.3em;
+
+    height: 2em;
+    width: 2em;
+
+    margin: 0 0.2em;
+
+    &:hover {
+      border-color: @link-color-hover;
+    }
+
+    &.active {
+      background-color: @link-color;
+      border-color: @link-color;
+      color: @background-color;
+    }
+  }
+
+}

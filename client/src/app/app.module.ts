@@ -42,6 +42,7 @@ import { CompEditBoxComponent } from './components/comp-edit-box/comp-edit-box.c
 import { UnverifiedWarningComponent } from './components/unverified-warning/unverified-warning.component';
 import { AlertsComponent } from './components/alerts/alerts.component';
 import { TermsComponent } from './pages/terms/terms.component';
+import { PageSelectorComponent } from './components/page-selector/page-selector.component';
 
 
 @NgModule({
@@ -77,7 +78,8 @@ import { TermsComponent } from './pages/terms/terms.component';
     ChangePasswordComponent,
     ChangeProvinceComponent,
     LinkWcaAccountComponent,
-    TermsComponent
+    TermsComponent,
+    PageSelectorComponent
   ],
   imports: [
     BrowserModule,
