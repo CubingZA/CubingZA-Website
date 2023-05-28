@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ import { catchError, map } from 'rxjs';
 export class ProvinceService {
 
   currentSelection: ProvinceSelection;
-  unsavedChanges: boolean;
+  unsavedChanges: boolean = false;
 
   provinceNameMap: ProvinceNameMap = {
     none:'No province',
@@ -26,13 +26,18 @@ export class ProvinceService {
 
   constructor(private http: HttpClient) {
     this.currentSelection = this.getBlankSelection();
-    this.fetchProvinceSelection();
-    this.unsavedChanges = false;
   }
 
   getAvailableProvinces(): string[] {
     const keys = Object.keys(this.getBlankSelection());
     return keys.map((key: string) => this.provinceNameMap[key as keyof ProvinceSelection]);
+  }
+
+  getAvailableProvincesWithCodes(): ProvinceNameMap {
+    let result = {...this.provinceNameMap};
+    delete result.none;
+    delete result.other;
+    return result;
   }
 
   getAvailableProvincesWithNoneAndOther(): string[] {
@@ -76,8 +81,8 @@ export class ProvinceService {
     return selected.sort();
   }
 
-  getProvinceName(key: keyof ProvinceSelection): string {
-    return this.provinceNameMap[key];
+  getProvinceName(key: keyof ProvinceSelection | string): string {
+    return this.provinceNameMap[key as keyof ProvinceSelection];
   }
 
   toggleProvince(province: keyof ProvinceSelection) {
@@ -88,6 +93,7 @@ export class ProvinceService {
   fetchProvinceSelection() {
     this.http.get<ProvinceSelection>('/api/users/me/notifications')
     .subscribe((provinceSelection) => {
+      this.unsavedChanges = false;
       this.currentSelection = provinceSelection;
     });
   }
@@ -101,7 +107,7 @@ export class ProvinceService {
     let request = this.http.post('/api/users/me/notifications', this.currentSelection)
 
     .pipe(
-      map(() => {
+      tap(() => {
         this.unsavedChanges = false;
       }),
       catchError((error) => {
@@ -136,6 +142,6 @@ export type ProvinceNameMap = {
   EC: string;
   WC: string;
   NC: string;
-  other: string;
-  none: string;
+  other?: string;
+  none?: string;
 }
