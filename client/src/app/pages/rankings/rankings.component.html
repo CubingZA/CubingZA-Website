@@ -1,0 +1,37 @@
+<div class="container notifications-page">
+
+  <h1>Provincial Rankings</h1>
+
+  <div class="row">
+    <form class="form form-inline ranking-controls" [formGroup]="form">
+      <div class="form-group">
+        <label for="province">Province</label>
+        <select class="form-control" name="province" formControlName="province">
+          <option *ngFor="let province of getProvinceKeys()" value="{{province}}">
+            {{getProvinceName(province)}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="event">Event</label>
+        <select class="form-control" name="event" formControlName="event">
+          <option *ngFor="let event of getEvents()" value="{{event.id}}">
+            {{event.name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="event">Type</label>
+        <select class="form-control" name="type" formControlName="type">
+          <option value="single">Single</option>
+          <option value="average">Average</option>
+        </select>
+      </div>
+    </form>
+  </div>
+
+  <app-ranking-table *ngIf="type" [province]="province" [event]="event" [type]="type"></app-ranking-table>
+
+</div>

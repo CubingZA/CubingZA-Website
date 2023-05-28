@@ -1,0 +1,54 @@
+@import "../../styles/variables.less";
+
+.ranking-table-container {
+  width: 100%;
+  max-width: 100%;
+
+  table {
+    width: 100%;
+    max-width: 100%;
+
+    border-collapse: collapse;
+
+    tr:nth-child(even) {
+      background-color: @background-color-highlight;
+    }
+    tr:nth-child(1) {
+      background: none;
+    }
+
+    tr {
+      td {
+        border-top: 1px solid @border-color-soft;
+        padding: 0.2em 0.5em;
+        margin: 0;
+      }
+    }
+
+    .tie {
+      color: @text-color-muted;
+
+      td {
+        border-top: none;
+      }
+
+    }
+
+
+    .rank {
+      text-align: center;
+    }
+
+    .name {
+      text-align: left;
+    }
+
+    .result {
+      text-align: center;
+    }
+
+    .nationalrank {
+      text-align: center;
+    }
+  }
+}

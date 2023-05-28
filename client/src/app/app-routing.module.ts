@@ -3,7 +3,10 @@ import { RouterModule } from '@angular/router';
 import { AppRoutes } from './app.routes';
 
 @NgModule({
-  imports: [RouterModule.forRoot(AppRoutes, {scrollPositionRestoration: 'enabled'})],
+  imports: [RouterModule.forRoot(AppRoutes, {
+    bindToComponentInputs: true,
+    scrollPositionRestoration: 'enabled'
+  })],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }

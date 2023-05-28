@@ -42,6 +42,8 @@ import { CompEditBoxComponent } from './components/comp-edit-box/comp-edit-box.c
 import { UnverifiedWarningComponent } from './components/unverified-warning/unverified-warning.component';
 import { AlertsComponent } from './components/alerts/alerts.component';
 import { TermsComponent } from './pages/terms/terms.component';
+import { RankingsComponent } from './pages/rankings/rankings.component';
+import { RankingTableComponent } from './components/ranking-table/ranking-table.component';
 import { PageSelectorComponent } from './components/page-selector/page-selector.component';
 
 
@@ -78,7 +80,9 @@ import { PageSelectorComponent } from './components/page-selector/page-selector.
     ChangePasswordComponent,
     ChangeProvinceComponent,
     LinkWcaAccountComponent,
+    RankingsComponent,
     TermsComponent,
+    RankingTableComponent,
     PageSelectorComponent
   ],
   imports: [
