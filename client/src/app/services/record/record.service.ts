@@ -7,7 +7,9 @@ import { catchError, tap } from 'rxjs';
 })
 export class RecordService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getRecords() {
     return this.http.get<Record[]>('/api/records')
