@@ -143,7 +143,6 @@ def update_cubingza_records(new_records):
     db = get_cubingza_database_connection()
     for record in new_records:
         print('Updating database for', record['eventName'])
-        print(record)
         db.records.update_one({'eventId': record['eventId']}, {"$set": record})
 
 

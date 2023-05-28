@@ -12,7 +12,7 @@ def generate_random_email():
 
 
 def get_random_province():
-    return random.choice(['GT'])
+    return random.choice(['GT', 'WC', 'EC', 'FS', 'KZ', 'none', 'other'])
 
 def get_people(cursor):
     cursor.execute("""
