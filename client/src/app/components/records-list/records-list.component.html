@@ -19,33 +19,31 @@
       <tr *ngFor="let record of records" class="record-table-row">
 
         <td class="table-single">
-          <a href="https://www.worldcubeassociation.org/persons/{{record.singleId}}" target="_blank">{{record.singleName}}</a>
+          <a href="{{link.toPerson(record.singleId)}}" target="_blank">{{record.singleName}}</a>
         </td>
         <td class="table-single">
-          <a href="https://www.worldcubeassociation.org/results/rankings/{{record.eventId}}/single?region=South%2BAfrica&show=100%2BPersons" target="_blank">
+          <a href="{{link.toRankings(record.eventId, 'single')}}" target="_blank">
             <span class="label label-info" *ngIf="isNew(record.singleDate)">New</span>
             {{record.singleResult}}
           </a>
-
         </td>
 
         <td class="table-middle">
-
-          <a href="https://www.worldcubeassociation.org/results/records?event_id={{record.eventId}}&region=South%2BAfrica&show=mixed%20history" target="_blank">
+          <a href="{{link.toRecords(record.eventId)}}" target="_blank">
             <span class="cubing-icon event-{{record.eventId}}"></span>
             <span class="event-name" >{{record.eventName}}</span>
           </a>
-
         </td>
 
         <td class="table-average">
-          <a href="https://www.worldcubeassociation.org/results/rankings/{{record.eventId}}/average?region=South%2BAfrica&show=100%2BPersons" target="_blank">
+          <a href="{{link.toRankings(record.eventId, 'average')}}" target="_blank">
             {{record.averageResult}}
             <span class="label label-info" *ngIf="isNew(record.averageDate)">New</span>
           </a>
         </td>
+
         <td class="table-average">
-          <a href="https://www.worldcubeassociation.org/persons/{{record.averageId}}" target="_blank">{{record.averageName}}</a>
+          <a href="{{link.toPerson(record.averageId)}}" target="_blank">{{record.averageName}}</a>
         </td>
 
       </tr>

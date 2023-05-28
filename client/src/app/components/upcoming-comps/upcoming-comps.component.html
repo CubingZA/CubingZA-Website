@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <div *ngIf="upcomingCompetitions.length===0">
+  <div *ngIf="!error && upcomingCompetitions.length===0">
     <div class="alert alert-info" role="alert">
       <p>
         No upcoming competitions.
@@ -59,12 +59,12 @@
         </li>
 
         <li class="list-group-item">
-          <a href="https://www.worldcubeassociation.org/competitions/{{comp.registrationName}}"
+          <a [href]="getCompetitionLink(comp)"
               class="btn btn-default" target="_blank">
             <span class="icon"><fa-icon [icon]="faInfoCircle" /></span>
             More Details
           </a>
-          <a href="https://www.worldcubeassociation.org/competitions/{{comp.registrationName}}/register"
+          <a [href]="getCompetitionRegistrationLink(comp)"
               class="btn btn-success" target="_blank">
             <span class="icon"><fa-icon [icon]="faCircleArrowRight" /></span>
             Register
