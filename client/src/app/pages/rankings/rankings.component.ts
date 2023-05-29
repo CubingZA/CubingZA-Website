@@ -35,10 +35,14 @@ export class RankingsComponent {
   ngOnInit(): void {
     this.provinces = this.getProvinces();
 
-    this.form.valueChanges.subscribe((value) => {
-      this.province = value.province;
-      this.event = value.event;
-      this.type = value.type;
+    this.provinceControl.valueChanges.subscribe((value) => {
+      this.province = value;
+    });
+    this.eventControl.valueChanges.subscribe((value) => {
+      this.event = value;
+    });
+    this.typeControl.valueChanges.subscribe((value) => {
+      this.type = value;
     });
   }
 
