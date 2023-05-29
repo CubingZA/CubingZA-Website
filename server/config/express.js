@@ -28,11 +28,12 @@ export default function(app) {
   // Persist sessions with MongoStore / sequelizeStore
   app.use(session({
     secret: config.secrets.session,
-    saveUninitialized: true,
+    saveUninitialized: false,
     resave: false,
     cookie: {
       secure: false, // In production this should be overridden at at the nginx layer using, for example, "proxy_cookie_flags ~ secure;"
       sameSite: 'lax', // Needed for OAuth to work
+      maxAge: 21600000 // 6 hours in milliseconds
     },
     store: MongoStore.create({
       mongoUrl: config.mongoUrl,

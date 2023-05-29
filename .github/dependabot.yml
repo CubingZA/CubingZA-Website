@@ -6,9 +6,15 @@ updates:
     directory: "/client"
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
 
   # API
   - package-ecosystem: "npm"
     directory: "/server"
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
