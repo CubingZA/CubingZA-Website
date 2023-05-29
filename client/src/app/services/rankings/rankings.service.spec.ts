@@ -45,7 +45,7 @@ const mockAverageRankingData: Ranking[] = [
     userId: '4',
     eventId: '333',
     wcaID: '2001WXYZ02',
-    personName: 'Yet ANother Person',
+    personName: 'Yet Another Person',
     countryRank: 5,
     province: 'WC',
     provinceRank: 3,

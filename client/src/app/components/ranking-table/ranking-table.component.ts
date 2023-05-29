@@ -105,7 +105,6 @@ export class RankingTableComponent {
   }
 
   onPageChange(page: number): void {
-    console.log(`Page change to ${page}`);
     this.page = page;
     this.updateRankings();
     this.updateLocation();
