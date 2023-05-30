@@ -8,6 +8,7 @@ import passport from 'passport';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import errorHandler from 'errorhandler';
+import rateLimit from 'express-rate-limit'
 
 import config from './environment';
 
@@ -59,6 +60,14 @@ export default function(app) {
       referrerPolicy: 'same-origin'
     }));
   }
+
+  // Rate limiting
+  app.use(rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 1000, // limit each IP to 1000 requests per windowMs
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  }));
 
   if(env === 'development' || env === 'test') {
     app.use(errorHandler()); // Error handler - has to be last
