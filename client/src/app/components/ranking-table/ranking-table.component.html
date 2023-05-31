@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of getRankings(); let i = index" [class.tie]="row.provinceRank !== i+1">
+      <tr *ngFor="let row of getRankings(); let i = index" [class.tie]="isTie(row, i)">
         <td class="rank">{{row.provinceRank}}</td>
         <td class="name"><a [href]="getLinkToPerson(row.wcaID)">{{row.personName}}</a></td>
         <td class="result">{{row.best}}</td>

@@ -64,6 +64,14 @@ export class RankingTableComponent {
     return this.rankings;
   }
 
+  isTie(row: Ranking, i: number) {
+    if (i === 0) {
+      return false;
+    }
+    const prevRow = this.rankings[i - 1];
+    return row.best === prevRow.best;
+  }
+
   updateRankings(): void {
     this.alerts.clear();
     this.rankingsService.cancelPendingRankingRequests();
