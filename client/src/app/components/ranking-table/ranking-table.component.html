@@ -18,6 +18,9 @@
         <td class="result">{{row.best}}</td>
         <td class="nationalrank">{{row.countryRank}}</td>
       </tr>
+      <tr *ngIf="getRankings().length === 0">
+        <td colspan="4" class="no-results">No results found.</td>
+      </tr>
     </tbody>
   </table>
 
