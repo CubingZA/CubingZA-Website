@@ -1,0 +1,88 @@
+[{
+  "provider": "local",
+  "role": "user",
+  "name": "Test User",
+  "email": "test@m.cubingza.org",
+  "password": "test",
+  "notificationSettings" : {
+      "GT": true,
+      "MP": false,
+      "LM": false,
+      "NW": false,
+      "FS": false,
+      "KZ": false,
+      "EC": false,
+      "WC": false,
+      "NC": false
+  }
+}, {
+  "provider": "local",
+  "role": "admin",
+  "name": "Admin",
+  "email": "admin@m.cubingza.org",
+  "password": "admin"
+}, {
+  "provider": "local",
+  "name": "Unver",
+  "email": "unver@m.cubingza.org",
+  "password": "unver",
+  "verificationToken": "123abc",
+  "notificationSettings": {
+      "GT": true,
+      "MP": false,
+      "LM": false,
+      "NW": false,
+      "FS": false,
+      "KZ": false,
+      "EC": false,
+      "WC": false,
+      "NC": false
+  }
+}, {
+  "provider": "local",
+  "role": "unverified",
+  "name": "Local only but has WCA",
+  "email": "158816@worldcubeassociation.org",
+  "password": "test",
+  "verificationToken": "789xyz"
+}, {
+  "provider": ["wca", "local"],
+  "role": "user",
+  "name": "Hybrid User",
+  "email": "1304@worldcubeassociation.org",
+  "homeProvince": "GT",
+  "password": "test"
+}, {
+  "provider": "wca",
+  "role": "user",
+  "name": "No Province Person",
+  "email": "156416@worldcubeassociation.org",
+  "wcaID": "2019MARA05"
+}, {
+  "provider": "wca",
+  "role": "user",
+  "name": "Cape User 1",
+  "email": "104799@worldcubeassociation.org",
+  "wcaID": "2018RUSH01",
+  "homeProvince": "WC"
+}, {
+  "provider": "wca",
+  "role": "user",
+  "name": "Another Cape Person 2",
+  "email": "78952@worldcubeassociation.org",
+  "wcaID": "2017SWAR03",
+  "homeProvince": "WC"
+}, {
+  "provider": "wca",
+  "role": "user",
+  "name": "Gauteng Person 1",
+  "email": "19479@worldcubeassociation.org",
+  "wcaID": "2015GROB02",
+  "homeProvince": "GT"
+}, {
+  "provider": "wca",
+  "role": "user",
+  "name": "Gauteng But Missing WCAID",
+  "email": "64330@worldcubeassociation.org",
+  "homeProvince": "GT"
+}]

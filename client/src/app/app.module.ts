@@ -21,6 +21,9 @@ import { SignupComponent } from './account/signup/signup.component';
 import { WcaLoginComponent } from './account/wcalogin/wcalogin.component';
 import { SettingsComponent } from './account/settings/settings.component';
 import { VerifyComponent } from './account/verify/verify.component';
+import { ChangePasswordComponent } from './account/settings/change-password/change-password.component';
+import { ChangeProvinceComponent } from './account/settings/change-province/change-province.component';
+import { LinkWcaAccountComponent } from './account/settings/link-wca-account/link-wca-account.component';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -39,6 +42,9 @@ import { CompEditBoxComponent } from './components/comp-edit-box/comp-edit-box.c
 import { UnverifiedWarningComponent } from './components/unverified-warning/unverified-warning.component';
 import { AlertsComponent } from './components/alerts/alerts.component';
 import { TermsComponent } from './pages/terms/terms.component';
+import { RankingsComponent } from './pages/rankings/rankings.component';
+import { RankingTableComponent } from './components/ranking-table/ranking-table.component';
+import { PageSelectorComponent } from './components/page-selector/page-selector.component';
 
 
 @NgModule({
@@ -71,7 +77,13 @@ import { TermsComponent } from './pages/terms/terms.component';
     CompEditBoxComponent,
     UnverifiedWarningComponent,
     AlertsComponent,
-    TermsComponent
+    ChangePasswordComponent,
+    ChangeProvinceComponent,
+    LinkWcaAccountComponent,
+    RankingsComponent,
+    TermsComponent,
+    RankingTableComponent,
+    PageSelectorComponent
   ],
   imports: [
     BrowserModule,

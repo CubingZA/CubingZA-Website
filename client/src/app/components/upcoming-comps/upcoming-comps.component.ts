@@ -3,6 +3,7 @@ import { faLocationDot, faCaretUp, faCaretDown, faCircleArrowRight, faInfoCircle
 import { faMap, faCalendar } from '@fortawesome/free-regular-svg-icons';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Competition, CompetitionService } from 'src/app/services/competition/competition.service';
+import { WcaLinkService } from 'src/app/services/wca-link/wca-link.service';
 
 @Component({
   selector: 'app-upcoming-comps',
@@ -27,7 +28,8 @@ export class UpcomingCompsComponent {
 
   constructor(
     private authService: AuthService,
-    private compService: CompetitionService
+    private compService: CompetitionService,
+    private wcaLinkService: WcaLinkService
   ) {
     this.upcomingCompetitions = [];
   }
@@ -80,5 +82,13 @@ export class UpcomingCompsComponent {
   toggleShowComp(comp: Competition, event: Event) {
     event.preventDefault();
     comp.showDetails = !comp.showDetails;
+  }
+
+  getCompetitionLink(comp: Competition) {
+    return this.wcaLinkService.toCompetition(comp.registrationName);
+  }
+
+  getCompetitionRegistrationLink(comp: Competition) {
+    return this.wcaLinkService.toCompetitionRegistration(comp.registrationName);
   }
 }

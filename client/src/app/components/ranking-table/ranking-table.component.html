@@ -1,0 +1,29 @@
+<div class="ranking-table-container">
+
+  <app-page-selector [page]="page" [count]="count" (pageChange)="onPageChange($event)" />
+
+  <table>
+    <thead>
+      <tr>
+        <th class="rank">#</th>
+        <th class="name">Name</th>
+        <th class="result">Result</th>
+        <th class="nationalrank">NR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of getRankings(); let i = index" [class.tie]="isTie(row, i)">
+        <td class="rank">{{row.provinceRank}}</td>
+        <td class="name"><a [href]="getLinkToPerson(row.wcaID)">{{row.personName}}</a></td>
+        <td class="result">{{row.best}}</td>
+        <td class="nationalrank">{{row.countryRank}}</td>
+      </tr>
+      <tr *ngIf="getRankings().length === 0">
+        <td colspan="4" class="no-results">No results found.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-page-selector [page]="page" [count]="count" (pageChange)="onPageChange($event)" />
+
+</div>

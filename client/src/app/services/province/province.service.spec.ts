@@ -2,7 +2,68 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 
-import { ProvinceService } from './province.service';
+import { ProvinceSelection, ProvinceService } from './province.service';
+
+const blankSelection: ProvinceSelection = {
+  GT: false,
+  MP: false,
+  LM: false,
+  NW: false,
+  FS: false,
+  KZ: false,
+  EC: false,
+  WC: false,
+  NC: false
+};
+
+const allSelected: ProvinceSelection = {
+  GT: true,
+  MP: true,
+  LM: true,
+  NW: true,
+  FS: true,
+  KZ: true,
+  EC: true,
+  WC: true,
+  NC: true
+};
+
+const mixedSelection: ProvinceSelection = {
+  GT: false,
+  MP: true,
+  LM: false,
+  NW: false,
+  FS: true,
+  KZ: false,
+  EC: false,
+  WC: true,
+  NC: false
+};
+
+const gtOnlySelected: ProvinceSelection = {
+  GT: true,
+  MP: false,
+  LM: false,
+  NW: false,
+  FS: false,
+  KZ: false,
+  EC: false,
+  WC: false,
+  NC: false
+};
+
+const gtAndKzSelected: ProvinceSelection = {
+  GT: true,
+  MP: false,
+  LM: false,
+  NW: false,
+  FS: false,
+  KZ: true,
+  EC: false,
+  WC: false,
+  NC: false
+};
+
 
 describe('ProvincesService', () => {
   let service: ProvinceService;
@@ -42,109 +103,37 @@ describe('ProvincesService', () => {
     });
 
     it('should set all provinces to false', () => {
-      service.currentSelection = {
-        GT: true,
-        MP: true,
-        LM: true,
-        NW: true,
-        FS: true,
-        KZ: true,
-        EC: true,
-        WC: true,
-        NC: true
-      };
+      service.currentSelection = allSelected;
 
       service.unselectAll();
-      const expectedSelection = {
-        GT: false,
-        MP: false,
-        LM: false,
-        NW: false,
-        FS: false,
-        KZ: false,
-        EC: false,
-        WC: false,
-        NC: false
-      };
-      expect(service.currentSelection).toEqual(expectedSelection);
+      expect(service.currentSelection).toEqual(blankSelection);
     });
   });
 
   describe('getProvinceSelection', () => {
     it('should return the current selection', () => {
-      const expectedSelection = {
-        GT: false,
-        MP: false,
-        LM: false,
-        NW: false,
-        FS: false,
-        KZ: false,
-        EC: false,
-        WC: false,
-        NC: false
-      };
-      expect(service.getProvinceSelection()).toEqual(expectedSelection);
+      expect(service.getProvinceSelection()).toEqual(blankSelection);
     });
 
     it('should return the current selection after a province is selected', () => {
-      service.currentSelection = {
-        GT: true,
-        MP: false,
-        LM: false,
-        NW: false,
-        FS: false,
-        KZ: false,
-        EC: false,
-        WC: false,
-        NC: false
-      };
+      service.currentSelection = gtOnlySelected;
       expect(service.getProvinceSelection()).toEqual(service.currentSelection);
     });
   });
 
   describe('getSelectedProvinces', () => {
     it('should return an empty array if no provinces are selected', () => {
-      service.currentSelection = {
-        GT: false,
-        MP: false,
-        LM: false,
-        NW: false,
-        FS: false,
-        KZ: false,
-        EC: false,
-        WC: false,
-        NC: false
-      };
+      service.currentSelection = blankSelection;
       expect(service.getSelectedProvinces()).toEqual([]);
     });
 
     it('should return an array of selected provinces', () => {
-      service.currentSelection = {
-        GT: true,
-        MP: false,
-        LM: false,
-        NW: false,
-        FS: false,
-        KZ: false,
-        EC: false,
-        WC: false,
-        NC: false
-      };
+      service.currentSelection = gtOnlySelected;
       expect(service.getSelectedProvinces()).toEqual(['GT']);
     });
 
     it('should return an array of selected provinces even if multiple are selected', () => {
-      service.currentSelection = {
-        GT: true,
-        MP: false,
-        LM: false,
-        NW: false,
-        FS: false,
-        KZ: true,
-        EC: false,
-        WC: false,
-        NC: false
-      };
+      service.currentSelection = gtAndKzSelected;
       expect(service.getSelectedProvinces()).toEqual(['GT', 'KZ']);
     });
   });
@@ -183,32 +172,7 @@ describe('ProvincesService', () => {
     });
   });
 
-  describe('when intialising', () => {
-    it('should request the current selection', () => {
-      const expectedSelection = {
-        GT: false,
-        MP: false,
-        LM: false,
-        NW: false,
-        FS: false,
-        KZ: false,
-        EC: false,
-        WC: false,
-        NC: false
-      };
-      const req = httpMock.expectOne('/api/users/me/notifications');
-      expect(req.request.method).toEqual('GET');
-      req.flush(expectedSelection);
-    });
-  });
-
   describe('API calls', () => {
-
-    beforeEach(() => {
-      let req = httpMock.expectOne('/api/users/me/notifications');
-      expect(req.request.method).toEqual('GET');
-      req.flush(service.getBlankSelection());
-    });
 
     afterEach(() => {
       // After every test, assert that there are no more pending requests.
@@ -217,17 +181,7 @@ describe('ProvincesService', () => {
 
     describe('fetchProvinceSelection', () => {
       it('should return the current selection', () => {
-        const expectedSelection = {
-          GT: false,
-          MP: true,
-          LM: false,
-          NW: false,
-          FS: true,
-          KZ: false,
-          EC: false,
-          WC: true,
-          NC: false
-        };
+        const expectedSelection = mixedSelection;
         service.fetchProvinceSelection();
 
         const req = httpMock.expectOne('/api/users/me/notifications');
@@ -240,23 +194,13 @@ describe('ProvincesService', () => {
 
     describe('resetProvinceSelection', () => {
       it('should reset the current selection', () => {
-        service.currentSelection = {
-          GT: true,
-          MP: true,
-          LM: true,
-          NW: true,
-          FS: true,
-          KZ: true,
-          EC: true,
-          WC: true,
-          NC: true
-        };
+        service.currentSelection = allSelected;
 
         service.resetProvinceSelection();
 
         const req = httpMock.expectOne('/api/users/me/notifications');
         expect(req.request.method).toEqual('GET');
-        req.flush(service.getBlankSelection());
+        req.flush(blankSelection);
 
         expect(service.currentSelection).toEqual(service.getBlankSelection());
       });
@@ -265,17 +209,7 @@ describe('ProvincesService', () => {
     describe('saveProvinceSelection', () => {
 
       it('should save the current selection', () => {
-        service.currentSelection = {
-          GT: true,
-          MP: true,
-          LM: true,
-          NW: true,
-          FS: true,
-          KZ: true,
-          EC: true,
-          WC: true,
-          NC: true
-        };
+        service.currentSelection = allSelected;
         service.unsavedChanges = true;
 
         service.saveProvinceSelection().subscribe();
@@ -289,17 +223,7 @@ describe('ProvincesService', () => {
       });
 
       it('should throw an error if the call returns an error', async () => {
-        service.currentSelection = {
-          GT: true,
-          MP: true,
-          LM: true,
-          NW: true,
-          FS: true,
-          KZ: true,
-          EC: true,
-          WC: true,
-          NC: true
-        };
+        service.currentSelection = allSelected;
         service.unsavedChanges = true;
 
         service.saveProvinceSelection()

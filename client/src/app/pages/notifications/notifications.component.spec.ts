@@ -83,14 +83,6 @@ describe('NotificationsComponent', () => {
         expect(compiled.querySelector('app-unverified-warning')).toBeTruthy();
       });
 
-      it('should show the component if the user has verified their email', () => {
-        authService.hasVerifiedEmail.and.returnValue(true);
-        fixture.detectChanges();
-
-        const compiled = fixture.nativeElement;
-        expect(compiled.textContent).toContain('Select provinces on the map below');
-      });
-
       it('should hide the component if the user has not verified their email', () => {
         authService.hasVerifiedEmail.and.returnValue(false);
         fixture.detectChanges();
@@ -101,6 +93,14 @@ describe('NotificationsComponent', () => {
     });
 
     describe('showing for verified users', () => {
+
+      it('should show the component if the user has verified their email', () => {
+        authService.hasVerifiedEmail.and.returnValue(true);
+        fixture.detectChanges();
+
+        const compiled = fixture.nativeElement;
+        expect(compiled.textContent).toContain('Select provinces on the map below');
+      });
 
       it('should include a province list component', () => {
         const compiled = fixture.nativeElement;

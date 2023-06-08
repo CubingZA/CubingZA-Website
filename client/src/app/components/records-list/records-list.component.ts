@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RecordService, Record } from 'src/app/services/record/record.service';
+import { WcaLinkService } from 'src/app/services/wca-link/wca-link.service';
 
 @Component({
   selector: 'app-records-list',
@@ -11,7 +12,14 @@ export class RecordsListComponent {
   error: string = "";
   records: Record[] = [];
 
-  constructor(private recordService: RecordService) { }
+  link: WcaLinkService;
+
+  constructor(
+    private recordService: RecordService,
+    private _wcaLinkService: WcaLinkService
+  ) {
+    this.link = _wcaLinkService;
+  }
 
   ngOnInit(): void {
     this.recordService.getRecords().subscribe({

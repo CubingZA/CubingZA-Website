@@ -35,6 +35,12 @@ export class UserService {
     return this.http.post("/api/users/me/verifications/send", {});
   }
 
+  updateHomeProvince(province: string) {
+    return this.http.put("/api/users/me/homeProvince", {
+      homeProvince: province
+    });
+  }
+
   changePassword(oldPassword: string, newPassword: string) {
     this.getCurrentUser()
     .subscribe({
@@ -76,7 +82,10 @@ export type User = {
   name: string;
   email: string;
   role: string;
-  provider: string;
+  provider: string[];
   notificationSettings: ProvinceSelection;
   eventLog?: any[];
+  wcaID?: string;
+  wcaCountryID?: string;
+  homeProvince?: string;
 }

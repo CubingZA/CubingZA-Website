@@ -28,7 +28,7 @@ const mockUserData = [
     "name": "Test Person",
     "email": "test@example.com",
     "role": "user",
-    "provider": "local",
+    "provider": ["local"],
     "password": "Encrypted-password--!",
     "notificationSettings": {
       "GT": true,
@@ -46,7 +46,7 @@ const mockUserData = [
   {
     "name": "Another one",
     "role": "user",
-    "provider": "wca",
+    "provider": ["wca"],
     "notificationSettings": {
       "GT": false,
       "MP": false,
@@ -202,7 +202,7 @@ describe ("User controller:", function() {
       });
 
       it("should set the provider to local", async function() {
-        expect(newUser.provider).toBe('local');
+        expect(newUser.provider).toStrictEqual(expect.arrayContaining(['local']));
       });
 
       it("should set the role to unverified", async function() {
@@ -556,4 +556,98 @@ describe ("User controller:", function() {
     });
   });
 
+  describe("Calling controller.updateHomeProvince", function () {
+
+    let user;
+
+    describe("with a valid home province", function () {
+
+      beforeEach(async function() {
+        req.auth = {_id: "0"};
+        req.body = {homeProvince: "Gauteng"};
+
+        user = new User(mockUserData[0]);
+        user.homeProvince = "WC";
+        user.save = jest.fn().mockImplementation((saveUser) => new Promise((resolve) => resolve(saveUser)));
+
+        mockingoose(User).toReturn(user, 'findOne');
+        mockingoose(User).toReturn(user, 'findById');
+
+        await controller.updateHomeProvince(req, res);
+      });
+
+      it("should respond with 204 No Content status", async function() {
+        expect(res.status).toHaveBeenCalledWith(204);
+      });
+
+      it("should set the user's home province", async function() {
+        expect(user.homeProvince).toEqual("GT");
+      });
+
+      it("should save the user", async function() {
+        expect(user.save).toHaveBeenCalled()
+      });
+    });
+
+    describe("with an invalid home province", function () {
+      beforeEach(async function() {
+        req.auth = {_id: "0"};
+        req.body = {homeProvince: "Not a province"};
+
+        user = new User(mockUserData[0]);
+        user.homeProvince = "WC";
+        user.save = jest.fn().mockImplementation((saveUser) => new Promise((resolve) => resolve(saveUser)));
+
+        mockingoose(User).toReturn(user, 'findOne');
+        mockingoose(User).toReturn(user, 'findById');
+
+        await controller.updateHomeProvince(req, res);
+      });
+
+      it("should respond with 400 Bad Request status", async function() {
+        expect(res.status).toHaveBeenCalledWith(400);
+      });
+
+      it("should not set the user's home province", async function() {
+        expect(user.homeProvince).toEqual("WC");
+      });
+
+      it("should not save the user", async function() {
+        expect(user.save).not.toHaveBeenCalled()
+      });
+
+    });
+
+    describe("if user is not found", function () {
+      beforeEach(async function() {
+        req.auth = {_id: "0"};
+        req.body = {homeProvince: "Gauteng"};
+
+        mockingoose(User).toReturn(null, 'findOne');
+        mockingoose(User).toReturn(null, 'findById');
+
+        await controller.updateHomeProvince(req, res);
+      });
+
+      it("should respond with 401 Unauthorized status", async function() {
+        expect(res.status).toHaveBeenCalledWith(401);
+      });
+    });
+
+    describe("with a database error", function () {
+      beforeEach(async function() {
+        req.auth = {_id: "0"};
+        req.body = {homeProvince: "Gauteng"};
+
+        mockingoose(User).toReturn(new Error("Database error"), 'findOne');
+        mockingoose(User).toReturn(new Error("Database error"), 'findById');
+
+        await controller.updateHomeProvince(req, res);
+      });
+
+      it("should respond with 500 Internal Server Error status", async function() {
+        expect(res.status).toHaveBeenCalledWith(500);
+      });
+    });
+  });
 });

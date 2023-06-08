@@ -1,59 +1,17 @@
 #!/usr/bin/python3
 
-import math
 import datetime
 
-from pymongo import MongoClient as MongoDB
-from mysql import connector as MySQL
+from wca_database import get_wca_database_connection
+from cubingza_database import get_cubingza_database_connection
+
+from result_utils import format_result
 
 
 EXCLUDE_EVENTS = ["333mbo", "magic", "mmagic", "333ft"]
 
 
-def formatTime(result, includeZeroMinutes=False):
-    seconds = result % 60
-    minutes = math.floor(result/60)
-
-    if minutes>0 or includeZeroMinutes:
-        return '{:.0f}:{:05.2f}'.format(minutes, seconds)
-    else:
-        return '{:.2f}'.format(seconds)
-
-
-
-def formatResultStr(result, eventId, singleAverage):
-    if result is None or result=='':
-        return ''
-    if eventId=='333fm':
-        if singleAverage=='single':
-            return str(result)
-        else:
-            return str(result/100)
-    elif eventId=='333mbf':
-        if result > 999999999:
-            raise Exception('Old style multiblind not supported');
-        else:
-            difference = 99-math.floor(result / 10000000)
-            remainder = result % 10000000
-            time = formatTime(math.floor(remainder / 100), True)[:-3]
-            missed = remainder % 100
-            solved = difference + missed
-            total = solved + missed
-            return('{:.0f}/{:.0f} '.format(solved, total) + time)
-
-    else:
-        return formatTime(result/100)
-
-
-def getDatabaseConnection():
-    conn = MySQL.connect(host="localhost", port=4204, user="wca", passwd="wca", db="wca")
-    cursor = conn.cursor()
-    return [conn, cursor]
-
-
-# Fetch records from WCA database
-
-def prepareTempTables(cursor):
+def prepare_temp_tables(cursor):
     print('Preparing temporary tables')
 
     print('Finding South Africans')
@@ -96,8 +54,21 @@ def prepareTempTables(cursor):
         ;
     """)
 
+    print('Extracting results')
+    cursor.execute("DROP TABLE IF EXISTS ZAResults;")
+    cursor.execute("""
+        CREATE TABLE ZAResults AS
+        SELECT
+            competitionId, eventId, best, average, personId
+        FROM
+            Results
+        WHERE
+            personCountryId = "South Africa"
+        ;
+    """)
 
-def getWCArecords(cursor):
+
+def get_wca_records(cursor):
 
     print('Fetching Records...')
     cursor.execute("""
@@ -129,34 +100,35 @@ def getWCArecords(cursor):
                'singleId':  row[2],
                'singleName':  row[3],
                'singleResultRaw':  row[4],
-               'singleResult':  formatResultStr(row[4],row[0],'single'),
+               'singleResult':  format_result(row[4],row[0],'single'),
                'averageId':  row[5],
                'averageName':  row[6],
                'averageResultRaw':  row[7],
-               'averageResult':  formatResultStr(row[7],row[0],'average'),
+               'averageResult':  format_result(row[7],row[0],'average'),
                'eventRank': row[8]}
                for row in cursor.fetchall()]
 
     # For each record, attach a date
     for record in records:
+        if record['eventName'] in EXCLUDE_EVENTS:
+            continue
 
         print('Establishing dates of records for', record['eventName'])
 
-        sqlQuery = '''
+        sql_query = '''
             SELECT
                 year, month, day
             FROM
-                Results LEFT JOIN Competitions ON Results.competitionId = Competitions.id
+                ZAResults LEFT JOIN Competitions ON ZAResults.competitionId = Competitions.id
             WHERE
-                Results.singleaverage=%s AND Results.eventId=%s AND Results.personId=%s;
+                ZAResults.singleaverage=%s AND ZAResults.eventId=%s AND ZAResults.personId=%s;
             '''
-        cursor.execute(sqlQuery.replace('singleaverage','best'), (record['singleResultRaw'], record['eventId'], record['singleId']))
-
+        cursor.execute(sql_query.replace('singleaverage','best'), (record['singleResultRaw'], record['eventId'], record['singleId']))
 
         date = list(cursor.fetchall()[0])
         record['singleDate'] = datetime.date(*date).isoformat()
 
-        cursor.execute(sqlQuery.replace('singleaverage','average'), (record['averageResultRaw'], record['eventId'], record['averageId']))
+        cursor.execute(sql_query.replace('singleaverage','average'), (record['averageResultRaw'], record['eventId'], record['averageId']))
         date = cursor.fetchall()
         if len(date) > 0:
             date = date[0]
@@ -164,28 +136,23 @@ def getWCArecords(cursor):
         else:
             record['averageDate'] = None
 
-
-    conn.close()
-
     return records
 
 
-
-def updateCubingZARecords(newRecords):
-
-    db = MongoDB(port=4203)['cubingza'];
-    for newRecord in newRecords:
-        print('Updating database for', newRecord['eventName'])
-        db.records.update_one({'eventId': newRecord['eventId']}, {"$set": newRecord})
+def update_cubingza_records(new_records):
+    db = get_cubingza_database_connection()
+    for record in new_records:
+        print('Updating database for', record['eventName'])
+        db.records.update_one({'eventId': record['eventId']}, {"$set": record})
 
 
 if __name__ == "__main__":
-    [conn, cursor] = getDatabaseConnection()
+    [conn, cursor] = get_wca_database_connection()
 
-    prepareTempTables(cursor)
-    wcaRecords = getWCArecords(cursor)
-    wcaRecords = [record for record in wcaRecords if record['eventId'] not in EXCLUDE_EVENTS]
-    updateCubingZARecords(wcaRecords)
+    prepare_temp_tables(cursor)
+    wca_records = get_wca_records(cursor)
+    wca_records = [record for record in wca_records if record['eventId'] not in EXCLUDE_EVENTS]
+    update_cubingza_records(wca_records)
 
     cursor.close()
-    conn.close();
+    conn.close()

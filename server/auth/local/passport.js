@@ -11,7 +11,7 @@ function localAuthenticate(User, email, password, done) {
           message: 'This email is not registered.'
         });
       }
-      if(user.provider === 'wca') {
+      if(user.provider.indexOf('wca') >= 0 && !user.password) {
         return done(null, false, {
           message: 'This account requires logging in using a WCA account.'
         });

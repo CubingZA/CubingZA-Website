@@ -25,8 +25,7 @@ function wcaAuthenticate(User, accessToken, done) {
       }
       // Attempt to find the user in the database
       return User.findOne({
-        email: wcaProfile.email.toLowerCase(),
-        provider: 'wca'
+        email: wcaProfile.email.toLowerCase()
       }).exec()
       .then(user => {
         if(!user) {
@@ -34,19 +33,26 @@ function wcaAuthenticate(User, accessToken, done) {
           var user = new User({
             name: wcaProfile.name,
             email: wcaProfile.email.toLowerCase(),
-            provider: 'wca',
-            role: 'user'
+            provider: ['wca'],
+            role: 'user',
+            wcaID: wcaProfile.wca_id,
+            wcaCountryID: wcaProfile.country_iso2,
           });
 
           return user.save()
             .then((user) => {
               // Created new user.
+              user.wcaProfile = wcaProfile;
               return done(null, user);
             });
         }
         else {
           // User already exists.
-          return done(null, user);
+          return updateUserWithWCAProfile(user, wcaProfile)
+          .then(user => {
+            user.wcaProfile = wcaProfile;
+            return done(null, user);
+          });
         }
       })
       .catch(err => {
@@ -54,9 +60,42 @@ function wcaAuthenticate(User, accessToken, done) {
       });
     })
     .catch(err => {
-      return done(err);
+      return done(err, null);
     });
 }
+
+function updateUserWithWCAProfile(user, wcaProfile) {
+  // Should never have a email mismatch, but check just in case
+  if (user.email.toLowerCase() !== wcaProfile.email.toLowerCase()) {
+    return Promise.resolve(user);
+  }
+
+  // Never update if not a WCA user
+  if (!user.provider.includes('wca')) {
+    return Promise.resolve(user);
+  }
+
+  let hasChanges = false;
+  if (user.wcaID !== wcaProfile.wca_id) {
+    user.wcaID = wcaProfile.wca_id;
+    hasChanges = true;
+  }
+  if (user.wcaCountryID !== wcaProfile.country_iso2) {
+    user.wcaCountryID = wcaProfile.country_iso2;
+    hasChanges = true;
+  }
+  if (user.name !== wcaProfile.name) {
+    user.name = wcaProfile.name;
+    hasChanges = true;
+  }
+
+  if (hasChanges) {
+    return user.save();
+  } else {
+    return Promise.resolve(user);
+  }
+}
+
 
 export function setup(User, config) {
   passport.use(new OAuth2Strategy({

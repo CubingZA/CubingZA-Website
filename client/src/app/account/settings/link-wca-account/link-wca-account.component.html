@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-full">
+    <h3>
+      WCA Profile
+    </h3>
+
+    <div class="form">
+
+      <div *ngIf="!isWCAUser()">
+        <button class="btn btn-default btn-large center-block" id="wca-login" (click)="wcaLogin();">
+          <img src="assets/images/WCAlogo_notext.svg" class="btn-icon-image">
+          <span>Connect your WCA profile</span>
+        </button>
+        <p class="text-muted text-small">
+          <span class="icon"><fa-icon [icon]="faInfoCircle"/></span>
+          Connecting your WCA account will allow you to log in using your WCA account and be included in the provincial rankings.
+        </p>
+      </div>
+
+      <div *ngIf="isWCAUser()">
+        Hello {{ getCurrentUserName() }}. Your account is linked to WCA profile
+        <a [href]="getWCAProfileURL()" target="_blank" rel=noopener>{{getWCAID()}}</a>.
+        You can change your details on the <a [href]="getWCASettingsURL()">WCA website</a>.
+      </div>
+    </div>
+
+  </div>
+</div>

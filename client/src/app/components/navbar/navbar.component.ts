@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { faInfoCircle, faRightToBracket, faRightFromBracket, faUserPlus, faEnvelope, faUser, faGear, faMapLocationDot, faUsers, faCalendarDays, faScrewdriverWrench, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import {
+  faInfoCircle, faRightToBracket, faRightFromBracket, faUserPlus,
+  faEnvelope, faUser, faGear, faMapLocationDot, faUsers, faCalendarDays,
+  faScrewdriverWrench, faCaretDown, faRankingStar
+} from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 
@@ -22,6 +26,7 @@ export class NavbarComponent {
   faScrewdriverWrench = faScrewdriverWrench;
   faCaretDown = faCaretDown;
   faUserPlus = faUserPlus;
+  faRankingStar = faRankingStar;
 
   collapsed = true;
   constructor(private authService: AuthService) {

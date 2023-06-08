@@ -36,11 +36,11 @@ export class AuthService {
   }
 
   isLocalUser(): boolean {
-    return this.currentUser ? this.currentUser.provider === 'local' : false;
+    return this.currentUser ? this.currentUser.provider.indexOf('local') >= 0 : false;
   }
 
   isWCAUser(): boolean {
-    return this.currentUser ? this.currentUser.provider === 'wca' : false;
+    return this.currentUser ? this.currentUser.provider.indexOf('wca') >= 0 : false;
   }
 
   isLoggedIn(): boolean {
@@ -120,6 +120,11 @@ export class AuthService {
     window.location.href = "/auth/wca?" + params.toString();
   }
 
+  connectWcaAccount() {
+    const params = new URLSearchParams({next: window.location.origin + "/settings"});
+    window.location.href = "/auth/wca/merge?" + params.toString();
+  }
+
   finishLoginProcess(token: string) {
     this.cookies.set('token', token);
     this.updateCurrentUser(() => {
@@ -127,13 +132,22 @@ export class AuthService {
     });
   }
 
-  async updateCurrentUser(callback?: () => void) {
+  updateCurrentUser(callback?: () => void): Observable<User> {
+    let sendResult: (user: User) => void = () => {};
+    let observable = new Observable<User>(observer => {
+      sendResult = (user: User) => {
+        observer.next(user);
+        observer.complete();
+      }
+    });
+
     this.busyUpdatingUser = true;
     this.userService.getCurrentUser()
     .subscribe({
       next: (data: User) => {
         this.busyUpdatingUser = false;
         this.currentUser = data;
+        sendResult(this.currentUser);
         if (callback) {
           callback();
         }
@@ -144,6 +158,8 @@ export class AuthService {
         this.logout();
       }
     });
+
+    return observable;
   }
 
   private checkJWT(): boolean {

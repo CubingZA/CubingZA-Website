@@ -16,6 +16,12 @@
   <div id="navbar" class="navbar-content" [ngClass]="{'collapsed': collapsed}">
 
     <ul class="navbar-left">
+
+      <li><a class="navbar-item" routerLink="/rankings" [routerLinkActive]="['active']">
+        <fa-icon [icon]="faRankingStar" />
+        Rankings
+      </a></li>
+
       <li *ngIf="isLoggedIn()"><a class="navbar-item" routerLink="/notifications" [routerLinkActive]="['active']">
         <fa-icon [icon]="faMapLocationDot" />
         Notifications

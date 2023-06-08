@@ -28,7 +28,7 @@ describe('AuthService', () => {
     name: "Test Person",
     email: "test@example.com",
     role: "user",
-    provider: "local",
+    provider: ["local"],
     notificationSettings: {
       "GT": true,
       "MP": false,
@@ -180,7 +180,7 @@ describe('AuthService', () => {
     it('should return false for a non-local user', () => {
       service["currentUser"] = {
         ...dummyUser,
-        provider: "wca"
+        provider: ["wca"]
       };
       expect(service.isLocalUser()).toBeFalse();
     });
@@ -191,7 +191,7 @@ describe('AuthService', () => {
     it('should return true for a WCA user', () => {
       service["currentUser"] = {
         ...dummyUser,
-        provider: "wca"
+        provider: ["wca"]
       };
       expect(service.isWCAUser()).toBeTrue();
     });

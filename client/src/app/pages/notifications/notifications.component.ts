@@ -21,7 +21,9 @@ export class NotificationsComponent {
     private provinceService: ProvinceService,
     private authService: AuthService,
     private alerts: AlertsService
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     this.provinceService.resetProvinceSelection();
   }
 

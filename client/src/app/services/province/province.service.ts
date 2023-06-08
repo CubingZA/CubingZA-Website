@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +8,10 @@ import { catchError, map } from 'rxjs';
 export class ProvinceService {
 
   currentSelection: ProvinceSelection;
-  unsavedChanges: boolean;
+  unsavedChanges: boolean = false;
 
-  provinces: ProvinceNameMap = {
+  provinceNameMap: ProvinceNameMap = {
+    none:'No province',
     GT:'Gauteng',
     MP:'Mpumalanga',
     LM:'Limpopo',
@@ -19,17 +20,28 @@ export class ProvinceService {
     KZ:'KwaZulu Natal',
     EC:'Eastern Cape',
     WC:'Western Cape',
-    NC:'Northern Cape'
+    NC:'Northern Cape',
+    other:'Other country',
   };
 
   constructor(private http: HttpClient) {
     this.currentSelection = this.getBlankSelection();
-    this.fetchProvinceSelection();
-    this.unsavedChanges = false;
   }
 
   getAvailableProvinces(): string[] {
-    return Object.values(this.provinces);
+    const keys = Object.keys(this.getBlankSelection());
+    return keys.map((key: string) => this.provinceNameMap[key as keyof ProvinceSelection]);
+  }
+
+  getAvailableProvincesWithCodes(): ProvinceNameMap {
+    let result = {...this.provinceNameMap};
+    delete result.none;
+    delete result.other;
+    return result;
+  }
+
+  getAvailableProvincesWithNoneAndOther(): string[] {
+    return Object.values(this.provinceNameMap);
   }
 
   getBlankSelection(): ProvinceSelection {
@@ -42,7 +54,7 @@ export class ProvinceService {
       KZ: false,
       EC: false,
       WC: false,
-      NC: false
+      NC: false,
     };
   }
 
@@ -61,7 +73,7 @@ export class ProvinceService {
 
   getSelectedProvinces(): (keyof ProvinceSelection)[] {
     let selected: (keyof ProvinceSelection)[] = [];
-    for (let p in this.provinces) {
+    for (let p in this.provinceNameMap) {
       if (this.currentSelection[p as keyof ProvinceSelection]) {
         selected.push(p as keyof ProvinceSelection);
       }
@@ -69,8 +81,8 @@ export class ProvinceService {
     return selected.sort();
   }
 
-  getProvinceName(key: keyof ProvinceSelection): string {
-    return this.provinces[key];
+  getProvinceName(key: keyof ProvinceSelection | string): string {
+    return this.provinceNameMap[key as keyof ProvinceSelection];
   }
 
   toggleProvince(province: keyof ProvinceSelection) {
@@ -81,6 +93,7 @@ export class ProvinceService {
   fetchProvinceSelection() {
     this.http.get<ProvinceSelection>('/api/users/me/notifications')
     .subscribe((provinceSelection) => {
+      this.unsavedChanges = false;
       this.currentSelection = provinceSelection;
     });
   }
@@ -94,7 +107,7 @@ export class ProvinceService {
     let request = this.http.post('/api/users/me/notifications', this.currentSelection)
 
     .pipe(
-      map(() => {
+      tap(() => {
         this.unsavedChanges = false;
       }),
       catchError((error) => {
@@ -129,4 +142,6 @@ export type ProvinceNameMap = {
   EC: string;
   WC: string;
   NC: string;
+  other?: string;
+  none?: string;
 }

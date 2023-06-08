@@ -5,6 +5,7 @@ import User from './user.model';
 import config from '../../config/environment';
 
 import * as emailService from '../../services/email/email.service';
+import getProvinceCode from '../provinces/province.service';
 
 
 function validationError(res, statusCode) {
@@ -38,7 +39,7 @@ export function index(req, res) {
  */
 export function create(req, res) {
   const newUser = new User(req.body);
-  newUser.provider = 'local';
+  newUser.provider = ['local'];
   newUser.role = 'unverified';
   newUser.verificationToken = crypto.randomBytes(24).toString('hex');
   return newUser.save()
@@ -81,6 +82,30 @@ export function destroy(req, res) {
       } else {
         return res.status(204).end();
       }
+    })
+    .catch(handleError(res));
+}
+
+/**
+ * Change a user's home province
+ */
+export function updateHomeProvince(req, res) {
+  var userId = sanitize(req.auth._id);
+  var homeProvince = getProvinceCode(sanitize(req.body.homeProvince));
+  if (!homeProvince) {
+    return res.status(400).json({message: 'Invalid province name'});
+  }
+  return User.findById(userId).exec()
+    .then(user => {
+      if(!user) {
+        return res.status(401).end();
+      }
+      user.homeProvince = homeProvince;
+      return user.save()
+        .then(() => {
+          res.status(204).end();
+        })
+        .catch(validationError(res));
     })
     .catch(handleError(res));
 }
@@ -157,7 +182,7 @@ export function saveNotifications(req, res) {
         .then(() => {
           return res.status(204).end();
         })
-        .catch(err => handleError(err));
+        .catch(handleError(res));
     });
 }
 
