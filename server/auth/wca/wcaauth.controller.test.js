@@ -36,7 +36,9 @@ const mockValidWCAAuthCodeResponse = {
 const mockValidWCAMeResponse = {
   me: {
     name: "Test Person",
-    email: "test@example.com"
+    email: "test@example.com",
+    wca_id: "2014TEST01",
+    country_iso2: "ZA",
   }
 };
 
@@ -95,6 +97,28 @@ describe('WCA Auth Controller', () => {
       await isBusyTesting;
 
       expect(req.session.redirectUrl).toEqual(nextUrl);
+    });
+
+    it("should set the user to merge if the session has an authenticated user", async () => {
+      req.auth = mockUser;
+
+      controller.authenticate(req, res, next);
+      await isBusyTesting;
+
+      expect(req.session.isMerge).toEqual(true);
+      expect(req.session.mergeUser).toEqual(
+        expect.objectContaining(mockUser)
+      );
+    });
+
+    it("should not set a merge if the user is not authenticated", async () => {
+      req.auth = undefined;
+
+      controller.authenticate(req, res, next);
+      await isBusyTesting;
+
+      expect(req.session.isMerge).toEqual(false);
+      expect(req.session.mergeUser).toEqual(undefined);
     });
   });
 
@@ -174,18 +198,14 @@ describe('WCA Auth Controller', () => {
 
         describe("with a user that already exists", () => {
 
-          beforeEach(() => {
-            mockingoose(User).toReturn(mockUser, 'findOne');
-          });
-
-          it("should not create a new user", async () => {
-            controller.callback(req, res, next);
-            await isBusyTesting;
-
-            expect(User.prototype.save).not.toHaveBeenCalled();
-          });
-
           describe("with no redirect URL set", () => {
+
+            beforeEach(() => {
+              mockingoose(User).toReturn({
+                ...mockUser,
+                _id: "6481bdedc02740d8446730fc"  // Always return the same user ID
+              }, 'findOne');
+            });
 
             it("should return the signed token", async () => {
               controller.callback(req, res, next);
@@ -200,16 +220,99 @@ describe('WCA Auth Controller', () => {
 
           describe("with a redirect URL set", () => {
 
-            it("should redirect to the redirect URL", async () => {
+            beforeEach(() => {
+              mockingoose(User).toReturn({
+                ...mockUser,
+                _id: "6481bdedc02740d8446730fc"  // Always return the same user ID
+              }, 'findOne');
+            });
+
+            it("should set a cookie and redirect to the redirect URL", async () => {
               let redirectUrl = "https://example.com/redirect";
               req.session.redirectUrl = redirectUrl;
 
               controller.callback(req, res, next);
               await isBusyTesting;
 
+              expect(res.cookie).toHaveBeenCalledWith("token", "signed token");
               expect(res.redirect).toHaveBeenCalledWith(redirectUrl);
               expect(res.json).not.toHaveBeenCalled();
             });
+          });
+
+        });
+
+        describe("syncing the WCA profile", () => {
+
+          it ("should update the user's WCA ID", async () => {
+            let testUser = new User({
+              ...mockUser,
+              wcaID: "WRONGID"
+            });
+            mockingoose(User).toReturn(testUser, 'findOne');
+
+            controller.callback(req, res, next);
+            await isBusyTesting;
+
+            expect(testUser.save).toHaveBeenCalled();
+            expect(testUser.wcaID).toEqual("2014TEST01");
+          });
+
+          it ("should update the user's country ID", async () => {
+            let testUser = new User({
+              ...mockUser,
+              wcaCountryID: "US"
+            });
+            mockingoose(User).toReturn(testUser, 'findOne');
+
+            controller.callback(req, res, next);
+            await isBusyTesting;
+
+            expect(testUser.save).toHaveBeenCalled();
+            expect(testUser.wcaCountryID).toEqual("ZA");
+          });
+
+          it ("should update the user's name ID", async () => {
+            let testUser = new User({
+              ...mockUser,
+              name: "Changed Name"
+            });
+            mockingoose(User).toReturn(testUser, 'findOne');
+
+            controller.callback(req, res, next);
+            await isBusyTesting;
+
+            expect(testUser.save).toHaveBeenCalled();
+            expect(testUser.name).toEqual("Test Person");
+          });
+
+          it ("should not save the user if there is an email mismatch", async () => {
+            let testUser = new User({
+              ...mockUser,
+              email: "different@example.com",
+              wcaID: "WRONGID"
+            });
+            mockingoose(User).toReturn(testUser, 'findOne');
+
+            controller.callback(req, res, next);
+            await isBusyTesting;
+
+            expect(testUser.save).not.toHaveBeenCalled();
+          });
+
+          it ("should not save the user if the ID, country and name are correct", async () => {
+            let testUser = new User({
+              ...mockUser,
+              wcaID: "2014TEST01",
+              wcaCountryID: "ZA",
+              name: "Test Person"
+            });
+            mockingoose(User).toReturn(testUser, 'findOne');
+
+            controller.callback(req, res, next);
+            await isBusyTesting;
+
+            expect(testUser.save).not.toHaveBeenCalled();
           });
         });
       });
@@ -259,6 +362,64 @@ describe('WCA Auth Controller', () => {
           expect(res.redirect).toHaveBeenCalledWith('/login');
         });
       });
+
+      describe("with a user that does not have WCA as a provider", () => {
+
+        let testUser;
+
+        beforeEach(() => {
+          testUser = new User({
+            ...mockUser,
+            _id: "6481bdedc02740d8446730fc",  // Always return the same user ID
+            provider: ["local"],
+            wcaID: "WRONGID",
+            wcaCountryID: "US",
+            name: "Changed Name"
+          });
+          mockingoose(User).toReturn(testUser, 'findOne');
+
+          nock('https://staging.worldcubeassociation.org')
+          .get('/api/v0/me')
+          .reply(200, mockValidWCAMeResponse);
+        });
+
+        describe("when the user needs to be merged", () => {
+
+          it("should merge the user and log in", async () => {
+            req.session.isMerge = true;
+            req.session.mergeUser = testUser,
+            req.session.redirectUrl = "https://example.com/redirect";
+
+            expect(testUser.name).toEqual("Changed Name");
+            expect(testUser.wcaID).toEqual("WRONGID");
+            expect(testUser.wcaCountryID).toEqual("US");
+
+            controller.callback(req, res, next);
+            await isBusyTesting;
+
+            expect(testUser.save).toHaveBeenCalled();
+
+            expect(testUser.name).toEqual("Test Person");
+            expect(testUser.wcaID).toEqual("2014TEST01");
+            expect(testUser.wcaCountryID).toEqual("ZA");
+
+            expect(res.redirect).toHaveBeenCalledWith(req.session.redirectUrl);
+          });
+        });
+
+        describe("when the user should not be merged", () => {
+
+          it("should redirect to the login page", async () => {
+            req.session.isMerge = false;
+
+            controller.callback(req, res, next);
+            await isBusyTesting;
+
+            expect(res.redirect).toHaveBeenCalledWith('/login');
+            expect(User.prototype.save).not.toHaveBeenCalled();
+          });
+        });
+      });
     });
 
     describe('with an invalid code', () => {
@@ -290,5 +451,6 @@ describe('WCA Auth Controller', () => {
         expect(res.redirect).toHaveBeenCalledWith('/login');
       });
     });
+
   });
 });

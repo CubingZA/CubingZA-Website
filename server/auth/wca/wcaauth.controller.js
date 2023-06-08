@@ -1,8 +1,6 @@
 import passport from 'passport';
 import {signToken} from '../auth.service';
 
-import { inspect } from 'util' // TODO: Remove this
-
 
 export function authenticate(req, res, callback) {
   const next = req.query.next || "";
