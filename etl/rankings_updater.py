@@ -12,9 +12,9 @@ _RANKS_QUERY = """
         eventId,
         countryRank,
         best
-    FROM wca_public.ranks[type]
-        LEFT JOIN persons
-            ON personId = persons.id
+    FROM wca.Ranks[type]
+        LEFT JOIN Persons
+            ON personId = Persons.id
     WHERE countryId = 'South Africa'
         AND countryRank > 0
         AND subid = 1
@@ -84,7 +84,7 @@ def assign_provincial_ranks(ranks):
 
 def write_rankings(db, ranks, single_or_average: str):
     print(f"Writing CubingZA rankings for {single_or_average}")
-    collection = db[f'{single_or_average}rankings']
+    collection = db[f'{single_or_average.lower()}rankings']
     collection.drop()
     collection.insert_many(ranks)
 
@@ -103,8 +103,8 @@ if __name__ == "__main__":
 
     people = get_za_people(db)
 
-    process_provincial_rankings(people, 'single')
-    process_provincial_rankings(people, 'average')
+    process_provincial_rankings(people, 'Single')
+    process_provincial_rankings(people, 'Average')
 
     cursor.close()
     conn.close()
