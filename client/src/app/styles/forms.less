@@ -80,6 +80,15 @@
   .form-group {
     width: auto;
     text-align: center;
+  }
 
+  @media screen and (max-width: @extra-small-screen) {
+    flex-direction: column;
+    width: 100%;
+    font-size: small;
+
+    .form-group {
+      width: 100%;
+    }
   }
 }
