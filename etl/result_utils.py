@@ -15,7 +15,7 @@ def format_result(result, event_id, single_or_average):
     if result is None or result=='':
         return ''
     if event_id=='333fm':
-        if single_or_average=='single':
+        if single_or_average.lower() == 'single':
             return str(result)
         else:
             return str(result/100)
