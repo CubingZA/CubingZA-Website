@@ -45,6 +45,7 @@ import { TermsComponent } from './pages/terms/terms.component';
 import { RankingsComponent } from './pages/rankings/rankings.component';
 import { RankingTableComponent } from './components/ranking-table/ranking-table.component';
 import { PageSelectorComponent } from './components/page-selector/page-selector.component';
+import { RecordsComponent } from './pages/records/records.component';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import { PageSelectorComponent } from './components/page-selector/page-selector.
     RankingsComponent,
     TermsComponent,
     RankingTableComponent,
-    PageSelectorComponent
+    PageSelectorComponent,
+    RecordsComponent
   ],
   imports: [
     BrowserModule,
