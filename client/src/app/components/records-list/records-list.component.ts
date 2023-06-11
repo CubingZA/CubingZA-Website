@@ -24,7 +24,9 @@ export class RecordsListComponent {
   ngOnInit(): void {
     this.recordService.getNationalRecords().subscribe({
       next: (records) => {
-        records.sort((a, b) => a.eventRank - b.eventRank);
+        records.sort((a, b) => {
+          return (a.eventRank ? a.eventRank : 0) - (b.eventRank ? b.eventRank : 0);
+        });
         this.records = records;
       },
       error: (err) => {
@@ -40,7 +42,8 @@ export class RecordsListComponent {
     });
   }
 
-  isNew(date: Date) {
+  isNew(date?: Date) {
+    if (!date) return false;
     const today = new Date();
     const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
     return date > lastMonth;

@@ -16,8 +16,8 @@ export class RecordService {
     .pipe(
       tap(records => {
         return records.map(record => {
-          record.singleDate = new Date(record.singleDate);
-          record.averageDate = new Date(record.averageDate);
+          record.singleDate = record.singleDate ? new Date(record.singleDate) : undefined;
+          record.averageDate = record.averageDate ? new Date(record.averageDate) : undefined;
           return record;
         });
       })
@@ -31,10 +31,10 @@ export type Record = {
   singleName: string;
   singleResult: string;
   singleId: string;
-  singleDate: Date;
+  singleDate?: Date;
   averageName: string;
   averageResult: string;
   averageId: string;
-  averageDate: Date;
-  eventRank: number;
+  averageDate?: Date;
+  eventRank?: number;
 };
