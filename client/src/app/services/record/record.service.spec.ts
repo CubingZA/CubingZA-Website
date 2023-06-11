@@ -47,7 +47,7 @@ describe('RecordService', () => {
         }
       ];
 
-      service.getRecords().subscribe({
+      service.getNationalRecords().subscribe({
         next: records => {
           expect(records).toEqual(mockRecordData);
         },

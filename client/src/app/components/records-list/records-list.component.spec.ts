@@ -79,7 +79,7 @@ describe('RecordsListComponent', () => {
   });
 
   it('should handle an server timeout when fetching records', () => {
-    recordService.getRecords.and.returnValue(throwError(()=>{return {status: 504}}));
+    recordService.getNationalRecords.and.returnValue(throwError(()=>{return {status: 504}}));
     component.ngOnInit();
     fixture.detectChanges();
 
@@ -89,7 +89,7 @@ describe('RecordsListComponent', () => {
   });
 
   it('should handle any other error when fetching records', () => {
-    recordService.getRecords.and.returnValue(throwError(()=>{return {status: 500}}));
+    recordService.getNationalRecords.and.returnValue(throwError(()=>{return {status: 500}}));
     component.ngOnInit();
     fixture.detectChanges();
 

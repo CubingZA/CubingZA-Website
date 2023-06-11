@@ -11,7 +11,7 @@ export class RecordService {
     private http: HttpClient
   ) { }
 
-  getRecords() {
+  getNationalRecords() {
     return this.http.get<Record[]>('/api/records')
     .pipe(
       tap(records => {

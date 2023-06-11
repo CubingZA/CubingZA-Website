@@ -22,7 +22,7 @@ export class RecordsListComponent {
   }
 
   ngOnInit(): void {
-    this.recordService.getRecords().subscribe({
+    this.recordService.getNationalRecords().subscribe({
       next: (records) => {
         records.sort((a, b) => a.eventRank - b.eventRank);
         this.records = records;
