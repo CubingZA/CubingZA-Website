@@ -5,7 +5,7 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RankingsService {
+export class ProvincialRankingsService {
 
   private cancelRanking: Subject<void> = new Subject<void>();
   private cancelCount: Subject<void> = new Subject<void>();

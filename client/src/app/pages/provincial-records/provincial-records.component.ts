@@ -7,10 +7,10 @@ import { WcaLinkService } from 'src/app/services/wca-link/wca-link.service';
 
 @Component({
   selector: 'app-records',
-  templateUrl: './records.component.html',
-  styleUrls: ['./records.component.less']
+  templateUrl: './provincial-records.component.html',
+  styleUrls: ['./provincial-records.component.less']
 })
-export class RecordsComponent {
+export class ProvincialRecordsComponent {
 
   records?: ProvincialRecordTable;
 
@@ -28,7 +28,7 @@ export class RecordsComponent {
 
   ngOnInit(): void {
     this.alerts.clear();
-    this.recordService.getPronvincialRecords().subscribe({
+    this.recordService.getProvincialRecords().subscribe({
       next: (records) => {
         this.records = records;
       },
@@ -72,6 +72,4 @@ export class RecordsComponent {
     if (!this.records) return [];
     return this.records[eventId];
   }
-
-
 }

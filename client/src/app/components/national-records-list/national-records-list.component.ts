@@ -4,10 +4,10 @@ import { WcaLinkService } from 'src/app/services/wca-link/wca-link.service';
 
 @Component({
   selector: 'app-records-list',
-  templateUrl: './records-list.component.html',
-  styleUrls: ['./records-list.component.less']
+  templateUrl: './national-records-list.component.html',
+  styleUrls: ['./national-records-list.component.less']
 })
-export class RecordsListComponent {
+export class NationalRecordsListComponent {
 
   error: string = "";
   records: Record[] = [];

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Record, RecordService } from './record.service';
+import { Record, RecordService, ProvincialRecordResponse, ProvincialRecordTable } from './record.service';
 
 describe('RecordService', () => {
   let service: RecordService;
@@ -15,7 +15,7 @@ describe('RecordService', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  describe('getRecords', () => {
+  describe('getNationalRecords', () => {
 
     it('should return the correct records', async () => {
       const mockRecordData: Record[] = [

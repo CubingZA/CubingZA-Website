@@ -2,7 +2,7 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { EventsService } from 'src/app/services/events/events.service';
 import { ProvinceService } from 'src/app/services/province/province.service';
-import { Ranking, RankingsService } from 'src/app/services/rankings/rankings.service';
+import { Ranking, ProvincialRankingsService } from 'src/app/services/provincial-rankings/provincial-rankings.service';
 import { AlertsService } from '../alerts/alerts.service';
 import { WcaLinkService } from 'src/app/services/wca-link/wca-link.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -28,7 +28,7 @@ export class RankingTableComponent {
 
   constructor(
     private provinceService: ProvinceService,
-    private rankingsService: RankingsService,
+    private rankingsService: ProvincialRankingsService,
     private eventService: EventsService,
     private wcaLinkService: WcaLinkService,
     private titleService: Title,

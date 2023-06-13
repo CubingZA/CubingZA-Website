@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, tap } from 'rxjs';
-import { Ranking } from '../rankings/rankings.service';
+import { Ranking } from '../provincial-rankings/provincial-rankings.service';
 import { EventsService } from '../events/events.service';
 
 @Injectable({
@@ -27,7 +27,7 @@ export class RecordService {
     );
   }
 
-  getPronvincialRecords(): Observable<ProvincialRecordTable> {
+  getProvincialRecords(): Observable<ProvincialRecordTable> {
     return this.http.get<ProvincialRecordResponse>('/api/rankings/records')
     .pipe(
       map((rankings) => this.convertRecordResponseToRecordTable(rankings)),
