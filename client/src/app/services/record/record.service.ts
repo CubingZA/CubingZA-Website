@@ -77,11 +77,11 @@ export type ProvincialRecordTable = {
   [eventId: string]: Record[];
 }
 
-type ProvincialRecordResponse = {
+export type ProvincialRecordResponse = {
   [eventId: string]: {
     [province: string]: {
-      single: Ranking;
-      average: Ranking;
+      single?: Ranking;
+      average?: Ranking;
     }
   }
 }

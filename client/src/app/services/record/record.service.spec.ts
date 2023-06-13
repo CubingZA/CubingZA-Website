@@ -61,4 +61,93 @@ describe('RecordService', () => {
       req.flush(mockRecordData);
     });
   });
+
+  describe('getProvincialRecords', () => {
+
+    it('should return the correct records', async () => {
+      const mockRecordResponse: ProvincialRecordResponse = {
+        "333": {
+          "GT": {
+            "single": {
+              _id: "1",
+              userId: "1",
+              wcaID: "2345TEST01",
+              eventId: "333",
+              countryRank: 1,
+              best: "1:00:00",
+              personName: "Test Person",
+              province: "GT",
+              provinceRank: 1
+            },
+            "average": {
+              _id: "2",
+              userId: "2",
+              wcaID: "2345TEST02",
+              eventId: "333",
+              countryRank: 2,
+              best: "1:30:00",
+              personName: "Test Person",
+              province: "GT",
+              provinceRank: 2
+            }
+          },
+          "WC": {
+            "single": {
+              _id: "3",
+              userId: "3",
+              wcaID: "2345TEST03",
+              eventId: "333",
+              countryRank: 3,
+              best: "1:00:00",
+              personName: "Test Person",
+              province: "WC",
+              provinceRank: 1
+            }
+          }
+        }
+      };
+
+      const mockProvincialRecords: ProvincialRecordTable = {
+        "333": [
+          {
+            eventName: "3x3x3 Cube",
+            eventId: "333",
+            singleName: "Test Person",
+            singleResult: "1:00:00",
+            singleId: "2345TEST01",
+            averageName: "Test Person",
+            averageResult: "1:30:00",
+            averageId: "2345TEST02",
+            province: "GT"
+          },
+          {
+            eventName: "3x3x3 Cube",
+            eventId: "333",
+            singleName: "Test Person",
+            singleResult: "1:00:00",
+            singleId: "2345TEST03",
+            averageName: "",
+            averageResult: "",
+            averageId: "",
+            province: "WC"
+          }
+        ]
+      }
+
+      service.getProvincialRecords().subscribe({
+        next: records => {
+          expect(records).toEqual(mockProvincialRecords);
+        },
+        error: err => {
+          fail(err);
+        }
+      });
+
+      const req = httpMock.expectOne('/api/rankings/records');
+      expect(req.request.method).toEqual('GET');
+      req.flush(mockRecordResponse);
+
+
+    });
+  });
 });
