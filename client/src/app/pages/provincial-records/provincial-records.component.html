@@ -9,47 +9,48 @@
 
       <h2><span class="cubing-icon event-{{eventId}}"></span>{{getEventName(eventId)}}</h2>
 
-      <table>
-        <thead>
-          <tr *ngIf="showAvgForEvent(eventId)">
-            <th class="table-single" colspan="2"><h3>Single</h3></th>
-            <th class="table-middle"></th>
-            <th class="table-average" colspan="2"><h3>Average</h3></th>
-          </tr>
-          <tr *ngIf="!showAvgForEvent(eventId)">
-            <th class="table-middle" colspan="3"><h3>Single</h3></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let record of getRecordsForEvent(eventId)">
-            <td class="table-single">
-              <a href="{{link.toPerson(record.singleId)}}" target="_blank" rel=noopener>{{record.singleName}}</a>
-            </td>
-            <td class="table-middle">
-              <a href="{{link.toRankings(record.eventId, 'single')}}" target="_blank" rel=noopener>
-                {{record.singleResult}}
-              </a>
-            </td>
-            <td [ngClass]="{
-              'table-middle': showAvgForEvent(eventId),
-              'table-average': !showAvgForEvent(eventId)
-            }">
-              <a [routerLink]="['/rankings', record.province, eventId, 'single']">
-                {{getProvinceName(record.province)}}
-              </a>
-            </td>
-            <td class="table-middle" *ngIf="showAvgForEvent(eventId)">
-              <a href="{{link.toRankings(record.eventId, 'average')}}" target="_blank" rel=noopener>
-                {{record.averageResult}}
-              </a>
-            </td>
-            <td class="table-average" *ngIf="showAvgForEvent(eventId)">
-              <a href="{{link.toPerson(record.averageId)}}" target="_blank" rel=noopener>{{record.averageName}}</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
+      <div class="record-table-container">
+        <table>
+          <thead>
+            <tr *ngIf="showAvgForEvent(eventId)">
+              <th class="table-single" colspan="2"><h3>Single</h3></th>
+              <th class="table-middle"></th>
+              <th class="table-average" colspan="2"><h3>Average</h3></th>
+            </tr>
+            <tr *ngIf="!showAvgForEvent(eventId)">
+              <th class="table-middle" colspan="3"><h3>Single</h3></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let record of getRecordsForEvent(eventId)">
+              <td class="table-single">
+                <a href="{{link.toPerson(record.singleId)}}" target="_blank" rel=noopener>{{record.singleName}}</a>
+              </td>
+              <td class="table-middle">
+                <a href="{{link.toRankings(record.eventId, 'single')}}" target="_blank" rel=noopener>
+                  {{record.singleResult}}
+                </a>
+              </td>
+              <td [ngClass]="{
+                'table-middle': showAvgForEvent(eventId),
+                'table-average': !showAvgForEvent(eventId)
+              }">
+                <a [routerLink]="['/rankings', record.province, eventId, 'single']">
+                  {{getProvinceName(record.province)}}
+                </a>
+              </td>
+              <td class="table-middle" *ngIf="showAvgForEvent(eventId)">
+                <a href="{{link.toRankings(record.eventId, 'average')}}" target="_blank" rel=noopener>
+                  {{record.averageResult}}
+                </a>
+              </td>
+              <td class="table-average" *ngIf="showAvgForEvent(eventId)">
+                <a href="{{link.toPerson(record.averageId)}}" target="_blank" rel=noopener>{{record.averageName}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
   </div>
