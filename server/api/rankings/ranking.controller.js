@@ -104,17 +104,6 @@ export function getProvincialRecords(req, res) {
 function combineRecords(singleRecords, averageRecords) {
   const combinedRecords = {};
 
-  for (let record in singleRecords) {
-    let eventId = singleRecords[record].eventId;
-    let province = singleRecords[record].province;
-    if (combinedRecords[eventId] === undefined) {
-      combinedRecords[eventId] = {};
-    }
-    if (combinedRecords[eventId][province] === undefined) {
-      combinedRecords[eventId][province] = {};
-    }
-    combinedRecords[eventId][province].single = singleRecords[record];
-  }
   for (let record in averageRecords) {
     let eventId = averageRecords[record].eventId;
     let province = averageRecords[record].province;
@@ -125,6 +114,17 @@ function combineRecords(singleRecords, averageRecords) {
       combinedRecords[eventId][province] = {};
     }
     combinedRecords[eventId][province].average = averageRecords[record];
+  }
+  for (let record in singleRecords) {
+    let eventId = singleRecords[record].eventId;
+    let province = singleRecords[record].province;
+    if (combinedRecords[eventId] === undefined) {
+      combinedRecords[eventId] = {};
+    }
+    if (combinedRecords[eventId][province] === undefined) {
+      combinedRecords[eventId][province] = {};
+    }
+    combinedRecords[eventId][province].single = singleRecords[record];
   }
 
   return combinedRecords;
