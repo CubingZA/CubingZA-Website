@@ -82,7 +82,7 @@ export class RankingTableComponent {
         this.rankings = rankings;
       },
       error: (err) => {
-        this.alerts.addAlert("danger", "Error while fetch rankings froms server.");
+        this.alerts.addAlert("danger", "Error while fetching rankings from server.");
       }
     });
   };
@@ -96,7 +96,7 @@ export class RankingTableComponent {
         this.count = count;
       },
       error: (err) => {
-        this.alerts.addAlert("danger", "Error while fetch rankings froms server.");
+        this.alerts.addAlert("danger", "Error while fetching rankings from server.");
       }
     });
   }
