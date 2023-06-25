@@ -187,7 +187,7 @@ describe('RankingTableComponent', () => {
       component.ngOnChanges({});
       fixture.detectChanges();
 
-      expect(alerts.addAlert).toHaveBeenCalledWith("danger", "Error while fetch rankings froms server.");
+      expect(alerts.addAlert).toHaveBeenCalledWith("danger", "Error while fetching rankings from server.");
     });
 
     it('should handle an error when querying rankings count', () => {
@@ -195,7 +195,7 @@ describe('RankingTableComponent', () => {
       component.ngOnChanges({});
       fixture.detectChanges();
 
-      expect(alerts.addAlert).toHaveBeenCalledWith("danger", "Error while fetch rankings froms server.");
+      expect(alerts.addAlert).toHaveBeenCalledWith("danger", "Error while fetching rankings from server.");
     });
   });
 });
