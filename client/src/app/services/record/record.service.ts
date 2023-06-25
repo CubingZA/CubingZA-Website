@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, tap } from 'rxjs';
+import { Observable, catchError, map, tap } from 'rxjs';
+import { Ranking } from '../provincial-rankings/provincial-rankings.service';
+import { EventsService } from '../events/events.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,20 +10,51 @@ import { catchError, tap } from 'rxjs';
 export class RecordService {
 
   constructor(
+    private eventsService: EventsService,
     private http: HttpClient
   ) { }
 
-  getRecords() {
+  getNationalRecords() {
     return this.http.get<Record[]>('/api/records')
     .pipe(
       tap(records => {
         return records.map(record => {
-          record.singleDate = new Date(record.singleDate);
-          record.averageDate = new Date(record.averageDate);
+          record.singleDate = record.singleDate ? new Date(record.singleDate) : undefined;
+          record.averageDate = record.averageDate ? new Date(record.averageDate) : undefined;
           return record;
         });
       })
     );
+  }
+
+  getProvincialRecords(): Observable<ProvincialRecordTable> {
+    return this.http.get<ProvincialRecordResponse>('/api/rankings/records')
+    .pipe(
+      map((rankings) => this.convertRecordResponseToRecordTable(rankings)),
+    );
+  }
+
+  convertRecordResponseToRecordTable(response: ProvincialRecordResponse): ProvincialRecordTable {
+    let records: ProvincialRecordTable = {};
+    Object.keys(response).forEach((eventId) => {
+      records[eventId] = [];
+      Object.keys(response[eventId]).forEach((province) => {
+        let ranking = response[eventId][province];
+        let record: Record = {
+          eventName: this.eventsService.getEventName(eventId),
+          eventId: eventId,
+          singleName: ranking.single?.personName ? ranking.single.personName : "",
+          singleResult: ranking.single?.best ? ranking.single.best : "",
+          singleId: ranking.single?.wcaID ? ranking.single.wcaID : "",
+          averageName: ranking.average?.personName ? ranking.average.personName : "",
+          averageResult: ranking.average?.best ? ranking.average.best : "",
+          averageId: ranking.average?.wcaID ? ranking.average.wcaID : "",
+          province: province
+        };
+        records[eventId].push(record);
+      });
+    });
+    return records;
   }
 }
 
@@ -31,10 +64,25 @@ export type Record = {
   singleName: string;
   singleResult: string;
   singleId: string;
-  singleDate: Date;
+  singleDate?: Date;
   averageName: string;
   averageResult: string;
   averageId: string;
-  averageDate: Date;
-  eventRank: number;
+  averageDate?: Date;
+  eventRank?: number;
+  province?: string;
 };
+
+export type ProvincialRecordTable = {
+  [eventId: string]: Record[];
+}
+
+export type ProvincialRecordResponse = {
+  [eventId: string]: {
+    [province: string]: {
+      single?: Ranking;
+      average?: Ranking;
+    }
+  }
+}
+

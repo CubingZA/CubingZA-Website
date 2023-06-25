@@ -35,16 +35,17 @@ import { AboutSummaryComponent } from './components/about-summary/about-summary.
 import { RotatingCubeComponent } from './components/rotating-cube/rotating-cube.component';
 import { LinksBoxComponent } from './components/links-box/links-box.component';
 import { UpcomingCompsComponent } from './components/upcoming-comps/upcoming-comps.component';
-import { RecordsListComponent } from './components/records-list/records-list.component';
+import { NationalRecordsListComponent } from './components/national-records-list/national-records-list.component';
 import { ProvinceMapComponent } from './components/province-map/province-map.component';
 import { ProvinceListComponent } from './components/province-list/province-list.component';
 import { CompEditBoxComponent } from './components/comp-edit-box/comp-edit-box.component';
 import { UnverifiedWarningComponent } from './components/unverified-warning/unverified-warning.component';
 import { AlertsComponent } from './components/alerts/alerts.component';
 import { TermsComponent } from './pages/terms/terms.component';
-import { RankingsComponent } from './pages/rankings/rankings.component';
+import { ProvincialRankingsComponent } from './pages/provincial-rankings/provincial-rankings.component';
 import { RankingTableComponent } from './components/ranking-table/ranking-table.component';
 import { PageSelectorComponent } from './components/page-selector/page-selector.component';
+import { ProvincialRecordsComponent } from './pages/provincial-records/provincial-records.component';
 
 
 @NgModule({
@@ -55,7 +56,7 @@ import { PageSelectorComponent } from './components/page-selector/page-selector.
     AboutSummaryComponent,
     LinksBoxComponent,
     UpcomingCompsComponent,
-    RecordsListComponent,
+    NationalRecordsListComponent,
     ProvinceMapComponent,
     AboutComponent,
     PrivacyComponent,
@@ -80,10 +81,11 @@ import { PageSelectorComponent } from './components/page-selector/page-selector.
     ChangePasswordComponent,
     ChangeProvinceComponent,
     LinkWcaAccountComponent,
-    RankingsComponent,
+    ProvincialRankingsComponent,
     TermsComponent,
     RankingTableComponent,
-    PageSelectorComponent
+    PageSelectorComponent,
+    ProvincialRecordsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RankingsComponent } from './rankings.component';
+import { ProvincialRankingsComponent } from './provincial-rankings.component';
 import { MockComponent, MockedDebugElement, ngMocks } from 'ng-mocks';
 import { RankingTableComponent } from 'src/app/components/ranking-table/ranking-table.component';
 import { ProvinceService } from 'src/app/services/province/province.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
-describe('RankingsComponent', () => {
-  let component: RankingsComponent;
-  let fixture: ComponentFixture<RankingsComponent>;
+describe('ProvincialRankingsComponent', () => {
+  let component: ProvincialRankingsComponent;
+  let fixture: ComponentFixture<ProvincialRankingsComponent>;
 
   let provinceService: jasmine.SpyObj<ProvinceService>;
   let rankingsTable: MockedDebugElement<RankingTableComponent>;
@@ -26,14 +26,14 @@ describe('RankingsComponent', () => {
     TestBed.configureTestingModule({
       imports: [FormsModule, ReactiveFormsModule],
       declarations: [
-        RankingsComponent,
+        ProvincialRankingsComponent,
         MockComponent(RankingTableComponent)
       ],
       providers: [
         { provide: ProvinceService, useValue: provinceServiceSpy }
       ]
     });
-    fixture = TestBed.createComponent(RankingsComponent);
+    fixture = TestBed.createComponent(ProvincialRankingsComponent);
     component = fixture.componentInstance;
 
     provinceService = TestBed.inject(ProvinceService) as jasmine.SpyObj<ProvinceService>;

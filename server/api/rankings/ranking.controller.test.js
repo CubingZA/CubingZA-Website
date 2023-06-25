@@ -286,5 +286,32 @@ describe ("Ranking controller:", function() {
       });
     });
   });
+
+  describe('Calling controller.getProvincialRecords', function () {
+    beforeEach(async function() {
+      mockingoose(Ranking.Single).toReturn([mockSingleRankingData[0]], 'find');
+      mockingoose(Ranking.Average).toReturn([mockAverageRankingData[0]], 'find');
+    });
+
+    it('should respond with 200 OK', async function() {
+      await controller.getProvincialRecords(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
+    });
+
+    it('should respond with provincial records', async function() {
+      await controller.getProvincialRecords(req, res);
+      expect(res.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          '333': expect.objectContaining({
+            'GT': expect.objectContaining({
+              single: expect.objectContaining(mockSingleRankingData[0]),
+              average: expect.objectContaining(mockAverageRankingData[0])
+            })
+          })
+        })
+      );
+    });
+
+  });
 });
 

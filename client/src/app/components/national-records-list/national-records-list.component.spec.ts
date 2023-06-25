@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RecordsListComponent } from './records-list.component';
+import { NationalRecordsListComponent } from './national-records-list.component';
 import { Record, RecordService } from 'src/app/services/record/record.service';
 import { of, throwError } from 'rxjs';
 
@@ -37,9 +37,9 @@ const mockRecordData: Record[] = [
   }
 ];
 
-describe('RecordsListComponent', () => {
-  let component: RecordsListComponent;
-  let fixture: ComponentFixture<RecordsListComponent>;
+describe('NationalRecordsListComponent', () => {
+  let component: NationalRecordsListComponent;
+  let fixture: ComponentFixture<NationalRecordsListComponent>;
 
   let recordService: jasmine.SpyObj<RecordService>;
 
@@ -48,19 +48,19 @@ describe('RecordsListComponent', () => {
     jasmine.clock().mockDate(mockToday);
 
     const recordServiceSpy = jasmine.createSpyObj('RecordService', [
-      'getRecords'
+      'getNationalRecords'
     ]);
-    recordServiceSpy.getRecords.and.returnValue(of(mockRecordData));
+    recordServiceSpy.getNationalRecords.and.returnValue(of(mockRecordData));
 
     await TestBed.configureTestingModule({
-      declarations: [ RecordsListComponent ],
+      declarations: [ NationalRecordsListComponent ],
       providers: [
         { provide: RecordService, useValue: recordServiceSpy }
       ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RecordsListComponent);
+    fixture = TestBed.createComponent(NationalRecordsListComponent);
     component = fixture.componentInstance;
 
     recordService = TestBed.inject(RecordService) as jasmine.SpyObj<RecordService>;
@@ -79,7 +79,7 @@ describe('RecordsListComponent', () => {
   });
 
   it('should handle an server timeout when fetching records', () => {
-    recordService.getRecords.and.returnValue(throwError(()=>{return {status: 504}}));
+    recordService.getNationalRecords.and.returnValue(throwError(()=>{return {status: 504}}));
     component.ngOnInit();
     fixture.detectChanges();
 
@@ -89,7 +89,7 @@ describe('RecordsListComponent', () => {
   });
 
   it('should handle any other error when fetching records', () => {
-    recordService.getRecords.and.returnValue(throwError(()=>{return {status: 500}}));
+    recordService.getNationalRecords.and.returnValue(throwError(()=>{return {status: 500}}));
     component.ngOnInit();
     fixture.detectChanges();
 

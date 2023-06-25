@@ -82,6 +82,14 @@ export class ManageUsersComponent {
     );
   }
 
+  hasHomeProvince(user: User): boolean {
+    return user.homeProvince ? true : false;
+  }
+
+  getHomeProvinceName(user: User): string {
+    return this.provinceService.getProvinceName(user.homeProvince as keyof ProvinceSelection);
+  }
+
   openConfirmDeleteModal(user: User) {
     this.userToDelete = user;
     this.modalService.open('confirm-delete-modal');
