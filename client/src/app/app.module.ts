@@ -46,6 +46,7 @@ import { ProvincialRankingsComponent } from './pages/provincial-rankings/provinc
 import { RankingTableComponent } from './components/ranking-table/ranking-table.component';
 import { PageSelectorComponent } from './components/page-selector/page-selector.component';
 import { ProvincialRecordsComponent } from './pages/provincial-records/provincial-records.component';
+import { EventSelectorComponent } from './components/event-selector/event-selector.component';
 
 
 @NgModule({
@@ -85,7 +86,8 @@ import { ProvincialRecordsComponent } from './pages/provincial-records/provincia
     TermsComponent,
     RankingTableComponent,
     PageSelectorComponent,
-    ProvincialRecordsComponent
+    ProvincialRecordsComponent,
+    EventSelectorComponent
   ],
   imports: [
     BrowserModule,

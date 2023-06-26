@@ -6,6 +6,8 @@ import { ProvinceService } from 'src/app/services/province/province.service';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
 import { of, throwError } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockComponent } from 'ng-mocks';
+import { EventSelectorComponent } from 'src/app/components/event-selector/event-selector.component';
 
 const mockProvincialRecords: ProvincialRecordTable = {
   "333": [
@@ -63,7 +65,6 @@ describe('ProvincialRecordsComponent', () => {
   let fixture: ComponentFixture<ProvincialRecordsComponent>;
 
   let recordsService: jasmine.SpyObj<RecordService>;
-  let provinceService: jasmine.SpyObj<ProvinceService>;
   let alerts: jasmine.SpyObj<AlertsService>;
 
   beforeEach(() => {
@@ -85,7 +86,10 @@ describe('ProvincialRecordsComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [ProvincialRecordsComponent],
+      declarations: [
+        MockComponent(EventSelectorComponent),
+        ProvincialRecordsComponent
+      ],
       providers: [
         { provide: RecordService, useValue: recordServiceSpy },
         { provide: ProvinceService, useValue: provinceServiceSpy },
@@ -96,7 +100,6 @@ describe('ProvincialRecordsComponent', () => {
     component = fixture.componentInstance;
 
     recordsService = TestBed.inject(RecordService) as jasmine.SpyObj<RecordService>;
-    provinceService = TestBed.inject(ProvinceService) as jasmine.SpyObj<ProvinceService>;
     alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
 
     fixture.detectChanges();
@@ -116,7 +119,7 @@ describe('ProvincialRecordsComponent', () => {
 
     it('should render a table for each event', () => {
       const tables = fixture.nativeElement.querySelectorAll('table');
-      expect(tables.length).toBe(2);
+      expect(tables.length).toBe(17);
     });
   });
 
@@ -135,7 +138,11 @@ describe('ProvincialRecordsComponent', () => {
       component.ngOnInit();
 
       const tables = fixture.nativeElement.querySelectorAll('table');
-      expect(tables.length).toBe(0);
+      expect(tables.length).toBe(17);
+      tables.forEach((table: any) => {
+        expect(table.querySelectorAll('tr').length).toBe(1);
+        expect(table.querySelector('tr').textContent).toContain('No records yet');
+      });
     });
   });
 });

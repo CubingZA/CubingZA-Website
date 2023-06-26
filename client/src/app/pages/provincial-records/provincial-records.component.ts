@@ -13,8 +13,9 @@ import { WcaLinkService } from 'src/app/services/wca-link/wca-link.service';
 export class ProvincialRecordsComponent {
 
   records?: ProvincialRecordTable;
-
   link: WcaLinkService;
+
+  eventId: string = '';
 
   constructor(
     private recordService: RecordService,
@@ -41,9 +42,7 @@ export class ProvincialRecordsComponent {
 
   getEvents(): string[] {
     if (!this.records) return [];
-    let events = this.eventsService.getEvents();
-    events = events.filter((event) => Object.keys(this.records!).includes(event.id));
-    return events.map((event) => event.id);
+    return this.eventsService.getEvents().map(event => event.id);
   }
 
   getEventName(eventId: string): string {
@@ -71,5 +70,13 @@ export class ProvincialRecordsComponent {
   getRecordsForEvent(eventId: string): Record[] {
     if (!this.records) return [];
     return this.records[eventId];
+  }
+
+  onEventChange(eventId: string): void {
+    this.eventId = eventId;
+  }
+
+  isSelected(eventId: string): boolean {
+    return this.eventId === '' ? true : this.eventId === eventId;
   }
 }

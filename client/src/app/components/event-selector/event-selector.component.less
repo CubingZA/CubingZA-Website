@@ -1,0 +1,31 @@
+@import '@cubing/icons/www/css/cubing-icons.css';
+@import '../../styles/variables.less';
+
+.event-selector-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  margin-bottom: 1.5em;
+
+
+
+  .event-selector-button {
+    font-size: 1.6em;
+    padding: 0 0.2em;
+    color: @text-color-muted;
+    cursor: pointer;
+
+    &.select-all {
+      font-size: 1.4em;
+      padding: 0 0.5em;
+      font-weight: bolder;
+    }
+
+    &.selected {
+      color: @link-color;
+    }
+  }
+}
