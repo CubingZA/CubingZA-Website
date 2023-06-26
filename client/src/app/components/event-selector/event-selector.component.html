@@ -1,0 +1,11 @@
+<div class="event-selector-container">
+
+  <a class="event-selector-button select-all" id="event-selector-all" role="button" (click)="selectEvent('')" [ngClass]="{'selected': isActive()}">
+    All
+  </a>
+
+  <a *ngFor="let event of getEvents()" class="event-selector-button" [id]="'event-selector-'+event.id" role="button" (click)="selectEvent(event.id)" [ngClass]="{'selected': isActive(event.id)}">
+    <span class="cubing-icon event-{{event.id}}"></span>
+  </a>
+
+</div>
