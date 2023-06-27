@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faRightToBracket, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
-import { AuthService, LoginDetails } from 'src/app/services/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',

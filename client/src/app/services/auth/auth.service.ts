@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { UserService, User, NewUser } from '../user/user.service';
+import { Observable, catchError, tap, throwError } from 'rxjs';
+
+import { LoginDetails } from 'src/app/interfaces/auth/login-details';
 
 @Injectable({
   providedIn: 'root'
@@ -183,11 +185,6 @@ export class AuthService {
       return JSON.parse(window.atob(jwt.split('.')[1]));
     }
   }
-}
-
-export type LoginDetails = {
-  email: string;
-  password: string;
 }
 
 export type Token = {
