@@ -46,9 +46,11 @@ export class RecordService {
           singleName: ranking.single?.personName ? ranking.single.personName : "",
           singleResult: ranking.single?.best ? ranking.single.best : "",
           singleId: ranking.single?.wcaID ? ranking.single.wcaID : "",
+          singleNR: ranking.single?.countryRank === 1,
           averageName: ranking.average?.personName ? ranking.average.personName : "",
           averageResult: ranking.average?.best ? ranking.average.best : "",
           averageId: ranking.average?.wcaID ? ranking.average.wcaID : "",
+          averageNR: ranking.average?.countryRank === 1,
           province: province
         };
         records[eventId].push(record);
@@ -65,10 +67,12 @@ export type Record = {
   singleResult: string;
   singleId: string;
   singleDate?: Date;
+  singleNR?: boolean;
   averageName: string;
   averageResult: string;
   averageId: string;
   averageDate?: Date;
+  averageNR?: boolean;
   eventRank?: number;
   province?: string;
 };
