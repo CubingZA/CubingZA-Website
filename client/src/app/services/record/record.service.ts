@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, tap } from 'rxjs';
-import { Ranking } from '../provincial-rankings/provincial-rankings.service';
+import { Observable, map, tap } from 'rxjs';
+
 import { EventsService } from '../events/events.service';
 
+import { Ranking } from 'src/app/interfaces/ranking/ranking';
 import { Record } from 'src/app/interfaces/record/record';
 import { ProvincialRecordTable } from 'src/app/interfaces/record/provincial-record-table';
 
@@ -62,7 +63,6 @@ export class RecordService {
     return records;
   }
 }
-
 
 export type ProvincialRecordResponse = {
   [eventId: string]: {

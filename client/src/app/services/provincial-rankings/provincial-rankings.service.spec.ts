@@ -1,7 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { ProvincialRankingsService, Ranking } from './provincial-rankings.service';
+import { ProvincialRankingsService } from './provincial-rankings.service';
+
+import { Ranking } from 'src/app/interfaces/ranking/ranking';
 
 const mockSingleRankingData: Ranking[] = [
   {

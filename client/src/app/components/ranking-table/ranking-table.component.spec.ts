@@ -1,15 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SimpleChange } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MockComponent } from 'ng-mocks';
+import { of, throwError } from 'rxjs';
 
 import { RankingTableComponent } from './ranking-table.component';
 import { ProvinceService } from 'src/app/services/province/province.service';
-import { Ranking, ProvincialRankingsService } from 'src/app/services/provincial-rankings/provincial-rankings.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MockComponent } from 'ng-mocks';
+import { ProvincialRankingsService } from 'src/app/services/provincial-rankings/provincial-rankings.service';
 import { PageSelectorComponent } from '../page-selector/page-selector.component';
-import { of, throwError } from 'rxjs';
 import { AlertsService } from '../alerts/alerts.service';
-import { SimpleChange } from '@angular/core';
+
+import { Ranking } from 'src/app/interfaces/ranking/ranking';
 
 const mockRankingData: Ranking[] = [
   {
