@@ -3,11 +3,12 @@ import { AbstractControl, AsyncValidator, FormControl, FormGroup, ValidationErro
 import { Observable, of, catchError, map } from 'rxjs';
 import { faUserPlus, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
-import { AuthService, Token } from 'src/app/services/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { EmailCheckService } from 'src/app/services/email/email-check.service';
 import { PasswordMatchValidator } from '../password.validator';
-import { NewUser } from 'src/app/services/user/user.service';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
+
+import { NewUser } from 'src/app/interfaces/user/new-user';
 
 @Component({
   selector: 'app-signup',

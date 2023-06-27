@@ -2,8 +2,10 @@ import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faCloudArrowUp, faBan } from '@fortawesome/free-solid-svg-icons';
 
-import { Competition, CompetitionService } from 'src/app/services/competition/competition.service';
+import { CompetitionService } from 'src/app/services/competition/competition.service';
 import { ProvinceService } from 'src/app/services/province/province.service';
+
+import { Competition } from 'src/app/interfaces/competition/competition';
 
 @Component({
   selector: 'app-comp-edit-box',

@@ -1,6 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Record, RecordService, ProvincialRecordResponse, ProvincialRecordTable } from './record.service';
+
+import { RecordService, ProvincialRecordResponse } from './record.service';
+
+import { Record } from 'src/app/interfaces/record/record';
+import { ProvincialRecordTable } from 'src/app/interfaces/record/provincial-record-table';
 
 describe('RecordService', () => {
   let service: RecordService;

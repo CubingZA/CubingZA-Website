@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CompEvent, EventsService } from 'src/app/services/events/events.service';
+
+import { EventsService } from 'src/app/services/events/events.service';
+
+import { CompEvent } from 'src/app/interfaces/competition/comp-event';
 
 @Component({
   selector: 'app-event-selector',

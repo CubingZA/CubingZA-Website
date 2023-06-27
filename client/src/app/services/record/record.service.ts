@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, tap } from 'rxjs';
-import { Ranking } from '../provincial-rankings/provincial-rankings.service';
+import { Observable, map, tap } from 'rxjs';
+
 import { EventsService } from '../events/events.service';
+
+import { Ranking } from 'src/app/interfaces/ranking/ranking';
+import { Record } from 'src/app/interfaces/record/record';
+import { ProvincialRecordTable } from 'src/app/interfaces/record/provincial-record-table';
 
 @Injectable({
   providedIn: 'root'
@@ -58,27 +62,6 @@ export class RecordService {
     });
     return records;
   }
-}
-
-export type Record = {
-  eventName: string;
-  eventId: string;
-  singleName: string;
-  singleResult: string;
-  singleId: string;
-  singleDate?: Date;
-  singleNR?: boolean;
-  averageName: string;
-  averageResult: string;
-  averageId: string;
-  averageDate?: Date;
-  averageNR?: boolean;
-  eventRank?: number;
-  province?: string;
-};
-
-export type ProvincialRecordTable = {
-  [eventId: string]: Record[];
 }
 
 export type ProvincialRecordResponse = {

@@ -1,8 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 
-import { ProvinceSelection, ProvinceService } from './province.service';
+import { ProvinceService } from './province.service';
+
+import { ProvinceSelection } from 'src/app/interfaces/user/province-selection';
 
 const blankSelection: ProvinceSelection = {
   GT: false,

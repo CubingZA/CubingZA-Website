@@ -1,13 +1,17 @@
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
-import { AuthService, LoginDetails } from './auth.service';
-import { Observable, of, throwError } from 'rxjs';
-import { NewUser, User, UserService } from '../user/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable, of, throwError } from 'rxjs';
+
+import { AuthService } from './auth.service';
+import { UserService } from '../user/user.service';
+
+import { User } from 'src/app/interfaces/user/user';
+import { NewUser } from 'src/app/interfaces/user/new-user';
+import { LoginDetails } from 'src/app/interfaces/auth/login-details';
 
 function makeMockJWT(data: any) {
   return 'eyJhbHeader.' + window.btoa(JSON.stringify(data)) + '.Signature'

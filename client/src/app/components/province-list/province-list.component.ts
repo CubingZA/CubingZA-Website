@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { faCircleMinus } from '@fortawesome/free-solid-svg-icons';
-import { ProvinceService, ProvinceSelection } from 'src/app/services/province/province.service';
+
+import { ProvinceService } from 'src/app/services/province/province.service';
+
+import { ProvinceSelection } from 'src/app/interfaces/user/province-selection';
 
 @Component({
   selector: 'app-province-list',

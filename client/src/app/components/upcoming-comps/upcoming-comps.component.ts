@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { faLocationDot, faCaretUp, faCaretDown, faCircleArrowRight, faInfoCircle, faAngleDoubleDown, faAngleDoubleUp } from '@fortawesome/free-solid-svg-icons';
 import { faMap, faCalendar } from '@fortawesome/free-regular-svg-icons';
+
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Competition, CompetitionService } from 'src/app/services/competition/competition.service';
+import { CompetitionService } from 'src/app/services/competition/competition.service';
 import { WcaLinkService } from 'src/app/services/wca-link/wca-link.service';
+
+import { Competition } from 'src/app/interfaces/competition/competition';
 
 @Component({
   selector: 'app-upcoming-comps',

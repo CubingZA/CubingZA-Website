@@ -1,15 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { of, throwError } from 'rxjs';
 
 import { ManageCompetitionsComponent } from './manage-competitions.component';
-import { Competition, CompetitionService } from 'src/app/services/competition/competition.service';
-import { of, throwError } from 'rxjs';
+import { CompetitionService } from 'src/app/services/competition/competition.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { CompEditBoxComponent } from 'src/app/components/comp-edit-box/comp-edit-box.component';
 import { ProvinceService } from 'src/app/services/province/province.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
 import { ModalService } from 'src/app/components/modal/modal.service';
+
+import { Competition } from 'src/app/interfaces/competition/competition';
 
 let mockCompetitions: Competition[] = [
   {

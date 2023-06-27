@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
-import { EmailMessage, EmailService } from 'src/app/services/email/email.service';
+import { EmailService } from 'src/app/services/email/email.service';
+
+import { EmailMessage } from 'src/app/interfaces/email/email-message';
 
 @Component({
   selector: 'app-contact',

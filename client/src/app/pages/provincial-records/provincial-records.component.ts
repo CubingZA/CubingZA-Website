@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
 import { EventsService } from 'src/app/services/events/events.service';
 import { ProvinceService } from 'src/app/services/province/province.service';
-import { ProvincialRecordTable, Record, RecordService } from 'src/app/services/record/record.service';
+import { RecordService } from 'src/app/services/record/record.service';
 import { WcaLinkService } from 'src/app/services/wca-link/wca-link.service';
+import { ProvincialRecordTable } from 'src/app/interfaces/record/provincial-record-table';
+import { Record } from 'src/app/interfaces/record/record';
 
 @Component({
   selector: 'app-records',
