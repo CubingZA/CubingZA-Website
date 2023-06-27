@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { faInfoCircle, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { ProvinceSelection, ProvinceService } from 'src/app/services/province/province.service';
+import { ProvinceService } from 'src/app/services/province/province.service';
 import { UserService } from 'src/app/services/user/user.service';
+
+import { ProvinceSelection } from 'src/app/interfaces/user/province-selection';
 
 @Component({
   selector: 'app-change-province',
