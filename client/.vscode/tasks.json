@@ -53,6 +53,20 @@
         "revealProblems": "onProblem"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "Run ETL script - rankings",
+      "type": "shell",
+      "command": "../etl/rankings_updater.py",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "silent",
+        "panel": "new",
+        "focus": false,
+        "echo": false,
+        "revealProblems": "onProblem"
+      },
+      "problemMatcher": []
     }
   ]
 }
