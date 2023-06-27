@@ -12,7 +12,7 @@ _RANKS_QUERY = """
         eventId,
         countryRank,
         best
-    FROM wca.Ranks[type]
+    FROM Ranks[type]
         LEFT JOIN Persons
             ON personId = Persons.id
     WHERE countryId = 'South Africa'

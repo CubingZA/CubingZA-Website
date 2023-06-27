@@ -27,7 +27,7 @@
                 <td class="table-single">
                   <a href="{{link.toPerson(record.singleId)}}" target="_blank" rel=noopener>{{record.singleName}}</a>
                 </td>
-                <td class="table-middle">
+                <td class="table-middle" [ngClass]="{'national-record': record.singleNR}">
                   <a href="{{link.toRankings(record.eventId, 'single')}}" target="_blank" rel=noopener>
                     {{record.singleResult}}
                   </a>
@@ -40,7 +40,7 @@
                     {{getProvinceName(record.province)}}
                   </a>
                 </td>
-                <td class="table-middle" *ngIf="showAvgForEvent(eventId)">
+                <td class="table-middle" *ngIf="showAvgForEvent(eventId)" [ngClass]="{'national-record': record.averageNR}">
                   <a href="{{link.toRankings(record.eventId, 'average')}}" target="_blank" rel=noopener>
                     {{record.averageResult}}
                   </a>
