@@ -115,9 +115,11 @@ describe('RecordService', () => {
             singleName: "Test Person",
             singleResult: "1:00:00",
             singleId: "2345TEST01",
+            singleNR: true,
             averageName: "Test Person",
             averageResult: "1:30:00",
             averageId: "2345TEST02",
+            averageNR: false,
             province: "GT"
           },
           {
@@ -126,9 +128,11 @@ describe('RecordService', () => {
             singleName: "Test Person",
             singleResult: "1:00:00",
             singleId: "2345TEST03",
+            singleNR: false,
             averageName: "",
             averageResult: "",
             averageId: "",
+            averageNR: false,
             province: "WC"
           }
         ]
