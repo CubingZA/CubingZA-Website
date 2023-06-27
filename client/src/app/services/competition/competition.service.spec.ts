@@ -1,6 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Competition, CompetitionService } from './competition.service';
+
+import { CompetitionService } from './competition.service';
+
+import { Competition } from 'src/app/interfaces/competition/competition';
 
 describe('CompetitionService', () => {
   let service: CompetitionService;

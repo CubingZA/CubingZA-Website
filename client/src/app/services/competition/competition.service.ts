@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs';
+import { Competition } from 'src/app/interfaces/competition/competition';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { catchError, map } from 'rxjs';
 export class CompetitionService {
 
   constructor(private http: HttpClient) { }
-  
+
   getBlankCompetition(): Competition {
     return {
       _id: "",
@@ -65,8 +66,6 @@ export class CompetitionService {
     return this.http.put(`/api/events/${comp._id}`, comp)
     .pipe(
       catchError((error) => {
-        console.log(error);
-        
         throw new Error("Error updating competition");
       })
     );
@@ -89,19 +88,4 @@ function cleanCompDates(compList: Competition[]): Competition[] {
     comp.endDate = new Date(comp.endDate);
   });
   return compList;
-}
-
-
-export type Competition = {
-  _id: string;
-  name: string;
-  startDate: Date;
-  endDate: Date;
-  venue: string;
-  address: string;
-  city: string;
-  province: string;
-  registrationName: string;
-  notificationsSent?: boolean;
-  showDetails?: boolean;
 }
