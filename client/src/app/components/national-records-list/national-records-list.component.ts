@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { RecordService, Record } from 'src/app/services/record/record.service';
+
+import { RecordService } from 'src/app/services/record/record.service';
 import { WcaLinkService } from 'src/app/services/wca-link/wca-link.service';
+
+import { Record } from 'src/app/interfaces/record/record';
 
 @Component({
   selector: 'app-records-list',

@@ -4,6 +4,9 @@ import { Observable, catchError, map, tap } from 'rxjs';
 import { Ranking } from '../provincial-rankings/provincial-rankings.service';
 import { EventsService } from '../events/events.service';
 
+import { Record } from 'src/app/interfaces/record/record';
+import { ProvincialRecordTable } from 'src/app/interfaces/record/provincial-record-table';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -60,26 +63,6 @@ export class RecordService {
   }
 }
 
-export type Record = {
-  eventName: string;
-  eventId: string;
-  singleName: string;
-  singleResult: string;
-  singleId: string;
-  singleDate?: Date;
-  singleNR?: boolean;
-  averageName: string;
-  averageResult: string;
-  averageId: string;
-  averageDate?: Date;
-  averageNR?: boolean;
-  eventRank?: number;
-  province?: string;
-};
-
-export type ProvincialRecordTable = {
-  [eventId: string]: Record[];
-}
 
 export type ProvincialRecordResponse = {
   [eventId: string]: {

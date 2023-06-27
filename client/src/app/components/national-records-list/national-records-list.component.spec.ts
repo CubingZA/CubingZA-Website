@@ -1,8 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of, throwError } from 'rxjs';
 
 import { NationalRecordsListComponent } from './national-records-list.component';
-import { Record, RecordService } from 'src/app/services/record/record.service';
-import { of, throwError } from 'rxjs';
+import { RecordService } from 'src/app/services/record/record.service';
+
+import { Record } from 'src/app/interfaces/record/record';
 
 const mockPastDate = new Date(2020, 1, 1);
 const mockToday = new Date(2023, 1, 1);

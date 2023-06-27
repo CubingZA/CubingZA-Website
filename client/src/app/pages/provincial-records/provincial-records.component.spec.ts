@@ -1,13 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ProvincialRecordsComponent } from './provincial-records.component';
-import { ProvincialRecordTable, RecordService } from 'src/app/services/record/record.service';
-import { ProvinceService } from 'src/app/services/province/province.service';
-import { AlertsService } from 'src/app/components/alerts/alerts.service';
 import { of, throwError } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng-mocks';
+
+import { ProvincialRecordsComponent } from './provincial-records.component';
+import { RecordService } from 'src/app/services/record/record.service';
+import { ProvinceService } from 'src/app/services/province/province.service';
+import { AlertsService } from 'src/app/components/alerts/alerts.service';
 import { EventSelectorComponent } from 'src/app/components/event-selector/event-selector.component';
+
+import { ProvincialRecordTable } from 'src/app/interfaces/record/provincial-record-table';
 
 const mockProvincialRecords: ProvincialRecordTable = {
   "333": [
