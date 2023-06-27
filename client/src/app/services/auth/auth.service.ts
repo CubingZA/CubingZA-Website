@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { UserService, User, NewUser } from '../user/user.service';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 
+import { UserService } from '../user/user.service';
+
+import { User } from 'src/app/interfaces/user/user';
+import { NewUser } from 'src/app/interfaces/user/new-user';
 import { LoginDetails } from 'src/app/interfaces/auth/login-details';
 
 @Injectable({

@@ -7,8 +7,9 @@ import { SignupComponent } from './signup.component';
 import { EmailService } from 'src/app/services/email/email.service';
 import { EmailCheckService } from 'src/app/services/email/email-check.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { NewUser } from 'src/app/services/user/user.service';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
+
+import { NewUser } from 'src/app/interfaces/user/new-user';
 
 describe('SignupComponent', () => {
   let component: SignupComponent;

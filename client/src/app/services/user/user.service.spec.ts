@@ -1,8 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { User, UserService } from './user.service';
 import { of, throwError } from 'rxjs';
+
+import { UserService } from './user.service';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
+
+import { User } from 'src/app/interfaces/user/user';
 
 describe('UserService', () => {
   let service: UserService;

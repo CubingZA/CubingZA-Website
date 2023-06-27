@@ -1,14 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ManageUsersComponent } from './manage-users.component';
-import { User, UserService } from 'src/app/services/user/user.service';
 import { ProvinceService } from 'src/app/services/province/province.service';
 import { of, throwError } from 'rxjs';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { ManageUsersComponent } from './manage-users.component';
+import { UserService } from 'src/app/services/user/user.service';
 import { ModalService } from 'src/app/components/modal/modal.service';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
+
+import { User } from 'src/app/interfaces/user/user';
 
 const mockUserData: User[] = [
   {

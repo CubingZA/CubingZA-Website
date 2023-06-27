@@ -4,7 +4,9 @@ import { AlertsService } from 'src/app/components/alerts/alerts.service';
 
 import { ModalService } from 'src/app/components/modal/modal.service';
 import { ProvinceSelection, ProvinceService } from 'src/app/services/province/province.service';
-import { User, UserService } from 'src/app/services/user/user.service';
+import { UserService } from 'src/app/services/user/user.service';
+
+import { User } from 'src/app/interfaces/user/user';
 
 @Component({
   selector: 'app-users',
