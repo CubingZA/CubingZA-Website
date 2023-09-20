@@ -21,6 +21,10 @@
         <fa-icon [icon]="faRankingStar" />
         Rankings
       </a></li>
+      <li><a class="navbar-item" routerLink="/records" [routerLinkActive]="['active']">
+        <fa-icon [icon]="faTrophy" />
+        Records
+      </a></li>
 
       <li *ngIf="isLoggedIn()"><a class="navbar-item" routerLink="/notifications" [routerLinkActive]="['active']">
         <fa-icon [icon]="faMapLocationDot" />

@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { CompEditBoxComponent } from './comp-edit-box.component';
-import { Competition, CompetitionService } from 'src/app/services/competition/competition.service';
-import { ProvinceService } from 'src/app/services/province/province.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { CompEditBoxComponent } from './comp-edit-box.component';
+import { CompetitionService } from 'src/app/services/competition/competition.service';
+import { ProvinceService } from 'src/app/services/province/province.service';
+
+import { Competition } from 'src/app/interfaces/competition/competition';
 
 describe('CompEditBoxComponent', () => {
   let component: CompEditBoxComponent;

@@ -1,9 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProvinceMapComponent } from './province-map.component';
-import { ProvinceService, ProvinceSelection } from 'src/app/services/province/province.service';
+import { ProvinceService } from 'src/app/services/province/province.service';
 
-const mockProvinceSelection = {
+import { ProvinceSelection } from 'src/app/interfaces/user/province-selection';
+
+const mockProvinceSelection: ProvinceSelection = {
   GT: false,
   MP: false,
   LM: false,

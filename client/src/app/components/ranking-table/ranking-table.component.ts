@@ -1,12 +1,15 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { EventsService } from 'src/app/services/events/events.service';
-import { ProvinceService } from 'src/app/services/province/province.service';
-import { Ranking, RankingsService } from 'src/app/services/rankings/rankings.service';
-import { AlertsService } from '../alerts/alerts.service';
-import { WcaLinkService } from 'src/app/services/wca-link/wca-link.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { EventsService } from 'src/app/services/events/events.service';
+import { ProvinceService } from 'src/app/services/province/province.service';
+import { ProvincialRankingsService } from 'src/app/services/provincial-rankings/provincial-rankings.service';
+import { AlertsService } from '../alerts/alerts.service';
+import { WcaLinkService } from 'src/app/services/wca-link/wca-link.service';
+
+import { Ranking } from 'src/app/interfaces/ranking/ranking';
 
 @Component({
   selector: 'app-ranking-table',
@@ -28,7 +31,7 @@ export class RankingTableComponent {
 
   constructor(
     private provinceService: ProvinceService,
-    private rankingsService: RankingsService,
+    private rankingsService: ProvincialRankingsService,
     private eventService: EventsService,
     private wcaLinkService: WcaLinkService,
     private titleService: Title,
@@ -82,7 +85,7 @@ export class RankingTableComponent {
         this.rankings = rankings;
       },
       error: (err) => {
-        this.alerts.addAlert("danger", "Error while fetch rankings froms server.");
+        this.alerts.addAlert("danger", "Error while fetching rankings from server.");
       }
     });
   };
@@ -96,7 +99,7 @@ export class RankingTableComponent {
         this.count = count;
       },
       error: (err) => {
-        this.alerts.addAlert("danger", "Error while fetch rankings froms server.");
+        this.alerts.addAlert("danger", "Error while fetching rankings from server.");
       }
     });
   }

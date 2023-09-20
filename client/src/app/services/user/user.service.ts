@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { ProvinceSelection } from '../province/province.service';
-import { AuthService } from '../auth/auth.service';
+import { Observable } from 'rxjs';
+
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
+
+import { User } from 'src/app/interfaces/user/user';
 
 @Injectable({
   providedIn: 'root'
@@ -69,23 +70,4 @@ export class UserService {
     return request;
   }
 
-}
-
-export type NewUser = {
-  name: string;
-  email: string;
-  password: string;
-};
-
-export type User = {
-  _id: string;
-  name: string;
-  email: string;
-  role: string;
-  provider: string[];
-  notificationSettings: ProvinceSelection;
-  eventLog?: any[];
-  wcaID?: string;
-  wcaCountryID?: string;
-  homeProvince?: string;
 }

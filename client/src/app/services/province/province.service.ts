@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs';
 
+import { ProvinceSelection } from 'src/app/interfaces/user/province-selection';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -118,18 +120,6 @@ export class ProvinceService {
     return request;
   }
 
-}
-
-export type ProvinceSelection = {
-  GT: boolean;
-  MP: boolean;
-  LM: boolean;
-  NW: boolean;
-  FS: boolean;
-  KZ: boolean;
-  EC: boolean;
-  WC: boolean;
-  NC: boolean;
 }
 
 export type ProvinceNameMap = {

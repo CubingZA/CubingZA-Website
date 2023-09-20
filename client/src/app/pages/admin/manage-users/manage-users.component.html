@@ -43,8 +43,8 @@
           <span class="additional-info">[{{user.provider}}]</span>
         </div></td>
         <td class="long-text-cell"><div class="user-info-element text-muted">
-          <span *ngIf="hasProvinces(user)">{{getProvinceString(user)}}</span>
-          <span *ngIf="!hasProvinces(user)">-</span>
+          <span *ngIf="hasHomeProvince(user)">{{getHomeProvinceName(user)}}</span>
+          <span class="additional-info" *ngIf="hasProvinces(user)"> (notifications for {{getProvinceString(user)}})</span>
         </div></td>
 
       </tr>

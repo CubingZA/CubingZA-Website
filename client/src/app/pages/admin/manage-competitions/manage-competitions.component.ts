@@ -3,8 +3,10 @@ import { faPlus, faEdit, faTrash, faEnvelope, faBan, faPaperPlane, faLocationDot
 import { faMap } from '@fortawesome/free-regular-svg-icons';
 
 import { ModalService } from 'src/app/components/modal/modal.service';
-import { Competition, CompetitionService } from 'src/app/services/competition/competition.service';
+import { CompetitionService } from 'src/app/services/competition/competition.service';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
+
+import { Competition } from 'src/app/interfaces/competition/competition';
 
 @Component({
   selector: 'app-competitions',

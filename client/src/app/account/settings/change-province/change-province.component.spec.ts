@@ -5,11 +5,11 @@ import { of, throwError } from 'rxjs';
 
 import { ChangeProvinceComponent } from './change-province.component';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { User, UserService } from 'src/app/services/user/user.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
 import { ProvinceService } from 'src/app/services/province/province.service';
 
-
+import { User } from 'src/app/interfaces/user/user';
 
 describe('ChangeProvinceComponent', () => {
   let component: ChangeProvinceComponent;

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CompEvent } from 'src/app/interfaces/competition/comp-event';
 
 const events: CompEvent[] = [
   {
@@ -88,10 +89,4 @@ export class EventsService {
     return name ? name : "";
   };
 
-}
-
-export interface CompEvent {
-  id: string;
-  name: string;
-  rank: number;
 }

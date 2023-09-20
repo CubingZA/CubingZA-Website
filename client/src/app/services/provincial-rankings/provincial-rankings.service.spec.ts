@@ -1,7 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { RankingsService, Ranking } from './rankings.service';
+import { ProvincialRankingsService } from './provincial-rankings.service';
+
+import { Ranking } from 'src/app/interfaces/ranking/ranking';
 
 const mockSingleRankingData: Ranking[] = [
   {
@@ -54,7 +56,7 @@ const mockAverageRankingData: Ranking[] = [
 ];
 
 describe('RankingsService', () => {
-  let service: RankingsService;
+  let service: ProvincialRankingsService;
 
   let httpMock: HttpTestingController;
 
@@ -62,7 +64,7 @@ describe('RankingsService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule]
     });
-    service = TestBed.inject(RankingsService);
+    service = TestBed.inject(ProvincialRankingsService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 

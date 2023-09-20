@@ -1,15 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SimpleChange } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MockComponent } from 'ng-mocks';
+import { of, throwError } from 'rxjs';
 
 import { RankingTableComponent } from './ranking-table.component';
 import { ProvinceService } from 'src/app/services/province/province.service';
-import { Ranking, RankingsService } from 'src/app/services/rankings/rankings.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MockComponent } from 'ng-mocks';
+import { ProvincialRankingsService } from 'src/app/services/provincial-rankings/provincial-rankings.service';
 import { PageSelectorComponent } from '../page-selector/page-selector.component';
-import { of, throwError } from 'rxjs';
 import { AlertsService } from '../alerts/alerts.service';
-import { SimpleChange } from '@angular/core';
+
+import { Ranking } from 'src/app/interfaces/ranking/ranking';
 
 const mockRankingData: Ranking[] = [
   {
@@ -64,7 +66,7 @@ describe('RankingTableComponent', () => {
   let fixture: ComponentFixture<RankingTableComponent>;
 
   let provinceService: jasmine.SpyObj<ProvinceService>;
-  let rankingsService: jasmine.SpyObj<RankingsService>;
+  let rankingsService: jasmine.SpyObj<ProvincialRankingsService>;
   let activatedRoute: jasmine.SpyObj<ActivatedRoute>;
   let router: jasmine.SpyObj<Router>;
   let alerts: jasmine.SpyObj<AlertsService>;
@@ -92,7 +94,7 @@ describe('RankingTableComponent', () => {
       ],
       providers: [
         { provide: ProvinceService, useValue: provinceServiceSpy },
-        { provide: RankingsService, useValue: rankingsServiceSpy },
+        { provide: ProvincialRankingsService, useValue: rankingsServiceSpy },
         { provide: AlertsService, useValue: alertsServiceSpy },
       ]
     });
@@ -100,7 +102,7 @@ describe('RankingTableComponent', () => {
     component = fixture.componentInstance;
 
     provinceService = TestBed.inject(ProvinceService) as jasmine.SpyObj<ProvinceService>;
-    rankingsService = TestBed.inject(RankingsService) as jasmine.SpyObj<RankingsService>;
+    rankingsService = TestBed.inject(ProvincialRankingsService) as jasmine.SpyObj<ProvincialRankingsService>;
     alerts = TestBed.inject(AlertsService) as jasmine.SpyObj<AlertsService>;
     activatedRoute = TestBed.inject(ActivatedRoute) as jasmine.SpyObj<ActivatedRoute>;
     router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
@@ -187,7 +189,7 @@ describe('RankingTableComponent', () => {
       component.ngOnChanges({});
       fixture.detectChanges();
 
-      expect(alerts.addAlert).toHaveBeenCalledWith("danger", "Error while fetch rankings froms server.");
+      expect(alerts.addAlert).toHaveBeenCalledWith("danger", "Error while fetching rankings from server.");
     });
 
     it('should handle an error when querying rankings count', () => {
@@ -195,7 +197,7 @@ describe('RankingTableComponent', () => {
       component.ngOnChanges({});
       fixture.detectChanges();
 
-      expect(alerts.addAlert).toHaveBeenCalledWith("danger", "Error while fetch rankings froms server.");
+      expect(alerts.addAlert).toHaveBeenCalledWith("danger", "Error while fetching rankings from server.");
     });
   });
 });

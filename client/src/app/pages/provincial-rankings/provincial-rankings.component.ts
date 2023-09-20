@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Location } from '@angular/common';
 import { ProvinceNameMap, ProvinceService } from 'src/app/services/province/province.service';
-import { CompEvent, EventsService } from 'src/app/services/events/events.service';
+import { EventsService } from 'src/app/services/events/events.service';
+import { CompEvent } from 'src/app/interfaces/competition/comp-event';
 
 @Component({
   selector: 'app-rankings',
-  templateUrl: './rankings.component.html',
-  styleUrls: ['./rankings.component.less']
+  templateUrl: './provincial-rankings.component.html',
+  styleUrls: ['./provincial-rankings.component.less']
 })
-export class RankingsComponent {
+export class ProvincialRankingsComponent {
 
   @Input() province: string = 'GT';
   @Input() event: string = '333';

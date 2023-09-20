@@ -66,3 +66,66 @@ export function getSingleCount(req, res) {
 export function getAverageCount(req, res) {
   return getCount(req, res, Ranking.Average)
 }
+
+export function getProvincialRecords(req, res) {
+  let hasSingle = false;
+  let hasAverage = false;
+
+  let singleRecords = [];
+  let averageRecords = [];
+
+  const singlePromise = Ranking.Single.find({
+    'provinceRank': 1,
+  }, '-userId').exec()
+  .then((results) => {
+    hasSingle = true;
+    singleRecords = results;
+  })
+  .catch(handleError(res));
+
+  const averagePromise = Ranking.Average.find({
+    'provinceRank': 1,
+  }, '-userId').exec()
+  .then((results) => {
+    hasAverage = true;
+    averageRecords = results;
+  })
+  .catch(handleError(res));
+
+  return Promise.all([singlePromise, averagePromise])
+  .then(() => {
+    if (!hasSingle && !hasAverage) {
+      return res.status(404).end();
+    }
+    return res.status(200).json(combineRecords(singleRecords, averageRecords));
+  });
+}
+
+function combineRecords(singleRecords, averageRecords) {
+  const combinedRecords = {};
+
+  for (let record in averageRecords) {
+    let eventId = averageRecords[record].eventId;
+    let province = averageRecords[record].province;
+    if (combinedRecords[eventId] === undefined) {
+      combinedRecords[eventId] = {};
+    }
+    if (combinedRecords[eventId][province] === undefined) {
+      combinedRecords[eventId][province] = {};
+    }
+    combinedRecords[eventId][province].average = averageRecords[record];
+  }
+  for (let record in singleRecords) {
+    let eventId = singleRecords[record].eventId;
+    let province = singleRecords[record].province;
+    if (combinedRecords[eventId] === undefined) {
+      combinedRecords[eventId] = {};
+    }
+    if (combinedRecords[eventId][province] === undefined) {
+      combinedRecords[eventId][province] = {};
+    }
+    combinedRecords[eventId][province].single = singleRecords[record];
+  }
+
+  return combinedRecords;
+}

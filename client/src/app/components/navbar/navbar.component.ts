@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {
   faInfoCircle, faRightToBracket, faRightFromBracket, faUserPlus,
   faEnvelope, faUser, faGear, faMapLocationDot, faUsers, faCalendarDays,
-  faScrewdriverWrench, faCaretDown, faRankingStar
+  faScrewdriverWrench, faCaretDown, faRankingStar, faTrophy
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -27,6 +27,7 @@ export class NavbarComponent {
   faCaretDown = faCaretDown;
   faUserPlus = faUserPlus;
   faRankingStar = faRankingStar;
+  faTrophy = faTrophy;
 
   collapsed = true;
   constructor(private authService: AuthService) {

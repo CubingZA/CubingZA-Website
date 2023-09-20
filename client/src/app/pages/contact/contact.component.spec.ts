@@ -1,10 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Observable, of, throwError } from 'rxjs';
 
 import { ContactComponent } from './contact.component';
-import { EmailMessage, EmailService } from 'src/app/services/email/email.service';
-import { Observable, of, throwError } from 'rxjs';
+import { EmailService } from 'src/app/services/email/email.service';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
+
+import { EmailMessage } from 'src/app/interfaces/email/email-message';
 
 describe('ContactComponent', () => {
   let component: ContactComponent;

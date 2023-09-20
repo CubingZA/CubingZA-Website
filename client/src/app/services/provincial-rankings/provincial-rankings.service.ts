@@ -2,10 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
 
+import { Ranking } from 'src/app/interfaces/ranking/ranking';
+
 @Injectable({
   providedIn: 'root'
 })
-export class RankingsService {
+export class ProvincialRankingsService {
 
   private cancelRanking: Subject<void> = new Subject<void>();
   private cancelCount: Subject<void> = new Subject<void>();
@@ -40,16 +42,4 @@ export class RankingsService {
     this.cancelCount = new Subject<void>();
   }
 
-}
-
-export type Ranking = {
-  _id: string,
-  wcaID: string,
-  eventId: string,
-  countryRank: number,
-  best: string,
-  userId: string,
-  personName: string,
-  province: string,
-  provinceRank: number
 }

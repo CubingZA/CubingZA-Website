@@ -3,8 +3,11 @@ import { faTrash, faBan } from '@fortawesome/free-solid-svg-icons';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
 
 import { ModalService } from 'src/app/components/modal/modal.service';
-import { ProvinceSelection, ProvinceService } from 'src/app/services/province/province.service';
-import { User, UserService } from 'src/app/services/user/user.service';
+import { ProvinceService } from 'src/app/services/province/province.service';
+import { UserService } from 'src/app/services/user/user.service';
+
+import { User } from 'src/app/interfaces/user/user';
+import { ProvinceSelection } from 'src/app/interfaces/user/province-selection';
 
 @Component({
   selector: 'app-users',
@@ -80,6 +83,14 @@ export class ManageUsersComponent {
     return Object.keys(user.notificationSettings).some(
       (key) => user.notificationSettings[key as keyof ProvinceSelection]
     );
+  }
+
+  hasHomeProvince(user: User): boolean {
+    return user.homeProvince ? true : false;
+  }
+
+  getHomeProvinceName(user: User): string {
+    return this.provinceService.getProvinceName(user.homeProvince as keyof ProvinceSelection);
   }
 
   openConfirmDeleteModal(user: User) {
