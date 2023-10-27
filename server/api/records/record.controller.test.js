@@ -11,24 +11,24 @@ const mockRecordData = [
   {
     eventName: "3x3x3 Cube",
     eventId: "333",
-    singleName: "John Doe",
+    eventRank: 1,
     singleResult: "1:00:00",
-    singleId: "1",
-    averageName: "John Doe",
+    singleName: ["John Doe"],
+    singleId: ["1"],
     averageResult: "1:30:00",
-    averageId: "1",
-    eventRank: 1
+    averageName: ["John Doe"],
+    averageId: ["1"],
   },
   {
     eventName: "Skewb",
     eventId: "skewb",
-    singleName: "Bob Person",
+    eventRank: 2,
     singleResult: "0:30:00",
-    singleId: "2",
-    averageName: "Someone Else",
+    singleName: ["Bob Person"],
+    singleId: ["2"],
     averageResult: "0:40:00",
-    averageId: "3",
-    eventRank: 2
+    averageName: ["Someone Else"],
+    averageId: ["3"],
   }
 ];
 
