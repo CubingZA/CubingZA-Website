@@ -26,28 +26,28 @@ describe('RecordService', () => {
         {
           eventName: "3x3x3 Cube",
           eventId: "333",
-          singleName: "John Doe",
-          singleResult: "1:00:00",
-          singleId: "1",
-          averageName: "John Doe",
-          averageResult: "1:30:00",
-          averageId: "1",
           eventRank: 1,
-          singleDate: new Date(),
-          averageDate: new Date()
+          singleResult: "1:00:00",
+          singleName: ["John Doe"],
+          singleId: ["1"],
+          singleDate: [new Date()],
+          averageResult: "1:30:00",
+          averageName: ["John Doe"],
+          averageId: ["1"],
+          averageDate: [new Date()]
         },
         {
           eventName: "Skewb",
           eventId: "skewb",
-          singleName: "Bob Person",
-          singleResult: "0:30:00",
-          singleId: "2",
-          averageName: "Someone Else",
-          averageResult: "0:40:00",
-          averageId: "3",
           eventRank: 2,
-          singleDate: new Date(),
-          averageDate: new Date()
+          singleResult: "0:30:00",
+          singleName: ["Bob Person"],
+          singleId: ["2"],
+          singleDate: [new Date()],
+          averageResult: "0:40:00",
+          averageName: ["Someone Else"],
+          averageId: ["3"],
+          averageDate: [new Date()]
         }
       ];
 
@@ -72,7 +72,7 @@ describe('RecordService', () => {
       const mockRecordResponse: ProvincialRecordResponse = {
         "333": {
           "GT": {
-            "single": {
+            "single": [{
               _id: "1",
               userId: "1",
               wcaID: "2345TEST01",
@@ -82,8 +82,8 @@ describe('RecordService', () => {
               personName: "Test Person",
               province: "GT",
               provinceRank: 1
-            },
-            "average": {
+            }],
+            "average": [{
               _id: "2",
               userId: "2",
               wcaID: "2345TEST02",
@@ -93,10 +93,10 @@ describe('RecordService', () => {
               personName: "Test Person",
               province: "GT",
               provinceRank: 2
-            }
+            }]
           },
           "WC": {
-            "single": {
+            "single": [{
               _id: "3",
               userId: "3",
               wcaID: "2345TEST03",
@@ -106,7 +106,7 @@ describe('RecordService', () => {
               personName: "Test Person",
               province: "WC",
               provinceRank: 1
-            }
+            }]
           }
         }
       };
@@ -116,28 +116,28 @@ describe('RecordService', () => {
           {
             eventName: "3x3x3 Cube",
             eventId: "333",
-            singleName: "Test Person",
+            province: "GT",
             singleResult: "1:00:00",
-            singleId: "2345TEST01",
+            singleName: ["Test Person"],
+            singleId: ["2345TEST01"],
             singleNR: true,
-            averageName: "Test Person",
             averageResult: "1:30:00",
-            averageId: "2345TEST02",
+            averageName: ["Test Person"],
+            averageId: ["2345TEST02"],
             averageNR: false,
-            province: "GT"
           },
           {
             eventName: "3x3x3 Cube",
             eventId: "333",
-            singleName: "Test Person",
+            province: "WC",
             singleResult: "1:00:00",
-            singleId: "2345TEST03",
+            singleName: ["Test Person"],
+            singleId: ["2345TEST03"],
             singleNR: false,
-            averageName: "",
             averageResult: "",
-            averageId: "",
+            averageName: [],
+            averageId: [],
             averageNR: false,
-            province: "WC"
           }
         ]
       }

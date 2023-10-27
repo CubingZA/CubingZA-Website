@@ -23,8 +23,8 @@ export class RecordService {
     .pipe(
       tap(records => {
         return records.map(record => {
-          record.singleDate = record.singleDate ? new Date(record.singleDate) : undefined;
-          record.averageDate = record.averageDate ? new Date(record.averageDate) : undefined;
+          record.singleDate = record.singleDate ? record.singleDate.map(date => new Date(date)) : undefined;
+          record.averageDate = record.averageDate ? record.averageDate.map(date => new Date(date)) : undefined;
           return record;
         });
       })
@@ -44,17 +44,24 @@ export class RecordService {
       records[eventId] = [];
       Object.keys(response[eventId]).forEach((province) => {
         let ranking = response[eventId][province];
+
+        let firstSingle = ranking.single ? ranking.single[0] : undefined;
+        let firstAverage = ranking.average ? ranking.average[0] : undefined;
+
         let record: Record = {
           eventName: this.eventsService.getEventName(eventId),
           eventId: eventId,
-          singleName: ranking.single?.personName ? ranking.single.personName : "",
-          singleResult: ranking.single?.best ? ranking.single.best : "",
-          singleId: ranking.single?.wcaID ? ranking.single.wcaID : "",
-          singleNR: ranking.single?.countryRank === 1,
-          averageName: ranking.average?.personName ? ranking.average.personName : "",
-          averageResult: ranking.average?.best ? ranking.average.best : "",
-          averageId: ranking.average?.wcaID ? ranking.average.wcaID : "",
-          averageNR: ranking.average?.countryRank === 1,
+
+          singleResult: firstSingle?.best ? firstSingle.best : "",
+          singleName: ranking.single ? ranking.single.map(item => item.personName) : [],
+          singleId: ranking.single ? ranking.single.map(item => item.wcaID) : [],
+          singleNR: firstSingle?.countryRank === 1,
+
+          averageResult: firstAverage?.best ? firstAverage.best : "",
+          averageName: ranking.average ? ranking.average.map(item => item.personName) : [],
+          averageId: ranking.average ? ranking.average.map(item => item.wcaID) : [],
+          averageNR: firstAverage?.countryRank === 1,
+
           province: province
         };
         records[eventId].push(record);
@@ -67,8 +74,8 @@ export class RecordService {
 export type ProvincialRecordResponse = {
   [eventId: string]: {
     [province: string]: {
-      single?: Ranking;
-      average?: Ranking;
+      single?: Ranking[];
+      average?: Ranking[];
     }
   }
 }
