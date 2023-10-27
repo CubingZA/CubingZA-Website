@@ -14,27 +14,27 @@ const mockRecordData: Record[] = [
   {
     eventName: "3x3x3 Cube",
     eventId: "333",
-    singleName: "John Doe",
     singleResult: "1:00:00",
-    singleId: "1",
-    singleDate: mockPastDate,
-    averageName: "John Doe",
+    singleName: ["John Doe"],
+    singleId: ["1"],
+    singleDate: [mockPastDate],
     averageResult: "1:30:00",
-    averageId: "1",
-    averageDate: mockPastDate,
+    averageName: ["John Doe"],
+    averageId: ["1"],
+    averageDate: [mockPastDate],
     eventRank: 1
   },
   {
     eventName: "Skewb",
     eventId: "skewb",
-    singleName: "Bob Person",
     singleResult: "0:30:00",
-    singleId: "2",
-    singleDate: mockNewDate,
-    averageName: "Someone Else",
+    singleName: ["Bob Person"],
+    singleId: ["2"],
+    singleDate: [mockNewDate],
     averageResult: "0:40:00",
-    averageId: "3",
-    averageDate: mockNewDate,
+    averageName: ["Someone Else"],
+    averageId: ["3"],
+    averageDate: [mockNewDate],
     eventRank: 2
   }
 ];
@@ -103,12 +103,28 @@ describe('NationalRecordsListComponent', () => {
   describe('isNew', () => {
 
     it('should return true for dates within the last month', () => {
-      expect(component.isNew(mockToday)).toBeTrue();
-      expect(component.isNew(mockNewDate)).toBeTrue();
+      expect(component.isNew([mockToday])).toBeTrue();
+      expect(component.isNew([mockNewDate])).toBeTrue();
     });
 
     it('should return false for dates older than a month', () => {
-      expect(component.isNew(mockPastDate)).toBeFalse();
+      expect(component.isNew([mockPastDate])).toBeFalse();
+    });
+
+    it('should return false for empty dates', () => {
+      expect(component.isNew([])).toBeFalse();
+    });
+
+    it('should return false for multiple past dates', () => {
+      expect(component.isNew([mockPastDate, mockPastDate])).toBeFalse();
+    });
+
+    it('should return true for multiple new dates', () => {
+      expect(component.isNew([mockToday, mockNewDate])).toBeTrue();
+    });
+
+    it('should return true for a mix of new and old dates', () => {
+      expect(component.isNew([mockToday, mockPastDate])).toBeTrue();
     });
 
     it('should show a NEW tag for new records', () => {

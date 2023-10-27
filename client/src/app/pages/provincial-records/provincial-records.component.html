@@ -24,8 +24,10 @@
             </thead>
             <tbody>
               <tr *ngFor="let record of getRecordsForEvent(eventId)">
-                <td class="table-single">
-                  <a href="{{link.toPerson(record.singleId)}}" target="_blank" rel=noopener>{{record.singleName}}</a>
+                <td class="table-single table-name">
+                  <div *ngFor="let wcaId of record.singleId; index as i">
+                    <a href="{{link.toPerson(wcaId)}}" target="_blank" rel=noopener>{{record.singleName[i]}}</a>
+                  </div>
                 </td>
                 <td class="table-middle" [ngClass]="{'national-record': record.singleNR}">
                   <a href="{{link.toRankings(record.eventId, 'single')}}" target="_blank" rel=noopener>
@@ -45,8 +47,10 @@
                     {{record.averageResult}}
                   </a>
                 </td>
-                <td class="table-average" *ngIf="showAvgForEvent(eventId)">
-                  <a href="{{link.toPerson(record.averageId)}}" target="_blank" rel=noopener>{{record.averageName}}</a>
+                <td class="table-average table-name" *ngIf="showAvgForEvent(eventId)">
+                  <div *ngFor="let wcaId of record.averageId; index as i">
+                    <a href="{{link.toPerson(wcaId)}}" target="_blank" rel=noopener>{{record.averageName[i]}}</a>
+                  </div>
                 </td>
               </tr>
               <tr *ngIf="!getRecordsForEvent(eventId)">
