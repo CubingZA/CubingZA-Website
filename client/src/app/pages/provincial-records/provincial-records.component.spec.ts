@@ -16,23 +16,23 @@ const mockProvincialRecords: ProvincialRecordTable = {
     {
       eventName: "3x3x3 Cube",
       eventId: "333",
-      singleName: "Test Person",
       singleResult: "1:00:00",
-      singleId: "2345TEST01",
-      averageName: "Test Person",
+      singleName: ["Test Person"],
+      singleId: ["2345TEST01"],
       averageResult: "1:30:00",
-      averageId: "2345TEST02",
+      averageName: ["Test Person"],
+      averageId: ["2345TEST02"],
       province: "GT"
     },
     {
       eventName: "3x3x3 Cube",
       eventId: "333",
-      singleName: "Test Person",
       singleResult: "1:00:00",
-      singleId: "2345TEST03",
-      averageName: "Another Person",
+      singleName: ["Test Person"],
+      singleId: ["2345TEST03"],
       averageResult: "1:30:00",
-      averageId: "2345TEST04",
+      averageName: ["Another Person"],
+      averageId: ["2345TEST04"],
       province: "WC"
     }
   ],
@@ -40,23 +40,23 @@ const mockProvincialRecords: ProvincialRecordTable = {
     {
       eventName: "2x2x2 Cube",
       eventId: "222",
-      singleName: "Someone Else",
       singleResult: "1:00:00",
-      singleId: "2345TEST01",
-      averageName: "",
+      singleName: ["Someone Else"],
+      singleId: ["2345TEST01"],
       averageResult: "",
-      averageId: "",
+      averageName: [],
+      averageId: [],
       province: "GT"
     },
     {
       eventName: "2x2x2 Cube",
       eventId: "222",
-      singleName: "Test Person",
       singleResult: "1:00:00",
-      singleId: "2345TEST03",
-      averageName: "",
+      singleName: ["Test Person"],
+      singleId: ["2345TEST03"],
       averageResult: "",
-      averageId: "",
+      averageName: [],
+      averageId: [],
       province: "WC"
     }
   ]
