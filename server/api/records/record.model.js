@@ -5,15 +5,17 @@ import mongoose from 'mongoose';
 var RecordSchema = new mongoose.Schema({
   eventName: String,
   eventId: String,
-  singleName: String,
+  eventRank: Number,
+
   singleResult: String,
-  singleId: String,
-  singleDate: Date,
-  averageName: String,
+  singleName: [String],
+  singleId: [String],
+  singleDate: [Date],
+
   averageResult: String,
-  averageId: String,
-  averageDate: Date,
-  eventRank: Number
+  averageName: [String],
+  averageId: [String],
+  averageDate: [Date],
 });
 
 export default mongoose.model('Record', RecordSchema);

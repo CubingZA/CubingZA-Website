@@ -9,7 +9,7 @@ services:
     volumes:
       - ../databases/wca:/var/lib/mysql
     ports:
-      - 4204:3306
+      - 127.0.0.1:4204:3306
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: wca
@@ -22,7 +22,7 @@ services:
     volumes:
       - ../databases/cubingza:/data/db
     ports:
-      - 4203:27017
+      - 127.0.0.1:4203:27017
     networks:
       - api-database
 

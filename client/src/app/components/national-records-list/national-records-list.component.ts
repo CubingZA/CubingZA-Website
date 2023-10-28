@@ -45,10 +45,15 @@ export class NationalRecordsListComponent {
     });
   }
 
-  isNew(date?: Date) {
-    if (!date) return false;
+  isNew(dates?: Date[]) {
+    if (!dates) return false;
+
     const today = new Date();
     const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
-    return date > lastMonth;
+
+    for (let i in dates) {
+      if (dates[i] > lastMonth) return true;
+    }
+    return false
   }
 }

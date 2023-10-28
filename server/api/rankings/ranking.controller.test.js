@@ -28,6 +28,27 @@ const mockSingleRankingData = [
   }
 ];
 
+const mockSingleRankingDataWithTie = [
+  {
+    eventId: '333',
+    wcaID: '2000ABCD01',
+    personName: 'Test Person',
+    countryRank: 1,
+    province: 'GT',
+    provinceRank: 1,
+    best: '1.00'
+  },
+  {
+    eventId: '333',
+    wcaID: '2000ABCD02',
+    personName: 'Someone Else',
+    countryRank: 1,
+    province: 'GT',
+    provinceRank: 1,
+    best: '1.00'
+  }
+]
+
 const mockAverageRankingData = [
   {
     eventId: '333',
@@ -288,30 +309,62 @@ describe ("Ranking controller:", function() {
   });
 
   describe('Calling controller.getProvincialRecords', function () {
-    beforeEach(async function() {
-      mockingoose(Ranking.Single).toReturn([mockSingleRankingData[0]], 'find');
-      mockingoose(Ranking.Average).toReturn([mockAverageRankingData[0]], 'find');
-    });
 
-    it('should respond with 200 OK', async function() {
-      await controller.getProvincialRecords(req, res);
-      expect(res.status).toHaveBeenCalledWith(200);
-    });
+    describe('without a tie', function () {
+      beforeEach(async function() {
+        mockingoose(Ranking.Single).toReturn([mockSingleRankingData[0]], 'find');
+        mockingoose(Ranking.Average).toReturn([mockAverageRankingData[0]], 'find');
+      });
 
-    it('should respond with provincial records', async function() {
-      await controller.getProvincialRecords(req, res);
-      expect(res.json).toHaveBeenCalledWith(
-        expect.objectContaining({
-          '333': expect.objectContaining({
-            'GT': expect.objectContaining({
-              single: expect.objectContaining(mockSingleRankingData[0]),
-              average: expect.objectContaining(mockAverageRankingData[0])
+      it('should respond with 200 OK', async function() {
+        await controller.getProvincialRecords(req, res);
+        expect(res.status).toHaveBeenCalledWith(200);
+      });
+
+      it('should respond with provincial records', async function() {
+        await controller.getProvincialRecords(req, res);
+        expect(res.json).toHaveBeenCalledWith(
+          expect.objectContaining({
+            '333': expect.objectContaining({
+              'GT': expect.objectContaining({
+                single: expect.arrayContaining([expect.objectContaining(mockSingleRankingData[0])]),
+                average: expect.arrayContaining([expect.objectContaining(mockAverageRankingData[0])]),
+              })
             })
           })
-        })
-      );
+        );
+      });
     });
 
+    describe('with a tie', function () {
+      beforeEach(async function() {
+        mockingoose(Ranking.Single).toReturn(mockSingleRankingDataWithTie, 'find');
+        mockingoose(Ranking.Average).toReturn([mockAverageRankingData[0]], 'find');
+      });
+
+      it('should respond with 200 OK', async function() {
+        await controller.getProvincialRecords(req, res);
+        expect(res.status).toHaveBeenCalledWith(200);
+      });
+
+      it('should respond with provincial records', async function() {
+        await controller.getProvincialRecords(req, res);
+        expect(res.json).toHaveBeenCalledWith(
+          expect.objectContaining({
+            '333': expect.objectContaining({
+              'GT': expect.objectContaining({
+                single: expect.arrayContaining([
+                  expect.objectContaining(mockSingleRankingDataWithTie[0]),
+                  expect.objectContaining(mockSingleRankingDataWithTie[1])
+                ]),
+                average: expect.arrayContaining([expect.objectContaining(mockAverageRankingData[0])]),
+              })
+            })
+          })
+        );
+      });
+    });
   });
+
 });
 

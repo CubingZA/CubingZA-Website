@@ -105,27 +105,29 @@ function combineRecords(singleRecords, averageRecords) {
   const combinedRecords = {};
 
   for (let record in averageRecords) {
-    let eventId = averageRecords[record].eventId;
-    let province = averageRecords[record].province;
-    if (combinedRecords[eventId] === undefined) {
-      combinedRecords[eventId] = {};
-    }
-    if (combinedRecords[eventId][province] === undefined) {
-      combinedRecords[eventId][province] = {};
-    }
-    combinedRecords[eventId][province].average = averageRecords[record];
+    addRecordToCombinedRecord(averageRecords[record], combinedRecords, 'average');
   }
   for (let record in singleRecords) {
-    let eventId = singleRecords[record].eventId;
-    let province = singleRecords[record].province;
-    if (combinedRecords[eventId] === undefined) {
-      combinedRecords[eventId] = {};
-    }
-    if (combinedRecords[eventId][province] === undefined) {
-      combinedRecords[eventId][province] = {};
-    }
-    combinedRecords[eventId][province].single = singleRecords[record];
+    addRecordToCombinedRecord(singleRecords[record], combinedRecords, 'single');
   }
 
   return combinedRecords;
+}
+
+function addRecordToCombinedRecord(record, combinedRecords, field) {
+  let eventId = record.eventId;
+    let province = record.province;
+    if (combinedRecords[eventId] === undefined) {
+      combinedRecords[eventId] = {};
+    }
+    if (combinedRecords[eventId][province] === undefined) {
+      combinedRecords[eventId][province] = {};
+    }
+
+    // handle ties
+    if (combinedRecords[eventId][province][field] !== undefined) {
+      combinedRecords[eventId][province][field].push(record);
+    } else {
+      combinedRecords[eventId][province][field] = [record];
+    }
 }
