@@ -232,9 +232,9 @@ describe ("User controller:", function() {
 
     describe('when the user ID is found', function() {
       beforeEach(async function() {
-        // mockingoose doesn't support findByIdAndRemove, so have to workaround
-        mockingoose(User).toReturn(mockUserData[0], 'findOneAndRemove');
-        User.findByIdAndRemove = jest.fn(User.findOneAndRemove);
+        // mockingoose doesn't support findByIdAndDelete, so have to workaround
+        mockingoose(User).toReturn(mockUserData[0], 'findOneAndDelete');
+        User.findByIdAndDelete = jest.fn(User.findOneAndDelete);
         req.params = {_id: "0"}
         await controller.destroy(req, res)
       });
@@ -243,8 +243,8 @@ describe ("User controller:", function() {
         expect(res.status).toHaveBeenCalledWith(204);
       });
 
-      it("should call UserModel.findByIdAndRemove", async function() {
-        expect(User.findByIdAndRemove).toHaveBeenCalledWith(req.params.id);
+      it("should call UserModel.findByIdAndDelete", async function() {
+        expect(User.findByIdAndDelete).toHaveBeenCalledWith(req.params.id);
       });
     });
 
