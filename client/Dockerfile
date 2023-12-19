@@ -1,5 +1,5 @@
 # Stage 1: Build Angular app
-FROM node:18
+FROM node:20
 
 WORKDIR /cubingza
 RUN npm install -g @angular/cli
