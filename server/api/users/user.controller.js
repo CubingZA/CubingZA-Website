@@ -75,7 +75,7 @@ export function show(req, res, next) {
  */
 export function destroy(req, res) {
   let userId = sanitize(req.params.id);
-  return User.findByIdAndRemove(userId).exec()
+  return User.findByIdAndDelete(userId).exec()
     .then(function(user) {
       if(!user) {
         return res.status(404).end();
