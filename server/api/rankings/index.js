@@ -1,5 +1,5 @@
 import express from 'express';
-import * as controller from './ranking.controller';
+import * as controller from './ranking.controller.js';
 
 var router = express.Router();
 

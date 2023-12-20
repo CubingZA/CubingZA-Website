@@ -1,5 +1,5 @@
 import passport from 'passport';
-import {signToken} from '../auth.service';
+import {signToken} from '../auth.service.js';
 
 export function authenticate(req, res, next) {
   passport.authenticate('local', function(err, user, info) {

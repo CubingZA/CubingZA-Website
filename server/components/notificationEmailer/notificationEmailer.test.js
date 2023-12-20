@@ -2,18 +2,18 @@ import {jest} from '@jest/globals';
 import mockingoose from 'mockingoose';
 
 // Mock Email service
-jest.unstable_mockModule('../../services/email/email.service', function() {
+jest.unstable_mockModule('../../services/email/email.service.js', function() {
   return {
     send: jest.fn().mockReturnValue(new Promise(resolve => {resolve({})})),
     validate: jest.fn().mockReturnValue(new Promise(resolve => {resolve({})})),
   }
 });
-const emailService = (await import('../../services/email/email.service'));
+const emailService = (await import('../../services/email/email.service.js'));
 
-const User = (await import('../../api/users/user.model')).default;
-const Event = (await import('../../api/events/event.model')).default;
+const User = (await import('../../api/users/user.model.js')).default;
+const Event = (await import('../../api/events/event.model.js')).default;
 
-const sendNotificationEmails = (await import('./notificationEmailer')).default;
+const sendNotificationEmails = (await import('./notificationEmailer.js')).default;
 
 const mockEvent = {
   name:"Test Competition",

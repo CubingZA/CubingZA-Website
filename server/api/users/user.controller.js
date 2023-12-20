@@ -1,11 +1,12 @@
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import sanitize from 'mongo-sanitize';
-import User from './user.model';
-import config from '../../config/environment';
 
-import * as emailService from '../../services/email/email.service';
-import getProvinceCode from '../provinces/province.service';
+import User from './user.model.js';
+import config from '../../config/environment/index.js';
+
+import * as emailService from '../../services/email/email.service.js';
+import getProvinceCode from '../provinces/province.service.js';
 
 
 function validationError(res, statusCode) {

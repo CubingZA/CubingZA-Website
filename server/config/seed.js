@@ -3,9 +3,9 @@
  * to disable, edit config/environment/index.js, and set `seedDB: false`
  */
 
-import User from '../api/users/user.model';
-import Record from '../api/records/record.model';
-import Event from '../api/events/event.model';
+import User from '../api/users/user.model.js';
+import Record from '../api/records/record.model.js';
+import Event from '../api/events/event.model.js';
 
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);

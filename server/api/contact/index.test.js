@@ -1,5 +1,5 @@
 import {jest} from '@jest/globals';
-import * as controller from "./contact.controller"
+import * as controller from "./contact.controller.js"
 
 jest.mock('express');
 const express = (await import('express')).default;
@@ -10,8 +10,8 @@ describe('Contact API Router:', function() {
 
   let contactRouter;
   beforeEach(async function() {
-    contactRouter = (await import('./index')).default;
-  });  
+    contactRouter = (await import('./index.js')).default;
+  });
 
   it('should return an express router instance', function() {
     expect(contactRouter).toEqual(routerMock);

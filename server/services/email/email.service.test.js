@@ -18,10 +18,10 @@ jest.unstable_mockModule('mailgun.js', () => {
 });
 
 const Mailgun = (await import('mailgun.js')).default;
-const emailService = (await import('./email.service'));
+const emailService = (await import('./email.service.js'));
 
 describe("Email service:", function() {
-  
+
   beforeEach(async function() {
     jest.clearAllMocks();
   });

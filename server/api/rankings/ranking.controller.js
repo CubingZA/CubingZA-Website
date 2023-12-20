@@ -1,5 +1,5 @@
 import sanitize from 'mongo-sanitize';
-import Ranking from './ranking.model';
+import Ranking from './ranking.model.js';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;

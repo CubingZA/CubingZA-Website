@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import * as controller from './emails.controller';
+import * as controller from './emails.controller.js';
 
 var router = new Router();
 

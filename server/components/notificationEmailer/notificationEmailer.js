@@ -1,6 +1,6 @@
-import User from '../../api/users/user.model';
-import * as emailService from '../../services/email/email.service';
-import getProvinceCode from '../../api/provinces/province.service';
+import User from '../../api/users/user.model.js';
+import * as emailService from '../../services/email/email.service.js';
+import getProvinceCode from '../../api/provinces/province.service.js';
 
 
 export default function sendNotificationEmails(comp) {

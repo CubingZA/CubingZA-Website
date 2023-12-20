@@ -1,8 +1,9 @@
-import config from '../config/environment';
 import jwt from 'jsonwebtoken';
 import {expressjwt} from 'express-jwt';
 import compose from 'composable-middleware';
-import User from '../api/users/user.model';
+
+import config from '../config/environment/index.js';
+import User from '../api/users/user.model.js';
 
 var validateJwt = expressjwt({
   secret: config.secrets.session,

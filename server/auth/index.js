@@ -1,12 +1,12 @@
 import express from 'express';
-import config from '../config/environment';
-import User from '../api/users/user.model';
+import config from '../config/environment/index.js';
+import User from '../api/users/user.model.js';
 
-import localAuth from './local';
-import wcaAuth from './wca';
+import localAuth from './local/index.js';
+import wcaAuth from './wca/index.js';
 
-import {setup as localPassportSetup} from './local/passport'
-import {setup as wcaPassportSetup} from './wca/passport'
+import {setup as localPassportSetup} from './local/passport.js'
+import {setup as wcaPassportSetup} from './wca/passport.js'
 
 // Passport Configuration
 localPassportSetup(User, config);

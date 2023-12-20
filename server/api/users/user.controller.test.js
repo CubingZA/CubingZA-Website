@@ -11,16 +11,16 @@ jest.mock('jsonwebtoken', () => {
 const jwt = (await import('jsonwebtoken')).default;
 
 // Mock Email service
-jest.unstable_mockModule('../../services/email/email.service', function() {
+jest.unstable_mockModule('../../services/email/email.service.js', function() {
   return {
     send: jest.fn().mockReturnValue(new Promise(resolve => {resolve({})})),
     validate: jest.fn().mockReturnValue(new Promise(resolve => {resolve({})})),
   }
 });
-const emailService = (await import('../../services/email/email.service'));
+const emailService = (await import('../../services/email/email.service.js'));
 
-const User = (await import('./user.model')).default;
-const controller = (await import('./user.controller'));
+const User = (await import('./user.model.js')).default;
+const controller = (await import('./user.controller.js'));
 
 
 const mockUserData = [
