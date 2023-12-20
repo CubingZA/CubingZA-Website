@@ -1,24 +1,24 @@
 import {jest} from '@jest/globals';
-import * as controller from "./user.controller"
+import * as controller from "./user.controller.js"
 
 jest.mock('express');
 const express = (await import('express')).default;
 const routerMock = express.Router;
 express.Router.mockReturnValue(routerMock);
 
-jest.unstable_mockModule('../../auth/auth.service', ()=>({
+jest.unstable_mockModule('../../auth/auth.service.js', ()=>({
   isAuthenticated: jest.fn(()=>'authService.isAuthenticated'),
   hasRole: jest.fn((role)=>`authService.hasRole.${role}`)
 }));
-const authService = (await import('../../auth/auth.service'));
+const authService = (await import('../../auth/auth.service.js'));
 
 
 describe('User API Router:', function() {
-  
+
   let userRouter;
   beforeEach(async function() {
-    userRouter = (await import('./index')).default;
-  });  
+    userRouter = (await import('./index.js')).default;
+  });
 
   it('should return an express router instance', function() {
     expect(userRouter).toEqual(routerMock);
@@ -72,7 +72,7 @@ describe('User API Router:', function() {
         .toHaveBeenCalledWith('/me/verifications/send', "authService.hasRole.unverified", controller.sendVerificationEmail);
     });
   });
-  
+
   describe('GET /api/users/me/notifications', function() {
     it('should be verify user roler and route to user.controller.getNotifications', function() {
       expect(routerMock.get)

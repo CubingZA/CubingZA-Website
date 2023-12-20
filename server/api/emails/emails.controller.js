@@ -1,5 +1,5 @@
 import NodeCache from 'node-cache';
-import * as emailService from '../../services/email/email.service';
+import * as emailService from '../../services/email/email.service.js';
 
 const cache = new NodeCache({stdTTL: 60, checkperiod: 120});
 const inProgressCache = new NodeCache({stdTTL: 60, checkperiod: 120});
@@ -9,7 +9,7 @@ export function check(req, res) {
 
   const result = cache.get(email);
 
-  // Note: we have to check explicitly for undefined, because null 
+  // Note: we have to check explicitly for undefined, because null
   // is a valid value for the result that we want to cache.
   if (result !== undefined) {
     console.log("Email check cache hit.");
@@ -24,7 +24,7 @@ export function check(req, res) {
     inProgressCache.set(email, true, 60);
 
     console.log("Email check cache miss. Requires api call.", email);
-    
+
     emailService.validate(email)
     .then((data) => {
       inProgressCache.del(email);
@@ -51,7 +51,7 @@ function checkResult(data) {
   }
 
   if (data.result === 'undeliverable') {
-    result.valid = false; 
+    result.valid = false;
     result.message = "Email address is not a deliverable address";
   }
 

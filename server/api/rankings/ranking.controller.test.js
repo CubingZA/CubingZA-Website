@@ -4,8 +4,8 @@ import { Request } from 'jest-express/lib/request';
 import { Response } from 'jest-express/lib/response';
 
 
-const Ranking = (await import('./ranking.model')).default;
-const controller = (await import('./ranking.controller'));
+const Ranking = (await import('./ranking.model.js')).default;
+const controller = (await import('./ranking.controller.js'));
 
 const mockSingleRankingData = [
   {

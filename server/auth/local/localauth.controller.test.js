@@ -9,11 +9,11 @@ jest.unstable_mockModule('../auth.service', function() {
     signToken: jest.fn().mockReturnValue('signed token'),
   }
 });
-const authService = (await import('../auth.service'));
-const User = (await import('../../api/users/user.model')).default;
-const controller = (await import('./localauth.controller'));
+const authService = (await import('../auth.service.js'));
+const User = (await import('../../api/users/user.model.js')).default;
+const controller = (await import('./localauth.controller.js'));
 
-const passportSetup = (await import('./passport')).setup;
+const passportSetup = (await import('./passport.js')).setup;
 passportSetup(User, config);
 
 const mockUser = {

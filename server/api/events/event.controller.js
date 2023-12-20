@@ -1,6 +1,6 @@
 import sanitize from 'mongo-sanitize';
-import Event from './event.model';
-import sendNotificationEmails from '../../components/notificationEmailer/notificationEmailer';
+import Event from './event.model.js';
+import sendNotificationEmails from '../../components/notificationEmailer/notificationEmailer.js';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;

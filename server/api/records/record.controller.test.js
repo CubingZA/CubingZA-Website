@@ -4,8 +4,8 @@ import { Request } from 'jest-express/lib/request';
 import { Response } from 'jest-express/lib/response';
 
 
-const Record = (await import('./record.model')).default;
-const controller = (await import('./record.controller'));
+const Record = (await import('./record.model.js')).default;
+const controller = (await import('./record.controller.js'));
 
 const mockRecordData = [
   {

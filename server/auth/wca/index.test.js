@@ -1,5 +1,5 @@
 import {jest} from '@jest/globals';
-import * as controller from "./wcaauth.controller"
+import * as controller from "./wcaauth.controller.js"
 
 jest.mock('express');
 const express = (await import('express')).default;
@@ -7,11 +7,11 @@ const routerMock = express.Router;
 express.Router.mockReturnValue(routerMock);
 
 describe('WCA Auth API Router:', function() {
-  
+
   let wcaAuthRouter;
   beforeEach(async function() {
-    wcaAuthRouter = (await import('./index')).default;
-  });  
+    wcaAuthRouter = (await import('./index.js')).default;
+  });
 
   it('should return an express router instance', function() {
     expect(wcaAuthRouter).toEqual(routerMock);

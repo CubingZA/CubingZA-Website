@@ -1,6 +1,6 @@
 import express from 'express';
-import * as controller from './record.controller';
-import * as auth from '../../auth/auth.service';
+import * as controller from './record.controller.js';
+import * as auth from '../../auth/auth.service.js';
 
 var router = express.Router();
 

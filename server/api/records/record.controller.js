@@ -1,5 +1,5 @@
 import sanitize from 'mongo-sanitize';
-import Record from './record.model';
+import Record from './record.model.js';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;

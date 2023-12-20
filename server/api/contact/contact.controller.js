@@ -1,6 +1,6 @@
-import * as emailService from '../../services/email/email.service';
+import * as emailService from '../../services/email/email.service.js';
 
-export function send(req, res) {  
+export function send(req, res) {
 
   let message = {
     from: `${req.body.name} <${req.body.email}>`,

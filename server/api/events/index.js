@@ -1,6 +1,6 @@
 import express from 'express';
-import * as controller from './event.controller';
-import * as auth from '../../auth/auth.service';
+import * as controller from './event.controller.js';
+import * as auth from '../../auth/auth.service.js';
 
 var router = express.Router();
 

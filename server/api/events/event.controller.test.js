@@ -4,13 +4,13 @@ import { Request } from 'jest-express/lib/request';
 import { Response } from 'jest-express/lib/response';
 
 // Mock notificationEmailer
-jest.unstable_mockModule('../../components/notificationEmailer/notificationEmailer', ()=>({
+jest.unstable_mockModule('../../components/notificationEmailer/notificationEmailer.js', ()=>({
   default: jest.fn(()=>{})
 }));
-const sendNotificationEmails = (await import('../../components/notificationEmailer/notificationEmailer')).default;
+const sendNotificationEmails = (await import('../../components/notificationEmailer/notificationEmailer.js')).default;
 
-const Event = (await import('./event.model')).default;
-const controller = await import('./event.controller');
+const Event = (await import('./event.model.js')).default;
+const controller = await import('./event.controller.js');
 
 
 const mockEventData = [

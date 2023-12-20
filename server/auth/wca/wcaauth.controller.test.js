@@ -1,20 +1,20 @@
 import {jest} from '@jest/globals';
 import nock from 'nock';
 import mockingoose from 'mockingoose';
-import config from '../../config/environment';
+import config from '../../config/environment/index.js';
 import { Request } from 'jest-express/lib/request';
 import { Response } from 'jest-express/lib/response';
 
-jest.unstable_mockModule('../auth.service', function() {
+jest.unstable_mockModule('../auth.service.js', function() {
   return {
     signToken: jest.fn().mockReturnValue('signed token'),
   }
 });
-const authService = (await import('../auth.service'));
-const User = (await import('../../api/users/user.model')).default;
-const controller = (await import('./wcaauth.controller'));
+const authService = (await import('../auth.service.js'));
+const User = (await import('../../api/users/user.model.js')).default;
+const controller = (await import('./wcaauth.controller.js'));
 
-const passportSetup = (await import('./passport')).setup;
+const passportSetup = (await import('./passport.js')).setup;
 passportSetup(User, config);
 
 const mockUser = {

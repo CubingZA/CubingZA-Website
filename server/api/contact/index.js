@@ -1,5 +1,5 @@
 import express from 'express';
-import * as controller from './contact.controller';
+import * as controller from './contact.controller.js';
 
 var router = express.Router();
 

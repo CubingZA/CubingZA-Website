@@ -1,6 +1,7 @@
 import formData from 'form-data';
 import Mailgun from 'mailgun.js';
-import mailgunConfig from './mailgunConfig'
+
+import mailgunConfig from './mailgunConfig.js'
 
 function getClient() {
   const mailgun = new Mailgun(formData);

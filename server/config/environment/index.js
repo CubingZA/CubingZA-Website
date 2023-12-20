@@ -1,4 +1,4 @@
-import shared from './shared.config';
+import shared from './shared.config.js';
 import * as dotenv from 'dotenv'
 
 const nodeEnv = process.env['NODE_ENV'] = process.env['NODE_ENV'] || 'development';

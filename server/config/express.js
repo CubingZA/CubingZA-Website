@@ -10,7 +10,7 @@ import MongoStore from 'connect-mongo';
 import errorHandler from 'errorhandler';
 import rateLimit from 'express-rate-limit'
 
-import config from './environment';
+import config from './environment/index.js';
 
 export default function(app) {
   var env = app.get('env');

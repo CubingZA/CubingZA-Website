@@ -2,10 +2,10 @@ import express from 'express';
 import mongoose from 'mongoose';
 import Bluebird from 'bluebird';
 
-import config from './config/environment'
-import configExpress from './config/express';
-import seedDB from './config/seed'
-import routes from './routes';
+import config from './config/environment/index.js'
+import configExpress from './config/express.js';
+import seedDB from './config/seed.js'
+import routes from './routes.js';
 
 // Connect to MongoDB
 mongoose.Promise = Bluebird;
