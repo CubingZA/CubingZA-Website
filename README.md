@@ -9,7 +9,7 @@ This is the source code for the CubingZA website which can be found at https://c
 ### Prerequisites
 
 - [Git](https://git-scm.com/)
-- [Node.js and npm](nodejs.org) Node >= 18.x.x, npm >= 8.x.x
+- [Node.js and npm](nodejs.org) Node >= 20.x.x, npm >= 10.x.x
 - (Optional) [Angular CLI](https://github.com/angular/angular-cli)
 - (Optional) [Docker](https://www.docker.com/)
 
