@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { ProvincialRankingsService } from './provincial-rankings.service';
 
 import { Ranking } from 'src/app/interfaces/ranking/ranking';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 const mockSingleRankingData: Ranking[] = [
   {
@@ -62,8 +63,9 @@ describe('RankingsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
-    });
+    imports: [],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(ProvincialRankingsService);
     httpMock = TestBed.inject(HttpTestingController);
   });

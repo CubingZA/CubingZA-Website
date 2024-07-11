@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { CompetitionService } from './competition.service';
 
 import { Competition } from 'src/app/interfaces/competition/competition';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('CompetitionService', () => {
   let service: CompetitionService;
@@ -24,8 +25,9 @@ describe('CompetitionService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
-    });
+    imports: [],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(CompetitionService);
     httpMock = TestBed.inject(HttpTestingController);
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -49,54 +49,47 @@ import { ProvincialRecordsComponent } from './pages/provincial-records/provincia
 import { EventSelectorComponent } from './components/event-selector/event-selector.component';
 
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    BannerComponent,
-    AboutSummaryComponent,
-    LinksBoxComponent,
-    UpcomingCompsComponent,
-    NationalRecordsListComponent,
-    ProvinceMapComponent,
-    AboutComponent,
-    PrivacyComponent,
-    NotificationsComponent,
-    ManageUsersComponent,
-    ManageCompetitionsComponent,
-    ContactComponent,
-    LoginComponent,
-    SignupComponent,
-    WcaLoginComponent,
-    SettingsComponent,
-    VerifyComponent,
-    RotatingCubeComponent,
-    CubingzaLogoComponent,
-    NavbarComponent,
-    FooterComponent,
-    ProvinceListComponent,
-    ModalComponent,
-    CompEditBoxComponent,
-    UnverifiedWarningComponent,
-    AlertsComponent,
-    ChangePasswordComponent,
-    ChangeProvinceComponent,
-    LinkWcaAccountComponent,
-    ProvincialRankingsComponent,
-    TermsComponent,
-    RankingTableComponent,
-    PageSelectorComponent,
-    ProvincialRecordsComponent,
-    EventSelectorComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule, FontAwesomeModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HomeComponent,
+        BannerComponent,
+        AboutSummaryComponent,
+        LinksBoxComponent,
+        UpcomingCompsComponent,
+        NationalRecordsListComponent,
+        ProvinceMapComponent,
+        AboutComponent,
+        PrivacyComponent,
+        NotificationsComponent,
+        ManageUsersComponent,
+        ManageCompetitionsComponent,
+        ContactComponent,
+        LoginComponent,
+        SignupComponent,
+        WcaLoginComponent,
+        SettingsComponent,
+        VerifyComponent,
+        RotatingCubeComponent,
+        CubingzaLogoComponent,
+        NavbarComponent,
+        FooterComponent,
+        ProvinceListComponent,
+        ModalComponent,
+        CompEditBoxComponent,
+        UnverifiedWarningComponent,
+        AlertsComponent,
+        ChangePasswordComponent,
+        ChangeProvinceComponent,
+        LinkWcaAccountComponent,
+        ProvincialRankingsComponent,
+        TermsComponent,
+        RankingTableComponent,
+        PageSelectorComponent,
+        ProvincialRecordsComponent,
+        EventSelectorComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule, FontAwesomeModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
