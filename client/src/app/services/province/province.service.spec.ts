@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { ProvinceService } from './province.service';
 
 import { ProvinceSelection } from 'src/app/interfaces/user/province-selection';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 const blankSelection: ProvinceSelection = {
   GT: false,
@@ -73,8 +74,9 @@ describe('ProvincesService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
-    });
+    imports: [],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(ProvinceService);
     httpMock = TestBed.inject(HttpTestingController);
   });

@@ -1,8 +1,8 @@
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { CookieService } from 'ngx-cookie-service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, of, throwError } from 'rxjs';
 
@@ -58,14 +58,14 @@ describe('AuthService', () => {
     ]);
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule,
-        RouterTestingModule.withRoutes([]),
-      ],
-      providers: [
+    imports: [RouterTestingModule.withRoutes([])],
+    providers: [
         { provide: UserService, useValue: userServiceSpy },
-        { provide: CookieService, useValue: cookieMock }
-      ]
-    });
+        { provide: CookieService, useValue: cookieMock },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
     service = TestBed.inject(AuthService);
     httpMock = TestBed.inject(HttpTestingController);
   });

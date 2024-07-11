@@ -1,10 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { RecordService, ProvincialRecordResponse } from './record.service';
 
 import { Record } from 'src/app/interfaces/record/record';
 import { ProvincialRecordTable } from 'src/app/interfaces/record/provincial-record-table';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('RecordService', () => {
   let service: RecordService;
@@ -13,8 +14,9 @@ describe('RecordService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
-    });
+    imports: [],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(RecordService);
     httpMock = TestBed.inject(HttpTestingController);
   });
