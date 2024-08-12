@@ -11,6 +11,7 @@ import { ProvincialRecordsComponent } from './pages/provincial-records/provincia
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { VolunteerComponent } from './pages/volunteer/volunteer.component';
+import { faqsComponent } from './pages/faqs/faqs.component';
 
 export const AppRoutes: Routes = [
   { path: '', component: HomeComponent, title: 'CubingZA - Home' },
@@ -23,6 +24,7 @@ export const AppRoutes: Routes = [
   { path: 'notifications', canActivate: [AuthGuard], component: NotificationsComponent, title: 'CubingZA - Notifications' },
   { path: 'contact', component: ContactComponent, title: 'CubingZA - Contact Us' },
   { path: 'volunteer', component: VolunteerComponent },
+  { path: 'faqs', component: faqsComponent },
   ...AccountRoutes,
   {
     path: 'admin',
