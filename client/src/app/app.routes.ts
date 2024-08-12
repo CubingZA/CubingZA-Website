@@ -10,6 +10,7 @@ import { ProvincialRankingsComponent } from './pages/provincial-rankings/provinc
 import { ProvincialRecordsComponent } from './pages/provincial-records/provincial-records.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { TermsComponent } from './pages/terms/terms.component';
+import { VolunteerComponent } from './pages/volunteer/volunteer.component';
 
 export const AppRoutes: Routes = [
   { path: '', component: HomeComponent, title: 'CubingZA - Home' },
@@ -21,6 +22,7 @@ export const AppRoutes: Routes = [
   { path: 'records', component: ProvincialRecordsComponent, title: 'CubingZA - Records' },
   { path: 'notifications', canActivate: [AuthGuard], component: NotificationsComponent, title: 'CubingZA - Notifications' },
   { path: 'contact', component: ContactComponent, title: 'CubingZA - Contact Us' },
+  { path: 'volunteer', component: VolunteerComponent },
   ...AccountRoutes,
   {
     path: 'admin',
