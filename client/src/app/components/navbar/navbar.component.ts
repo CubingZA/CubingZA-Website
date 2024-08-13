@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {
   faInfoCircle, faRightToBracket, faRightFromBracket, faUserPlus,
   faEnvelope, faUser, faGear, faMapLocationDot, faUsers, faCalendarDays,
-  faScrewdriverWrench, faCaretDown, faRankingStar, faTrophy
+  faScrewdriverWrench, faCaretDown, faRankingStar, faTrophy, faQuestionCircle, faBook,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -14,6 +14,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class NavbarComponent {
 
+  faBook = faBook;
+  faQuestionCircle = faQuestionCircle;
   faInfoCircle = faInfoCircle;
   faRightToBracket = faRightToBracket;
   faEnvelope = faEnvelope;
