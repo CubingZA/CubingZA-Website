@@ -11,7 +11,7 @@ import { ProvincialRecordsComponent } from './pages/provincial-records/provincia
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { VolunteerComponent } from './pages/volunteer/volunteer.component';
-import { FAQComponent } from './pages/faq/faq.component';
+import { FAQComponent } from './pages/FAQ/FAQ.component';
 
 export const AppRoutes: Routes = [
   { path: '', component: HomeComponent, title: 'CubingZA - Home' },
