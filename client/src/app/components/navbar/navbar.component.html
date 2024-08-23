@@ -48,23 +48,29 @@
           </a></li>
         </ul>
       </li>
-
-      <li><a class="navbar-item" routerLink="/about" [routerLinkActive]="['active']">
-        <fa-icon [icon]="faInfoCircle" />
-        <span class="collapsable-label">About</span>
-      </a></li>
+      <!-- About Dropdown -->
+      <li class="navbar-submenu"> 
+        <div class="navbar-item">
+          <fa-icon [icon]="faInfoCircle" />
+          About
+          <fa-icon [icon]="faCaretDown" class="submenu-icon" /> 
+        </div>
+        <ul class="navbar-submenu-items">
+          <li><a class="navbar-item" routerLink="/about/about_us" [routerLinkActive]="['active']">
+            About Us
+          </a></li>
+          <li><a class="navbar-item" routerLink="/about/volunteer" [routerLinkActive]="['active']">
+            Volunteering
+          </a></li>
+          <li><a class="navbar-item" routerLink="/about/faq" [routerLinkActive]="['active']">
+            FAQ
+          </a></li>
+        </ul>
+      </li>
       <li><a class="navbar-item" routerLink="/contact" [routerLinkActive]="['active']">
         <fa-icon [icon]="faEnvelope" />
         <span class="collapsable-label">Contact</span>
       </a></li>
-      <li><a class="navbar-item" routerLink="/volunteer" [routerLinkActive]="['active']"> 
-        <fa-icon [icon]="faBook" />
-        <span class="collapsable-label">Volunteer</span> 
-      </a></li> 
-      <li><a class="navbar-item" routerLink="/faq" [routerLinkActive]="['active']"> 
-        <fa-icon [icon]="faQuestionCircle" />
-        <span class="collapsable-label">FAQ</span> 
-      </a></li> 
     </ul>
 
     <ul class="navbar-right">
