@@ -4,6 +4,6 @@ import { VolunteerComponent } from './volunteer.component';
 
 describe('VolunteerComponent', () => {
   it('should create', () => {
-    expect(new VolunteerComponent()).toBeTruthy(); 
+    expect(new VolunteerComponent()).toBeTruthy();
   });
 });
