@@ -8,13 +8,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HomeComponent } from './pages/home/home.component';
-import { AboutComponent } from './pages/about/about.component';
+import { AboutComponent } from './pages/about_folder_test/about_us/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 
 import { ManageUsersComponent } from './pages/admin/manage-users/manage-users.component';
 import { ManageCompetitionsComponent } from './pages/admin/manage-competitions/manage-competitions.component';
+
+import { FaqComponent } from './pages/about_folder_test/faq/faq.component';
+import { VolunteerComponent } from './pages/about_folder_test/volunteer/volunteer.component';
 
 import { LoginComponent } from './account/login/login.component';
 import { SignupComponent } from './account/signup/signup.component';
@@ -70,6 +73,8 @@ import { EventSelectorComponent } from './components/event-selector/event-select
         SettingsComponent,
         VerifyComponent,
         RotatingCubeComponent,
+        FaqComponent,
+        VolunteerComponent,
         CubingzaLogoComponent,
         NavbarComponent,
         FooterComponent,
