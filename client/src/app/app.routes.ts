@@ -27,7 +27,7 @@ export const AppRoutes: Routes = [
   },
   {
     path: 'about',
-    loadChildren: () => import('./pages/about_folder_test/about.module').then(m => m.AboutModule),
+    loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule),
   },
 
 
