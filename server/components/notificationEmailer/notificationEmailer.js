@@ -1,7 +1,7 @@
 import User from '../../api/users/user.model.js';
 import * as emailService from '../../services/email/email.service.js';
 import getProvinceCode from '../../api/provinces/province.service.js';
-
+import fs from 'fs';
 
 export default function sendNotificationEmails(comp) {
 
@@ -17,14 +17,25 @@ export default function sendNotificationEmails(comp) {
       if (user.notificationSettings[province] && user.role !== 'unverified') {
         // User has notification settings turned on for this province
 
-        let message = {
-          from: 'CubingZA Notifications <compnotifications@m.cubingza.org>',
-          to: `${user.name} <${user.email}>`,
-          subject: `New Cubing Competition Announcement: ${comp.name}`,
-          text: `Hello ${user.name}\n\nThe ${comp.name} cubing competition has been announced. Visit http://cubingza.org for more details, or https://www.worldcubeassociation.org/competitions/${comp.registrationName}/register to register.\n\nRegards,\nCubingZA Team`
-        };
+        fs.readFile('./server/components/notificationEmailer/notification.template.html', 'utf8', (err, data) => {
+          if (err) {
+            console.error("Failed to read email template:", err);
+            return;
+          }
 
-        sendRequests.push(emailService.send(message));
+          let html = data.replace('{{user.name}}', user.name)
+                         .replace('{{comp.name}}', comp.name)
+                         .replace('{{comp.registrationName}}', comp.registrationName);
+
+          let message = {
+            from: 'CubingZA Notifications <compnotifications@m.cubingza.org>',
+            to: `${user.name} <${user.email}>`,
+            subject: `New Cubing Competition Announcement: ${comp.name}`,
+            html: html
+          };
+
+          sendRequests.push(emailService.send(message));
+        });
       }
     }
     return Promise.all(sendRequests);
