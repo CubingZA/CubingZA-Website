@@ -1,8 +1,8 @@
 <div class="navbar">
 
   <div class="navbar-header">
-    <button type="button" class="navbar-toggle collapsed" aria-controls="navbar"
-      (click)="toggleCollapsed()" [ngClass]="{'open':!collapsed}">
+    <button type="button" class="navbar-toggle collapsed" aria-controls="navbar" (click)="toggleCollapsed()"
+      [ngClass]="{'open':!collapsed}">
       <span class="icon-bar"></span><span class="icon-bar"></span>
       <span class="icon-bar"></span><span class="icon-bar"></span>
       <span class="icon-bar"></span><span class="icon-bar"></span>
@@ -18,74 +18,85 @@
     <ul class="navbar-left">
 
       <li><a class="navbar-item" routerLink="/rankings" [routerLinkActive]="['active']">
-        <fa-icon [icon]="faRankingStar" />
-        Rankings
-      </a></li>
+          <fa-icon [icon]="faRankingStar" />
+          Rankings
+        </a></li>
       <li><a class="navbar-item" routerLink="/records" [routerLinkActive]="['active']">
-        <fa-icon [icon]="faTrophy" />
-        Records
-      </a></li>
+          <fa-icon [icon]="faTrophy" />
+          Records
+        </a></li>
 
       <li *ngIf="isLoggedIn()"><a class="navbar-item" routerLink="/notifications" [routerLinkActive]="['active']">
-        <fa-icon [icon]="faMapLocationDot" />
-        Notifications
-      </a></li>
+          <fa-icon [icon]="faMapLocationDot" />
+          Notifications
+        </a></li>
 
       <li *ngIf="isAdmin()" class="navbar-submenu">
         <div class="navbar-item">
           <fa-icon [icon]="faScrewdriverWrench" />
           Admin
-          <fa-icon [icon]="faCaretDown" class="submenu-icon"/>
+          <fa-icon [icon]="faCaretDown" class="submenu-icon" />
         </div>
         <ul class="navbar-submenu-items">
           <li *ngIf="isAdmin()"><a class="navbar-item" routerLink="/admin/users" [routerLinkActive]="['active']">
-            <fa-icon [icon]="faUsers"/>
-            Users
-          </a></li>
+              <fa-icon [icon]="faUsers" />
+              Users
+            </a></li>
           <li *ngIf="isAdmin()"><a class="navbar-item" routerLink="/admin/competitions" [routerLinkActive]="['active']">
-            <fa-icon [icon]="faCalendarDays" />
-            Competitions
-          </a></li>
+              <fa-icon [icon]="faCalendarDays" />
+              Competitions
+            </a></li>
         </ul>
       </li>
-
-      <li><a class="navbar-item" routerLink="/about" [routerLinkActive]="['active']">
-        <fa-icon [icon]="faInfoCircle" />
-        <span class="collapsable-label">About</span>
-      </a></li>
+      <!-- About Dropdown -->
+      <li class="navbar-submenu">
+        <div class="navbar-item">
+          <fa-icon [icon]="faInfoCircle" />
+          <a class="about-dropdown-toggle" href="#">About </a>
+          <fa-icon [icon]="faCaretDown" class="submenu-icon" />
+        </div>
+        <ul class="navbar-submenu-items">
+          <li><a class="navbar-item" routerLink="/about/about_us" [routerLinkActive]="['active']">
+              <fa-icon [icon]="faInfoCircle" />
+              About Us
+            </a></li>
+          <li><a class="navbar-item" routerLink="/about/volunteer" [routerLinkActive]="['active']">
+              <fa-icon [icon]="faBook" />
+              Volunteering
+            </a></li>
+          <li><a class="navbar-item" routerLink="/about/faq" [routerLinkActive]="['active']">
+              <fa-icon [icon]="faQuestionCircle" />
+              FAQ
+            </a></li>
+        </ul>
+      </li>
       <li><a class="navbar-item" routerLink="/contact" [routerLinkActive]="['active']">
-        <fa-icon [icon]="faEnvelope" />
-        <span class="collapsable-label">Contact</span>
-      </a></li>
-      <li><a class="navbar-item" routerLink="/volunteer" [routerLinkActive]="['active']"> 
-        <fa-icon [icon]="faBook" />
-        <span class="collapsable-label">Volunteer</span> 
-      </a></li> 
-      <li><a class="navbar-item" routerLink="/FAQ" [routerLinkActive]="['active']"> 
-        <fa-icon [icon]="faQuestionCircle" />
-        <span class="collapsable-label">FAQ</span> 
-      </a></li> 
+          <fa-icon [icon]="faEnvelope" />
+          <span class="collapsable-label">Contact</span>
+        </a></li>
     </ul>
 
     <ul class="navbar-right">
       <li *ngIf="!isLoggedIn()"><a class="navbar-item" routerLink="/signup" [routerLinkActive]="['active']">
-        <fa-icon [icon]="faUserPlus" />
-        <span class="collapsable-label">Signup</span>
-      </a></li>
+          <fa-icon [icon]="faUserPlus" />
+          <span class="collapsable-label">Signup</span>
+        </a></li>
       <li *ngIf="!isLoggedIn()"><a class="navbar-item" routerLink="/login" [routerLinkActive]="['active']">
-        <fa-icon [icon]="faRightToBracket" />
-        <span class="collapsable-label">Login</span>
-      </a></li>
+          <fa-icon [icon]="faRightToBracket" />
+          <span class="collapsable-label">Login</span>
+        </a></li>
 
-      <li *ngIf="isLoggedIn()"><div class="navbar-item">Hello {{ getCurrentUserName() }}</div></li>
+      <li *ngIf="isLoggedIn()">
+        <div class="navbar-item">Hello {{ getCurrentUserName() }}</div>
+      </li>
       <li *ngIf="isLoggedIn()"><a class="navbar-item" routerLink="/settings" [routerLinkActive]="['active']">
-        <fa-icon [icon]="faGear" />
-        <span class="collapsable-label">Settings</span>
-      </a></li>
+          <fa-icon [icon]="faGear" />
+          <span class="collapsable-label">Settings</span>
+        </a></li>
       <li *ngIf="isLoggedIn()"><a class="navbar-item" (click)="logout()" href="#">
-        <fa-icon [icon]="faRightFromBracket" />
-        <span class="collapsable-label">Logout</span>
-      </a></li>
+          <fa-icon [icon]="faRightFromBracket" />
+          <span class="collapsable-label">Logout</span>
+        </a></li>
     </ul>
 
   </div>
