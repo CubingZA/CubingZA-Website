@@ -17,13 +17,13 @@ export default function sendNotificationEmails(comp) {
       if (user.notificationSettings[province] && user.role !== 'unverified') {
         // User has notification settings turned on for this province
 
-        fs.readFile('./server/components/notificationEmailer/notification.template.html', 'utf8', (err, data) => {
+        fs.readFile('/Users/elfis/Documents/code/CubingZA-Website/server/components/notificationEmailer/notification.template.html', 'utf8', (err, data) => {
           if (err) {
             console.error("Failed to read email template:", err);
             return;
           }
 
-          let html = data.replace('{{user.name}}', user.name)
+          let notificationemailertemplate = data.replace('{{user.name}}', user.name)
                          .replace('{{comp.name}}', comp.name)
                          .replace('{{comp.registrationName}}', comp.registrationName);
 
@@ -31,7 +31,7 @@ export default function sendNotificationEmails(comp) {
             from: 'CubingZA Notifications <compnotifications@m.cubingza.org>',
             to: `${user.name} <${user.email}>`,
             subject: `New Cubing Competition Announcement: ${comp.name}`,
-            html: html
+            html: notificationemailertemplate
           };
 
           sendRequests.push(emailService.send(message));
