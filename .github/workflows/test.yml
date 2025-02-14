@@ -129,8 +129,9 @@ jobs:
         path: coverage/frontend
     
     - name: Setup LCOV
-      run: sudo apt-get -y install lcov
-      shell: bash
+      uses: hrishikesh-kadam/setup-lcov@v1
+      with:
+        ref: v1.16
       
     - name: Report API code coverage
       uses: zgosalvez/github-actions-report-lcov@v4
