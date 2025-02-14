@@ -5,9 +5,10 @@ import { EventsService } from 'src/app/services/events/events.service';
 import { CompEvent } from 'src/app/interfaces/competition/comp-event';
 
 @Component({
-  selector: 'app-rankings',
-  templateUrl: './provincial-rankings.component.html',
-  styleUrls: ['./provincial-rankings.component.less']
+    selector: 'app-rankings',
+    templateUrl: './provincial-rankings.component.html',
+    styleUrls: ['./provincial-rankings.component.less'],
+    standalone: false
 })
 export class ProvincialRankingsComponent {
 

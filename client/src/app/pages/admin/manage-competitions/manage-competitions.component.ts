@@ -9,9 +9,10 @@ import { AlertsService } from 'src/app/components/alerts/alerts.service';
 import { Competition } from 'src/app/interfaces/competition/competition';
 
 @Component({
-  selector: 'app-competitions',
-  templateUrl: './manage-competitions.component.html',
-  styleUrls: ['./manage-competitions.component.less']
+    selector: 'app-competitions',
+    templateUrl: './manage-competitions.component.html',
+    styleUrls: ['./manage-competitions.component.less'],
+    standalone: false
 })
 export class ManageCompetitionsComponent {
 

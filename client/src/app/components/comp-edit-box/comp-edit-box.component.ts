@@ -8,9 +8,10 @@ import { ProvinceService } from 'src/app/services/province/province.service';
 import { Competition } from 'src/app/interfaces/competition/competition';
 
 @Component({
-  selector: 'app-comp-edit-box',
-  templateUrl: './comp-edit-box.component.html',
-  styleUrls: ['./comp-edit-box.component.less']
+    selector: 'app-comp-edit-box',
+    templateUrl: './comp-edit-box.component.html',
+    styleUrls: ['./comp-edit-box.component.less'],
+    standalone: false
 })
 export class CompEditBoxComponent {
 
