@@ -133,7 +133,7 @@ jobs:
       shell: bash
       
     - name: Report API code coverage
-      uses: zgosalvez/github-actions-report-lcov@v3
+      uses: zgosalvez/github-actions-report-lcov@v4
       with:
         coverage-files: coverage/api/lcov.info
         artifact-name: api-code-coverage-report
@@ -143,7 +143,7 @@ jobs:
         working-directory: ./server
 
     - name: Report website code coverage
-      uses: zgosalvez/github-actions-report-lcov@v3
+      uses: zgosalvez/github-actions-report-lcov@v4
       with:
         coverage-files: coverage/frontend/lcov.info
         artifact-name: frontend-code-coverage-report
