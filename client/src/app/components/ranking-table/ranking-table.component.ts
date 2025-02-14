@@ -12,9 +12,10 @@ import { WcaLinkService } from 'src/app/services/wca-link/wca-link.service';
 import { Ranking } from 'src/app/interfaces/ranking/ranking';
 
 @Component({
-  selector: 'app-ranking-table',
-  templateUrl: './ranking-table.component.html',
-  styleUrls: ['./ranking-table.component.less']
+    selector: 'app-ranking-table',
+    templateUrl: './ranking-table.component.html',
+    styleUrls: ['./ranking-table.component.less'],
+    standalone: false
 })
 export class RankingTableComponent {
 

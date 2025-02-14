@@ -5,9 +5,10 @@ import { UserService } from 'src/app/services/user/user.service';
 import { AlertsService } from '../alerts/alerts.service';
 
 @Component({
-  selector: 'app-unverified-warning',
-  templateUrl: './unverified-warning.component.html',
-  styleUrls: ['./unverified-warning.component.less']
+    selector: 'app-unverified-warning',
+    templateUrl: './unverified-warning.component.html',
+    styleUrls: ['./unverified-warning.component.less'],
+    standalone: false
 })
 export class UnverifiedWarningComponent {
 

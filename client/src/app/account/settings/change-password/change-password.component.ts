@@ -7,9 +7,10 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
 
 @Component({
-  selector: 'app-change-password',
-  templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.less']
+    selector: 'app-change-password',
+    templateUrl: './change-password.component.html',
+    styleUrls: ['./change-password.component.less'],
+    standalone: false
 })
 export class ChangePasswordComponent {
 

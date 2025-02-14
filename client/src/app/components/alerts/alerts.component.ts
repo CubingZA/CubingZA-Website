@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { Alert, AlertsService } from './alerts.service';
 
 @Component({
-  selector: 'app-alerts',
-  templateUrl: './alerts.component.html',
-  styleUrls: ['./alerts.component.less']
+    selector: 'app-alerts',
+    templateUrl: './alerts.component.html',
+    styleUrls: ['./alerts.component.less'],
+    standalone: false
 })
 export class AlertsComponent {
 
