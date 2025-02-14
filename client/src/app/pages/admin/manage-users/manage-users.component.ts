@@ -10,9 +10,10 @@ import { User } from 'src/app/interfaces/user/user';
 import { ProvinceSelection } from 'src/app/interfaces/user/province-selection';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './manage-users.component.html',
-  styleUrls: ['./manage-users.component.less']
+    selector: 'app-users',
+    templateUrl: './manage-users.component.html',
+    styleUrls: ['./manage-users.component.less'],
+    standalone: false
 })
 export class ManageUsersComponent {
 

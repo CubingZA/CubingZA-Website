@@ -5,9 +5,10 @@ import { ProvinceService } from 'src/app/services/province/province.service';
 import { ProvinceSelection } from 'src/app/interfaces/user/province-selection';
 
 @Component({
-  selector: 'app-province-map',
-  templateUrl: './province-map.component.html',
-  styleUrls: ['./province-map.component.less']
+    selector: 'app-province-map',
+    templateUrl: './province-map.component.html',
+    styleUrls: ['./province-map.component.less'],
+    standalone: false
 })
 
 export class ProvinceMapComponent {

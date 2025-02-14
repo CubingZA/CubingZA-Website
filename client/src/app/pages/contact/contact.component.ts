@@ -7,9 +7,10 @@ import { EmailService } from 'src/app/services/email/email.service';
 import { EmailMessage } from 'src/app/interfaces/email/email-message';
 
 @Component({
-  selector: 'app-contact',
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.less']
+    selector: 'app-contact',
+    templateUrl: './contact.component.html',
+    styleUrls: ['./contact.component.less'],
+    standalone: false
 })
 export class ContactComponent {
 

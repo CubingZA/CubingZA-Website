@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, Output, SimpleChange, SimpleChanges } f
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-page-selector',
-  templateUrl: './page-selector.component.html',
-  styleUrls: ['./page-selector.component.less']
+    selector: 'app-page-selector',
+    templateUrl: './page-selector.component.html',
+    styleUrls: ['./page-selector.component.less'],
+    standalone: false
 })
 export class PageSelectorComponent {
 

@@ -6,9 +6,10 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
 
 @Component({
-  selector: 'app-notifications',
-  templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.less']
+    selector: 'app-notifications',
+    templateUrl: './notifications.component.html',
+    styleUrls: ['./notifications.component.less'],
+    standalone: false
 })
 export class NotificationsComponent {
 

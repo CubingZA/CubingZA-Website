@@ -3,10 +3,11 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { ModalService } from './modal.service';
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.less'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-modal',
+    templateUrl: './modal.component.html',
+    styleUrls: ['./modal.component.less'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class ModalComponent {
 
