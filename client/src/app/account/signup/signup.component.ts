@@ -11,9 +11,10 @@ import { AlertsService } from 'src/app/components/alerts/alerts.service';
 import { NewUser } from 'src/app/interfaces/user/new-user';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.less']
+    selector: 'app-signup',
+    templateUrl: './signup.component.html',
+    styleUrls: ['./signup.component.less'],
+    standalone: false
 })
 export class SignupComponent {
 

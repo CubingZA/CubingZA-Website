@@ -3,9 +3,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
-  selector: 'app-wcalogin',
-  templateUrl: './wcalogin.component.html',
-  styleUrls: ['./wcalogin.component.less']
+    selector: 'app-wcalogin',
+    templateUrl: './wcalogin.component.html',
+    styleUrls: ['./wcalogin.component.less'],
+    standalone: false
 })
 export class WcaLoginComponent {
   constructor(private cookieService: CookieService, private authService: AuthService) {

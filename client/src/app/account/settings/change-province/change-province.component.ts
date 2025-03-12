@@ -10,9 +10,10 @@ import { UserService } from 'src/app/services/user/user.service';
 import { ProvinceSelection } from 'src/app/interfaces/user/province-selection';
 
 @Component({
-  selector: 'app-change-province',
-  templateUrl: './change-province.component.html',
-  styleUrls: ['./change-province.component.less']
+    selector: 'app-change-province',
+    templateUrl: './change-province.component.html',
+    styleUrls: ['./change-province.component.less'],
+    standalone: false
 })
 export class ChangeProvinceComponent {
 
