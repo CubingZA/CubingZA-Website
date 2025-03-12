@@ -8,9 +8,10 @@ import { ProvincialRecordTable } from 'src/app/interfaces/record/provincial-reco
 import { Record } from 'src/app/interfaces/record/record';
 
 @Component({
-  selector: 'app-records',
-  templateUrl: './provincial-records.component.html',
-  styleUrls: ['./provincial-records.component.less']
+    selector: 'app-records',
+    templateUrl: './provincial-records.component.html',
+    styleUrls: ['./provincial-records.component.less'],
+    standalone: false
 })
 export class ProvincialRecordsComponent {
 

@@ -5,9 +5,10 @@ import { EventsService } from 'src/app/services/events/events.service';
 import { CompEvent } from 'src/app/interfaces/competition/comp-event';
 
 @Component({
-  selector: 'app-event-selector',
-  templateUrl: './event-selector.component.html',
-  styleUrls: ['./event-selector.component.less']
+    selector: 'app-event-selector',
+    templateUrl: './event-selector.component.html',
+    styleUrls: ['./event-selector.component.less'],
+    standalone: false
 })
 export class EventSelectorComponent {
 

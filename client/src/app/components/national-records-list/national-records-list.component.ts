@@ -6,9 +6,10 @@ import { WcaLinkService } from 'src/app/services/wca-link/wca-link.service';
 import { Record } from 'src/app/interfaces/record/record';
 
 @Component({
-  selector: 'app-records-list',
-  templateUrl: './national-records-list.component.html',
-  styleUrls: ['./national-records-list.component.less']
+    selector: 'app-records-list',
+    templateUrl: './national-records-list.component.html',
+    styleUrls: ['./national-records-list.component.less'],
+    standalone: false
 })
 export class NationalRecordsListComponent {
 

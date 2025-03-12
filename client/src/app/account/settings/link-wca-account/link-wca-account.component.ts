@@ -5,9 +5,10 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
-  selector: 'app-link-wca-account',
-  templateUrl: './link-wca-account.component.html',
-  styleUrls: ['./link-wca-account.component.less']
+    selector: 'app-link-wca-account',
+    templateUrl: './link-wca-account.component.html',
+    styleUrls: ['./link-wca-account.component.less'],
+    standalone: false
 })
 export class LinkWcaAccountComponent {
 

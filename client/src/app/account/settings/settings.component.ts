@@ -8,9 +8,10 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { AlertsService } from 'src/app/components/alerts/alerts.service';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.less']
+    selector: 'app-settings',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.less'],
+    standalone: false
 })
 export class SettingsComponent {
 

@@ -6,9 +6,10 @@ import { ProvinceService } from 'src/app/services/province/province.service';
 import { ProvinceSelection } from 'src/app/interfaces/user/province-selection';
 
 @Component({
-  selector: 'app-province-list',
-  templateUrl: './province-list.component.html',
-  styleUrls: ['./province-list.component.less']
+    selector: 'app-province-list',
+    templateUrl: './province-list.component.html',
+    styleUrls: ['./province-list.component.less'],
+    standalone: false
 })
 export class ProvinceListComponent {
 

@@ -9,9 +9,10 @@ import { WcaLinkService } from 'src/app/services/wca-link/wca-link.service';
 import { Competition } from 'src/app/interfaces/competition/competition';
 
 @Component({
-  selector: 'app-upcoming-comps',
-  templateUrl: './upcoming-comps.component.html',
-  styleUrls: ['./upcoming-comps.component.less']
+    selector: 'app-upcoming-comps',
+    templateUrl: './upcoming-comps.component.html',
+    styleUrls: ['./upcoming-comps.component.less'],
+    standalone: false
 })
 export class UpcomingCompsComponent {
 
